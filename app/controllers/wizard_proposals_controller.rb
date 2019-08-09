@@ -7,10 +7,7 @@ class WizardProposalsController < ApplicationController
   after_action :verify_authorized, except: %i(validate_step)
 
   def step1
-    @proposal_wizard.proposal.creator_id = current_user.id
-    @proposal_wizard.proposal.email = current_user.email
-    @proposal_wizard.proposal.name = current_user.last_name
-    @proposal_wizard.proposal.given_names = current_user.first_name
+    set_user_profile_attributes
     authorize @proposal_wizard.proposal, :wizard?,  policy_class: ProposalPolicy
   end
 
@@ -52,7 +49,8 @@ class WizardProposalsController < ApplicationController
     @proposal_wizard = wizard_proposal_for_step(current_step)
     @proposal_wizard.proposal.attributes = proposal_wizard_params
     # set
-    set_user_data_attributes
+    # TODO
+    #set_user_profile_attributes
 
     session[:proposal_attributes] = @proposal_wizard.proposal.attributes
 
@@ -80,34 +78,38 @@ class WizardProposalsController < ApplicationController
 
   private
 
-  def load_proposal_wizard
-    @proposal_wizard = wizard_proposal_for_step(action_name)
-  end
+    def load_proposal_wizard
+      @proposal_wizard = wizard_proposal_for_step(action_name)
+    end
 
-  def set_user_data_attributes
-    @proposal_wizard.proposal.creator_id = current_user.id
-    @proposal_wizard.proposal.email = current_user.email
-    @proposal_wizard.proposal.name = current_user.last_name
-    @proposal_wizard.proposal.given_names = current_user.first_name
-  end
+    def set_user_profile_attributes
+      @proposal_wizard.proposal.creator_id = current_user.id
+      @proposal_wizard.proposal.email = current_user.email
+      @proposal_wizard.proposal.name = current_user.last_name
+      @proposal_wizard.proposal.given_names = current_user.first_name
+      @proposal_wizard.proposal.pesel = current_user.pesel
+      @proposal_wizard.proposal.birth_date = current_user.birth_date
+      @proposal_wizard.proposal.birth_place = current_user.birth_city
+      @proposal_wizard.proposal.phone = current_user.phone
+    end
 
-  def wizard_proposal_next_step(step)
-    Wizards::Proposal::STEPS[Wizards::Proposal::STEPS.index(step) + 1]
-  end
+    def wizard_proposal_next_step(step)
+      Wizards::Proposal::STEPS[Wizards::Proposal::STEPS.index(step) + 1]
+    end
 
-  def wizard_proposal_for_step(step)
-    raise InvalidStep unless step.in?(Wizards::Proposal::STEPS)
+    def wizard_proposal_for_step(step)
+      raise InvalidStep unless step.in?(Wizards::Proposal::STEPS)
 
-    "Wizards::Proposal::#{step.camelize}".constantize.new(session[:proposal_attributes])
-  end
+      "Wizards::Proposal::#{step.camelize}".constantize.new(session[:proposal_attributes])
+    end
 
-  def proposal_wizard_params
-    params.require(:proposal_wizard).permit(:category, :creator_id,
-      :email, :phone, :name, :given_names, :pesel, :birth_date, :birth_place, 
-      :address_city, :address_street, :address_house, :address_number, :address_postal_code,
-      :c_address_city, :c_address_street, :c_address_house, :c_address_number, :c_address_postal_code,
-      :esod_category, :exam_id, :exam_fullname, :date_exam, :division_id, :division_fullname)
-  end
+    def proposal_wizard_params
+      params.require(:proposal_wizard).permit(:category, :creator_id,
+        :email, :phone, :name, :given_names, :pesel, :birth_date, :birth_place, 
+        :address_city, :address_street, :address_house, :address_number, :address_postal_code,
+        :c_address_city, :c_address_street, :c_address_house, :c_address_number, :c_address_postal_code,
+        :esod_category, :exam_id, :exam_fullname, :date_exam, :division_id, :division_fullname)
+    end
 
   class InvalidStep < StandardError; end
 end

@@ -306,40 +306,33 @@ Devise.setup do |config|
   # config.saml_failed_callback = nil
 
   config.saml_configure do |settings|
-    settings.assertion_consumer_service_url     = "http://localhost:3000/users/saml/auth"
+    settings.assertion_consumer_service_url     = "#{Rails.application.secrets[:idp_callback_to]}/users/saml/auth"
     settings.assertion_consumer_service_binding = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
-  #  settings.name_identifier_format             = "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified"
     settings.name_identifier_format             = "urn:oasis:names:tc:SAML:2.0:nameid-format:transient"
-  #  settings.name_identifier_format             = "urn:oasis:names:tc:SAML:2.0:attrname-format:basic"
-
-    #settings.issuer                             = "acs-dev.com"
-    settings.issuer                             = "http://localhost:3000/users/saml/metadata"
-    #settings.issuer                             = "test2issuer"
-
+    #settings.issuer                             = "http://localhost:3000/users/saml/metadata"
+    settings.issuer                             = "#{Rails.application.secrets[:idp_issuer]}"
     settings.authn_context                      = ""
     #settings.idp_entity_id                      = "sso.dev.com"
     #settings.idp_entity_id                      = "localhost"
-# orygial    settings.authn_context                      = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
-#    settings.authn_context                      = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
-    settings.idp_sso_target_url                 = "https://localhost:9443/samlsso"
+# orygial    settings.authn_context              = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
+    settings.idp_sso_target_url                 = "#{Rails.application.secrets[:idp_target_url]}/samlsso"
     #settings.idp_slo_target_url                 = "https://localhost:9443/samlsso?slo=true"
     #settings.idp_slo_target_url                 = "https://localhost:9443/samlsso?slo=true&spEntityID=http://localhost:3000/users/saml/metadata"
     #settings.idp_slo_target_url                 = "https://localhost:9443/samlsso?slo=true&spEntityID=http://localhost:3000/users/saml/metadata&returnTo=http://localhost:3000"
-    settings.idp_slo_target_url                 = "https://localhost:9443/samlsso?slo=true&spEntityID=test2issuer&returnTo=http://localhost:3000"
+    settings.idp_slo_target_url                 = "#{Rails.application.secrets[:idp_target_url]}/samlsso?slo=true&spEntityID=#{Rails.application.secrets[:idp_issuer]}&returnTo=#{Rails.application.secrets[:idp_callback_to]}"
 
 #settings.assertion_consumer_service_binding = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
 #settings.assertion_consumer_logout_service_binding = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
     #settings.idp_cert                           = ENV["IDP_CERT"]
 
     #settings.idp_cert_fingerprint               = ENV["IDP_CERT_FINGERPRINT"]
-    settings.idp_cert_fingerprint               = "DC:0D:70:68:BA:E9:EA:86:37:1C:BE:86:69:64:BF:87:3B:A7:0A:47"
-    settings.idp_cert_fingerprint_algorithm = "http://www.w3.org/2000/09/xmldsig#sha1"
+    settings.idp_cert_fingerprint               = "#{Rails.application.secrets[:idp_cert_fingerprint]}"
+    settings.idp_cert_fingerprint_algorithm     = "#{Rails.application.secrets[:idp_cert_fingerprint_algorithm]}"
     #settings.idp_cert_fingerprint_algorithm = "http://www.w3.org/2000/09/xmldsig#sha256"
     # Certificate in WSO2IS fingerprints:
     #    SHA1: DC:0D:70:68:BA:E9:EA:86:37:1C:BE:86:69:64:BF:87:3B:A7:0A:47
     #### ~$export IDP_CERT_FINGERPRINT="DC:0D:70:68:BA:E9:EA:86:37:1C:BE:86:69:64:BF:87:3B:A7:0A:47"
     #    SHA256: C7:33:8E:FA:44:6A:3F:63:7D:08:94:D9:91:FF:78:53:DB:BE:DC:73:72:3A:A1:31:F0:AC:60:E3:1F:77:90:2E
-    #### ~$export IDP_CERT_FINGERPRINT="C7:33:8E:FA:44:6A:3F:63:7D:08:94:D9:91:FF:78:53:DB:BE:DC:73:72:3A:A1:31:F0:AC:60:E3:1F:77:90:2E"
     # ??? chyba nadpisuje konfigurację w WSO2IS, gdyż wystarczy prawidłowa para parametrów:
     # settings.idp_cert_fingerprint oraz settings.idp_cert_fingerprint_algorithm i działa.
 
@@ -368,10 +361,11 @@ end
 # display
 # openssl x509 -text -noout -in /home/bjarzab/www/registration/idp.crt  -fingerprint -sha256
 
-# Current wso2is 
+# Current localhost 
 # Certificate fingerprints:
 #    SHA1: DC:0D:70:68:BA:E9:EA:86:37:1C:BE:86:69:64:BF:87:3B:A7:0A:47
 #    SHA256: C7:33:8E:FA:44:6A:3F:63:7D:08:94:D9:91:FF:78:53:DB:BE:DC:73:72:3A:A1:31:F0:AC:60:E3:1F:77:90:2E
+
 
 # http://xacmlinfo.org/2017/08/03/how-to-renew-self-signed-certificate-keeping-old-private-key/
 

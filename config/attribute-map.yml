@@ -7,7 +7,7 @@
 #urn:oasis:names:tc:SAML:2.0:attrname-format:basic
 
 #    create_table :users do |t|
-#      t.string :wso2is_userid, null: false
+#      t.string :wso2is_userid
 #      t.string :email, null: false
 #      t.string :first_name
 #      t.string :last_name
@@ -25,13 +25,13 @@
 "givenname": "first_name"
 "lastname": "last_name"
 "username": "user_name"
-#"birthdate": "birth_date"
-#"birthcity": "birth_city"
-#"pesel": "pesel"
-#"passport": "passport"
-#"phone": "phone"
-#"extconfirmedat": "csu_confirmed_at"
-#"extconfirmedby": "csu_confirmed_by"
+"birthdate": "birth_date"
+"birthcity": "birth_city"
+"pesel": "pesel"
+"passport": "passport"
+"phone": "phone"
+"extconfirmedat": "csu_confirmed_at"
+"extconfirmedby": "csu_confirmed_by"
 
 # Email         http://wso2.org/claims/emailaddress
 # "urn:mace:dir:attribute-def:mail": "email"

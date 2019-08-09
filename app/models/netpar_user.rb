@@ -3,23 +3,24 @@ require 'net/http'
 class NetparUser
 	include ActiveModel::Model
 
-	attr_accessor :name, :token, :authorization_str
+	attr_accessor :username, :password, :token
 
   def initialize()
     super
-    @authorization_str = "#{Rails.application.secrets[:netpar2015_api_basic_str]}"    
+    @username = "#{Rails.application.secrets[:netpar2015_api_user]}"    
+    @password = "#{Rails.application.secrets[:netpar2015_api_user_pass]}"    
   end
 
   def request_for_token 
     begin 
       uri = URI.parse("#{Rails.application.secrets[:netpar2015_api_url]}/token")
       request = Net::HTTP::Get.new(uri)
-      request['Authorization'] = "Basic #{self.authorization_str}"
+      request.basic_auth(self.username, self.password)
 
       req_options = {
-        # use_ssl: uri.scheme == "https",
-        # verify_mode: OpenSSL::SSL::VERIFY_NONE
-      }
+        use_ssl: true,
+        verify_mode: OpenSSL::SSL::VERIFY_NONE
+      } if uri.scheme == "https"
 
       response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
         http.request(request)
@@ -33,6 +34,7 @@ class NetparUser
       Rails.logger.error('=============================================================================')
     end
   end
+
 
 
 end

@@ -243,11 +243,18 @@ ActiveRecord::Schema.define(version: 2019_08_04_150412) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "wso2is_userid", null: false
+    t.string "wso2is_userid"
     t.string "email", null: false
     t.string "first_name"
     t.string "last_name"
     t.string "user_name"
+    t.date "birth_date"
+    t.string "birth_city"
+    t.string "pesel"
+    t.string "passport"
+    t.string "phone"
+    t.date "csu_confirmed_at"
+    t.string "csu_confirmed_by"
     t.string "session_index"
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"
