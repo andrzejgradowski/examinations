@@ -1,0 +1,26 @@
+<fieldset class="my-fieldset">
+  <legend class="my-fieldset"><%= t('.fieldset_title') %></legend>
+
+  <div class="row">
+    <div class="form-group col-sm-12">
+      <p><strong><%= partial_data.class.human_attribute_name(:enduser_name_short) %></strong></p>
+      <%= partial_data.try(:enduser_name) %>
+    </div>
+    <div class="form-group col-sm-3">
+      <p><strong><%= partial_data.class.human_attribute_name(:enduser_city_short) %></strong></p>
+      <%= partial_data.try(:enduser_city) %>
+    </div>
+    <div class="form-group col-sm-3">
+      <p><strong><%= partial_data.class.human_attribute_name(:enduser_street_short) %></strong></p>
+      <%= partial_data.try(:enduser_street) %>
+    </div>
+    <div class="form-group col-sm-3">
+      <p><strong><%= partial_data.class.human_attribute_name(:enduser_house_short) %></strong></p>
+      <%= partial_data.try(:enduser_house) %>
+    </div>
+    <div class="form-group col-sm-3">
+      <p><strong><%= partial_data.class.human_attribute_name(:enduser_number_short) %></strong></p>
+      <%= partial_data.try(:enduser_number) %>
+    </div>
+  </div> <!--/row -->
+</fieldset>

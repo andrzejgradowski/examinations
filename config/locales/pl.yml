@@ -1,0 +1,563 @@
+pl:
+  logo_file: "logo_uke_pl_do_lewej.png"
+  logo_link: "http://www.uke.gov.pl"
+  title: "Egzaminy"
+  description: "UKE Egzaminy"
+  layouts:
+    header:
+      menu:
+        data: 'Dane'
+    footer:
+      brand: 'Urząd Komunikacji Elektronicznej'
+      brand_address_1: 'ul. Giełdowa 7/9'
+      brand_address_2: '01-211 Warszawa'
+      brand_note: 'Regulator rynku telekomunikacyjnego i pocztowego'
+      contact: 'Kontakt'
+      contact_mail: 'wml@uke.gov.pl'
+      contact_phone: '+48 22 53 49 125'
+      contact_fax: '+48 22 53 49 175'
+      links: 'Zobacz też'
+  static_pages:
+    home:
+      title: 'UKE Egzaminy'
+  individuals:
+    index:
+      title: 'Wykaz pozwoleń wydanych osobom fizycznym'
+      navbar: 'Osoby'
+    show:
+      title: 'Osoba'
+  clubs:
+    index:
+      title: 'Wykaz pozwoleń wydanych osobom prawnym'
+      navbar: 'Kluby'
+    show:
+      title: 'Klub'
+  individual_devices:
+    index:
+      title: 'Wykaz pozwoleń wydanych osobom fizycznym na urządzenia bezobsługowe'
+      navbar: 'Bezobsługowe - Osoby'
+    show:
+      title: 'Bezobsługowe - Osoba'
+  club_devices:
+    index:
+      title: 'Wykaz pozwoleń wydanych osobom prawnym na urządzenia bezobsługowe'
+      navbar: 'Bezobsługowe - Kluby'
+    show:
+      title: 'Bezobsługowe - Klub'
+  proposals:
+    index:
+      title: 'Zgłoszenia'
+      navbar: 'Zgłoszenia'
+      no_data: 'Brak danych'
+    proposal:
+      rec_info: 'Zgłoszenie %{data}'
+      navbar: 'Zgłoszenie'
+    show:
+      title: 'Zgłoszenie'
+  wizard_proposals:
+    title: 'Kreator zgłoszenia'
+    step1:
+      fieldset_title: 'Dane podstawowe'
+      submit: 'Dalej'
+    step2:
+      fieldset_title: 'Adres'
+      submit: 'Dalej'
+    step3:
+      fieldset_title: 'Adres korepondencyjny'
+      submit: 'Dalej'
+    step4:
+      fieldset_title: 'Typ i rodzaj świadectwa'
+      submit: 'Dalej'
+    step5:
+      fieldset_title: 'Podsumowanie'
+      submit: 'Zapisz'
+  shared:
+    basic_info:
+      fieldset_title: 'Dane podstawowe'
+    additional_info:
+      fieldset_title: 'Informacje dodatkowe'
+    station_info:
+      fieldset_title: 'Stacja'
+    station_full_info:
+      fieldset_title: 'Stacja'
+    applicant_info:
+      fieldset_title: 'Wnioskodawca'
+    enduser_info:
+      fieldset_title: 'Użytkownik'
+  activerecord:
+    models:
+      individual: 'Osoba'
+      club: 'Klub'
+      individual_device: 'Bezobsługowe - Osoba'
+      club_device: 'Bezobsługowe - Klub'
+      proposal: 'Zgłoszenie'
+    attributes:
+      individual:
+        number: 'Numer'
+        date_of_issue: 'Data wydania'
+        valid_to: 'Ważne do'
+        call_sign: 'Znak'
+        category: 'Kategoria'
+        transmitter_power: 'Moc'
+        station_location: 'Stacja'
+      club:
+        number: 'Numer'
+        date_of_issue: 'Data wydania'
+        valid_to: 'Ważne do'
+        call_sign: 'Znak'
+        category: 'Kategoria'
+        transmitter_power: 'Moc'
+        enduser_name: 'Użytkownik - Nazwa'
+        enduser_name_short: 'Nazwa'
+        enduser_city: 'Użytkownik - Miejscowość'
+        enduser_city_short: 'Miejscowość'
+        enduser_street: 'Użytkownik - Ulica'
+        enduser_street_short: 'Ulica'
+        enduser_house: 'Użytkownik - Dom'
+        enduser_house_short: 'Dom'
+        enduser_number: 'Użytkownik - Lokal'
+        enduser_number_short: 'Lokal'
+        applicant: 'Wnioskodawca'
+        applicant_name: 'Wnioskodawca - Nazwa'
+        applicant_name_short: 'Nazwa'
+        applicant_city: 'Wnioskodawca - Miejscowość'
+        applicant_city_short: 'Miejscowość'
+        applicant_street: 'Wnioskodawca - Ulica'
+        applicant_street_short: 'Ulica'
+        applicant_house: 'Wnioskodawca - Dom'
+        applicant_house_short: 'Dom'
+        applicant_number: 'Wnioskodawca - Lokal'
+        applicant_number_short: 'Lokal'
+        station: 'Stacja'
+        station_city: 'Stacja - Miejscowość'
+        station_city_short: 'Miejscowość'
+        station_street: 'Stacja - Ulica'
+        station_street_short: 'Ulica'
+        station_house: 'Stacja - Dom'
+        station_house_short: 'Dom'
+        station_number: 'Stacja - Lokal'
+        station_number_short: 'Lokal'
+        lat: 'Stacja - latitude'
+        lng: 'Stacja - longitude'
+      individual_device:
+        number: 'Numer'
+        date_of_issue: 'Data wydania'
+        valid_to: 'Ważne do'
+        call_sign: 'Znak'
+        category: 'Kategoria'
+        transmitter_power: 'Moc'
+        name_type_station: 'Rodzaj stacji'
+        emission: 'Emisja'
+        input_frequency: 'Częstotliwość wej'
+        output_frequency: 'Częstotliwość wyj'
+        station_location: 'Stacja'
+      club_device:
+        number: 'Numer'
+        date_of_issue: 'Data wydania'
+        valid_to: 'Ważne do'
+        call_sign: 'Znak'
+        category: 'Kategoria'
+        transmitter_power: 'Moc'
+        name_type_station: 'Nazwa rodzaju stacji'
+        emission: 'Emisja'
+        input_frequency: 'Częstotliwość wej'
+        output_frequency: 'Częstotliwość wyj'
+        enduser_name: 'Użytkownik - Nazwa'
+        enduser_name_short: 'Nazwa'
+        enduser_city: 'Użytkownik - Miejscowość'
+        enduser_city_short: 'Miejscowość'
+        enduser_street: 'Użytkownik - Ulica'
+        enduser_street_short: 'Ulica'
+        enduser_house: 'Użytkownik - Dom'
+        enduser_house_short: 'Dom'
+        enduser_number: 'Użytkownik - Lokal'
+        enduser_number_short: 'Lokal'
+        applicant: 'Wnioskodawca'
+        applicant_name: 'Wnioskodawca - Nazwa'
+        applicant_name_short: 'Nazwa'
+        applicant_city: 'Wnioskodawca - Miejscowość'
+        applicant_city_short: 'Miejscowość'
+        applicant_street: 'Wnioskodawca - Ulica'
+        applicant_street_short: 'Ulica'
+        applicant_house: 'Wnioskodawca - Dom'
+        applicant_house_short: 'Dom'
+        applicant_number: 'Wnioskodawca - Lokal'
+        applicant_number_short: 'Lokal'
+        station: 'Stacja'
+        station_city: 'Stacja - Miejscowość'
+        station_city_short: 'Miejscowość'
+        station_street: 'Stacja - Ulica'
+        station_street_short: 'Ulica'
+        station_house: 'Stacja - Dom'
+        station_house_short: 'Dom'
+        station_number: 'Stacja - Lokal'
+        station_number_short: 'Lokal'
+        lat: 'Stacja - latitude'
+        lng: 'Stacja - longitude'
+      proposal:
+        status: 'Status'
+        status_name: 'Status zgłoszenia'
+        creator: 'Użytkownik'
+        creator_id: 'Użytkownik'
+        name: 'Nazwisko'
+        given_names: 'Imię'
+        pesel: 'Pesel'
+        birth_date: "Data urodzenia"
+        birth_place: "Miejsce urodzenia"
+        phone: 'Telefon'
+        address_city: 'Miejscowość'
+        address_street: 'Ulica'
+        address_house: 'Dom'
+        address_number: 'Lokal'
+        address_postal_code: 'Kod pocztowy'
+        c_address_city: 'Miejscowość'
+        c_address_street: 'Ulica'
+        c_address_house: 'Dom'
+        c_address_number: 'Lokal'
+        c_address_postal_code: 'Kod pocztowy'
+        category: 'Typ świadectwa'
+        category_name: 'Typ świadectwa'
+        exam_id: 'Sesja egzaminacyjna'
+        exam_fullname: 'Sesja egzaminacyjna'
+        date_exam: 'Data egzaminu'
+        division_id: 'Rodzaj'
+        division_fullname: 'Rodzaj'
+      wizards/proposal/step1:
+        email: "E-mail"
+        name: "Nazwisko"
+        given_names: "Imię"
+        pesel: "PESEL"
+        birth_date: "Data urodzenia"
+        birth_place: "Miejsce urodzenia"
+        phone: 'Telefon'
+    errors:
+      messages:
+        record_invalid: "Validation failed: %{errors}"
+        restrict_dependent_destroy:
+          has_one: "Cannot delete record because a dependent %{record} exists"
+          has_many: "Cannot delete record because dependent %{record} exist"
+        created: 'Wystąpił błąd w czasie dodawania nowego wpisu.'
+        updated: 'Wystąpił błąd w czasie aktualizowania wpisu "%{data}".'
+        destroyed: 'Wystąpił błąd w czasie usuwania wpisu "%{data}".'
+        attach_file: 'Wystąpił błąd w czasie dodawania załącznika "%{child}" do "%{parent}". Pamiętaj, że rozmiar pliku nie może być większy niż 10 MB'
+        account_off: 'Wystąpił błąd w czasie wyłączania konta "%{data}".'
+        account_on: 'Wystąpił błąd w czasie włączania konta "%{data}".'
+        required: 'nie może być puste'
+    successfull:
+      messages:
+        created: 'Wpis: "%{data}" został pomyślnie utworzony.'
+        updated: 'Wpis: "%{data}" został pomyślnie zaktualizowany.'
+        destroyed: 'Wpis: "%{data}" został pomyślnie usunięty.'
+        add_role: 'Użytkownikowi "%{parent}" pomyślnie dodano rolę "%{child}".'
+        remove_role: 'Użytkownikowi "%{parent}" została pomyślnie usunięta rola "%{child}".'
+        account_off: 'Pomyślnie wyłączono konto "%{data}".'
+        account_on: 'Pomyślnie włączono konto "%{data}".'
+  pundit:
+    default: ' BRAK UPRAWNIEŃ: Nie można wykonać tej czynności!'
+    work_policy:
+      index?: ' BRAK UPRAWNIEŃ: Nie możesz wyświetlać listy działań!'
+    role_policy:
+      index?: ' BRAK UPRAWNIEŃ: Nie możesz wyświetlać listy ról!'
+      show?: ' BRAK UPRAWNIEŃ: Nie możesz oglądać szczegółów roli!'
+      update?: ' BRAK UPRAWNIEŃ: Nie możesz edytować danych ról!'
+      create?: ' BRAK UPRAWNIEŃ: Nie możesz tworzyć ról!'
+      destroy?: ' BRAK UPRAWNIEŃ: Nie możesz usuwać ról!'
+      add_remove_role_user?: ' BRAK UPRAWNIEŃ: Nie możesz do ról dowawać ani usuwać użytkowników!'
+    user_policy:
+      index?: ' BRAK UPRAWNIEŃ: Nie możesz wyświetlać listy użytkowników!'
+      show?: ' BRAK UPRAWNIEŃ: Nie możesz oglądać szczegółów użytkownika!'
+      update?: ' BRAK UPRAWNIEŃ: Nie możesz edytować danych użytkownika!'
+      create?: ' BRAK UPRAWNIEŃ: Nie możesz tworzyć użytkowników!'
+      destroy?: ' BRAK UPRAWNIEŃ: Nie możesz usuwać użytkowników!'
+      add_remove_role_user?: ' BRAK UPRAWNIEŃ: Nie możesz użytkownikom dodawać ani usuwać ról!'
+    proposal_policy:
+      index?: ' BRAK UPRAWNIEŃ: Nie możesz wyświetlać listy zgłoszeń!'
+      show?: ' BRAK UPRAWNIEŃ: Nie możesz oglądać szczegółów tego zgłoszenia!'
+      show_self?: ' BRAK UPRAWNIEŃ: Nie możesz oglądać szczegółów zgłoszenia, którego nie jesteś autorem!'
+      update?: ' BRAK UPRAWNIEŃ: Nie możesz edytować danych tego zgłoszenia!'
+      create?: ' BRAK UPRAWNIEŃ: Nie możesz tworzyć zgłoszenia!'
+      destroy?: ' BRAK UPRAWNIEŃ: Nie możesz usuwać tego zgłoszenia!'
+      wizard?: ' BRAK UPRAWNIEŃ: Nie możesz tworzyć zgłoszenia!'
+  date:
+    abbr_day_names:
+    - nie
+    - pon
+    - wto
+    - śro
+    - czw
+    - pią
+    - sob
+    abbr_month_names:
+    -
+    - sty
+    - lut
+    - mar
+    - kwi
+    - maj
+    - cze
+    - lip
+    - sie
+    - wrz
+    - paź
+    - lis
+    - gru
+    day_names:
+    - niedziela
+    - poniedziałek
+    - wtorek
+    - środa
+    - czwartek
+    - piątek
+    - sobota
+    formats:
+      default: "%d-%m-%Y"
+      long: "%B %d, %Y"
+      short: "%d %b"
+    month_names:
+    -
+    - styczeń
+    - luty
+    - marzec
+    - kwiecień
+    - maj
+    - czerwiec
+    - lipiec
+    - sierpień
+    - wrzesień
+    - październik
+    - listopad
+    - grudzień
+    order:
+    - :day
+    - :month
+    - :year
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        few: około %{count} godziny
+        many: około %{count} godzin
+        one: około godziny
+        other: około %{count} godzin
+      about_x_months:
+        few: około %{count} miesiące
+        many: około %{count} miesięcy
+        one: około miesiąca
+        other: około %{count} miesięcy
+      about_x_years:
+        few: około %{count} lata
+        many: około %{count} lat
+        one: około rok
+        other: około %{count} lat
+      almost_x_years:
+        few: prawie %{count} lata
+        many: prawie %{count} lat
+        one: prawie rok
+        other: prawie %{count} lat
+      half_a_minute: pół minuty
+      less_than_x_minutes:
+        few: mniej niż %{count} minuty
+        many: mniej niż %{count} minut
+        one: mniej niż minutę
+        other: mniej niż %{count} minut
+      less_than_x_seconds:
+        few: mniej niż %{count} sekundy
+        many: mniej niż %{count} sekund
+        one: mniej niż sekundę
+        other: mniej niż %{count} sekund
+      over_x_years:
+        few: ponad %{count} lata
+        many: ponad %{count} lat
+        one: ponad rok
+        other: ponad %{count} lat
+      x_days:
+        few: "%{count} dni"
+        many: "%{count} dni"
+        one: 1 dzień
+        other: "%{count} dni"
+      x_minutes:
+        few: "%{count} minuty"
+        many: "%{count} minut"
+        one: 1 minuta
+        other: "%{count} minut"
+      x_months:
+        few: "%{count} miesiące"
+        many: "%{count} miesięcy"
+        one: 1 miesiąc
+        other: "%{count} miesięcy"
+      x_seconds:
+        few: "%{count} sekundy"
+        many: "%{count} sekund"
+        one: 1 sekunda
+        other: "%{count} sekund"
+    prompts:
+      day: Dzień
+      hour: Godzina
+      minute: Minuta
+      month: Miesiąc
+      second: Sekundy
+      year: Rok
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: musi zostać zaakceptowane
+      blank: nie może być puste
+      confirmation: nie zgadza się z polem %{attribute}
+      empty: nie może być puste
+      equal_to: musi być równe %{count}
+      even: musi być parzyste
+      exclusion: jest zarezerwowane
+      greater_than: musi być większe od %{count}
+      greater_than_or_equal_to: musi być większe lub równe %{count}
+      inclusion: nie znajduje się na liście dopuszczalnych wartości
+      invalid: jest nieprawidłowe
+      less_than: musi być mniejsze od %{count}
+      less_than_or_equal_to: musi być mniejsze lub równe %{count}
+      not_a_number: nie jest liczbą
+      not_an_integer: musi być liczbą całkowitą
+      odd: musi być nieparzyste
+      present: musi być puste
+      required: musi istnieć
+      taken: zostało już zajęte
+      too_long:
+        few: jest za długie (maksymalnie %{count} znaki)
+        many: jest za długie (maksymalnie %{count} znaków)
+        one: jest za długie (maksymalnie jeden znak)
+        other: jest za długie (maksymalnie %{count} znaków)
+      too_short:
+        few: jest za krótkie (przynajmniej %{count} znaki)
+        many: jest za krótkie (przynajmniej %{count} znaków)
+        one: jest za krótkie (przynajmniej jeden znak)
+        other: jest za krótkie (przynajmniej %{count} znaków)
+      wrong_length:
+        few: ma nieprawidłową długość (powinna wynosić %{count} znaki)
+        many: ma nieprawidłową długość (powinna wynosić %{count} znaków)
+        one: ma nieprawidłową długość (powinna wynosić jeden znak)
+        other: ma nieprawidłową długość (powinna wynosić %{count} znaków)
+      other_than: musi być inna niż %{count}
+    template:
+      body: 'Błędy dotyczą następujących pól:'
+      header:
+        few: "%{model} nie został zachowany z powodu %{count} błędów"
+        many: "%{model} nie został zachowany z powodu %{count} błędów"
+        one: "%{model} nie został zachowany z powodu jednego błędu"
+        other: "%{model} nie został zachowany z powodu %{count} błędów"
+  helpers:
+    actions: "Akcje"
+    select:
+      prompt: Proszę wybrać
+    submit:
+      create: Utwórz %{model}
+      submit: Zapisz %{model}
+      update: Aktualizuj %{model}
+    links:
+      index: 'Lista'
+      show: 'Podgląd'
+      new:  'Dodaj'
+      edit: 'Edycja'
+      back: 'Powrót'
+      cancel: 'Wróć'
+      confirm: "Czy na pewno?"
+      confirm_destroy: 'Na pewno chcesz usunąć wpis: "%{data}"?'
+      destroy: "Usuń"
+      destroy_account: "Usuń moje konto"
+      send_email: "Wyślij email"
+      download: "Pobierz"
+      filter: "Filtruj dane"
+      link_to_add_fields_nested: '[ + Dodaj ]'
+      link_to_remove_fields_nested: '[ - Usuń ]'
+      link_to_remove_fields_nested_small: '[ - ]'
+    titles:
+      edit: "Edycja %{model}"
+      save: "Zapisz %{model}"
+      new: "Nowy %{model}"
+      delete: "Usuń %{model}"
+      change_your_password: "Zmiań swoje hasło"
+    label:
+      wizards/proposal/step1:
+        email: "E-mail"
+        name: "Nazwisko"
+        given_names: "Imię"
+        pesel: "PESEL"
+        birth_date: "Data urodzenia"
+        birth_place: "Miejsce urodzenia"
+        phone: "Telefon"
+      wizards/proposal/step2:
+        address_city: 'Miejscowość'
+        address_street: 'Ulica'
+        address_house: 'Dom'
+        address_number: 'Lokal'
+        address_postal_code: 'Kod pocztowy'
+      wizards/proposal/step3:
+        c_address_city: 'Miejscowość'
+        c_address_street: 'Ulica'
+        c_address_house: 'Dom'
+        c_address_number: 'Lokal'
+        c_address_postal_code: 'Kod pocztowy'
+      wizards/proposal/step4:
+        category: 'Typ świadectwa'
+        exam_id: 'Sesja egzaminacyjna'
+        division_id: 'Rodzaj'
+      wizards/proposal/step5:
+        all_is_ok: 'Dane powyższe są zgodne z prawdą, co potwierdzam'
+  number:
+    currency:
+      format:
+        delimiter: " "
+        format: "%n %u"
+        precision: 2
+        separator: ","
+        significant: false
+        strip_insignificant_zeros: true
+        unit: zł
+    format:
+      delimiter: " "
+      precision: 3
+      separator: ","
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: "%n %u"
+        units:
+          billion: Miliard
+          million: Milion
+          quadrillion: Biliard
+          thousand: Tysiąc
+          trillion: Bilion
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            few: bajty
+            many: bajtów
+            one: bajt
+            other: bajty
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: ''
+        format: "%n%"
+    precision:
+      format:
+        delimiter: ''
+  support:
+    array:
+      last_word_connector: " oraz "
+      two_words_connector: " i "
+      words_connector: ", "
+  time:
+    am: przed południem
+    formats:
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      long: "%B %d, %Y %H:%M"
+      short: "%d %b %H:%M"
+    pm: po południu

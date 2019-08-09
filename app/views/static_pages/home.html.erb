@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1 class="center">
+        <span class="index-title"><%= t '.title' %></span>
+      </h1>
+    </div> <!--/col-sm-12 -->
+  </div> <!--/row -->
+
+  <br>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <%= render 'info', cached: true %>
+      <% unless user_signed_in? %>
+        <br>
+
+      <div class="center">
+        <%= link_to new_user_session_path, class: "btn btn-primary btn-lg" do %>
+          <span class="glyphicon glyphicon-log-in"></span>&nbsp;
+          <%=t "devise.link_to.sign_in" %>
+        <% end %>
+      </div>
+
+      <% end %>
+
+    </div> <!-- /.col-sm-12 -->
+
+  </div> <!--/row -->
+ 
+</div> <!--/container -->
+

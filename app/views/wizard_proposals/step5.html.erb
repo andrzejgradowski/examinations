@@ -1,0 +1,226 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h3 class="center">
+        <span class="fa fa-file-invoice glyp-index-title" aria-hidden="true"></span>
+        <span class="index-title hidden-xs"><%= t 'wizard_proposals.title' %></span>
+        <span class="index-title visible-xs"><%= t '.navbar' %></span>
+      </h3>
+    </div> <!--/col-sm-12 -->
+  </div> <!--/row -->
+</div> <!--/container -->
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-sm-12">
+
+      <%= form_for @proposal_wizard, as: :proposal_wizard, url: validate_step_wizard_proposal_path do |f| %>
+        <%= form_errors_for @proposal_wizard %>
+
+        <%= hidden_field_tag :current_step, 'step5' %>
+
+
+        <fieldset class="my-fieldset">
+          <legend class="my-fieldset"><strong><%= t('wizard_proposals.step1.fieldset_title') %></strong></legend>
+
+          <div class="row">
+            <div class="form-group required col-sm-4">
+              <strong><%= Proposal.human_attribute_name(:email) %></strong><br>
+              <%= @proposal_wizard.email %>
+            </div>
+          </div> <!--/row -->
+
+          <div class="row">
+            <div class="form-group required col-sm-4">
+              <strong><%= Proposal.human_attribute_name(:name) %></strong><br>
+              <%= @proposal_wizard.name %>
+            </div>
+            <div class="form-group required col-sm-4">
+              <strong><%= Proposal.human_attribute_name(:given_names) %></strong><br>
+              <%= @proposal_wizard.given_names %>
+            </div>
+
+            <div class="form-group required col-sm-4">
+              <strong><%= Proposal.human_attribute_name(:pesel) %></strong><br>
+              <%= @proposal_wizard.pesel %>
+            </div>
+
+          </div> <!--/row -->
+
+          <div class="row">
+            <div class="form-group required col-sm-4">
+              <strong><%= Proposal.human_attribute_name(:birth_place) %></strong><br>
+              <%= @proposal_wizard.birth_place %>
+            </div>
+            <div class="form-group required col-sm-4">
+              <strong><%= Proposal.human_attribute_name(:birth_date) %></strong><br>
+              <%= @proposal_wizard.birth_date %>
+            </div>
+            <div class="form-group col-sm-4">
+              <strong><%= Proposal.human_attribute_name(:phone) %></strong><br>
+              <%= @proposal_wizard.phone %>
+            </div>
+          </div> <!--/row -->
+        </fieldset>
+
+
+
+
+
+        <fieldset class="my-fieldset">
+          <legend class="my-fieldset"><strong><%= t('wizard_proposals.step2.fieldset_title') %></strong></legend>
+
+          <div class="row">
+            <div class="form-group required col-sm-4">
+              <strong><%= Proposal.human_attribute_name(:address_city) %></strong><br>
+              <%= @proposal_wizard.address_city %>
+            </div>
+          </div> <!--/row -->
+
+          <div class="row">
+            <div class="form-group col-sm-4">
+              <strong><%= Proposal.human_attribute_name(:address_street) %></strong><br>
+              <%= @proposal_wizard.address_street %>
+            </div>
+
+            <div class="form-group required col-sm-3">
+              <strong><%= Proposal.human_attribute_name(:address_house) %></strong><br>
+              <%= @proposal_wizard.address_house %>
+            </div>
+
+            <div class="form-group col-sm-3">
+              <strong><%= Proposal.human_attribute_name(:address_number) %></strong><br>
+              <%= @proposal_wizard.address_number %>
+            </div>
+          </div> <!--/row -->
+
+          <div class="row">
+            <div class="form-group required col-sm-2">
+              <strong><%= Proposal.human_attribute_name(:address_postal_code) %></strong><br>
+              <%= @proposal_wizard.address_postal_code %>
+            </div>
+          </div> <!--/row -->
+        </fieldset>
+
+
+
+        <fieldset class="my-fieldset">
+          <legend class="my-fieldset"><strong><%= t('wizard_proposals.step3.fieldset_title') %></strong></legend>
+
+          <div class="row">
+            <div class="form-group required col-sm-4">
+              <strong><%= Proposal.human_attribute_name(:c_address_city) %></strong><br>
+              <%= @proposal_wizard.c_address_city %>
+            </div>
+          </div> <!--/row -->
+
+          <div class="row">
+            <div class="form-group col-sm-4">
+              <strong><%= Proposal.human_attribute_name(:c_address_street) %></strong><br>
+              <%= @proposal_wizard.c_address_street %>
+            </div>
+
+            <div class="form-group required col-sm-3">
+              <strong><%= Proposal.human_attribute_name(:c_address_house) %></strong><br>
+              <%= @proposal_wizard.c_address_house %>
+            </div>
+
+            <div class="form-group col-sm-3">
+              <strong><%= Proposal.human_attribute_name(:c_address_number) %></strong><br>
+              <%= @proposal_wizard.c_address_number %>
+            </div>
+          </div> <!--/row -->
+
+          <div class="row">
+            <div class="form-group required col-sm-2">
+              <strong><%= Proposal.human_attribute_name(:c_address_postal_code) %></strong><br>
+              <%= @proposal_wizard.c_address_postal_code %>
+            </div>
+          </div> <!--/row -->
+        </fieldset>
+
+
+
+
+
+
+
+
+
+        <fieldset class="my-fieldset">
+          <legend class="my-fieldset"><strong><%= t('wizard_proposals.step4.fieldset_title') %></strong></legend>
+
+          <div class="row">
+            <div class="form-group col-sm-8">
+
+              <div class="row">
+                <div class="form-group col-sm-12">
+                  <strong><%= Proposal.human_attribute_name(:category_name) %></strong><br>
+                  <%= category_name(@proposal_wizard) %>
+                </div>
+              </div>  
+
+              <div class="row">
+                <div class="form-group col-sm-12">
+                  <strong><%= Proposal.human_attribute_name(:exam_fullname) %></strong><br>
+                  <%= @proposal_wizard.exam_fullname %>
+                </div>
+              </div> <!--/row -->
+
+
+              <div class="row">
+                <div class="form-group col-sm-12">
+                  <strong><%= Proposal.human_attribute_name(:division_fullname) %></strong><br>
+                  <%= @proposal_wizard.division_fullname %>
+                </div>
+              </div> <!--/row -->
+            </div>  
+          </div> <!--/row -->
+
+        </fieldset>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="row">
+          <div class="form-group col-sm-4">
+            <%= f.check_box :all_is_ok, disabled: false, id: "proposal_wizard_all_is_ok", onclick: "status_all_is_ok(this.checked)" %>&nbsp;&nbsp;
+            <%= f.label :all_is_ok, class: 'control-label' %>
+          </div>
+        </div> <!--/row -->
+
+        <div class="row">
+          <div class="form-group col-sm-12">
+            <hr class="hr-without-top-margin">
+            <%= f.submit t('.submit'), class: 'btn btn-primary', disabled: true, id: 'btn_proposal_wizard_finish' %>
+          </div>
+        </div> <!--/row -->
+
+      <% end %>
+    </div> <!--/col-sm-12 -->
+  </div> <!--/row -->
+
+  <div class="row">
+    <div class="col-sm-12">
+      <ol class="breadcrumb">
+        <li><%= link_to t('wizard_proposals.step1.fieldset_title'), step1_wizard_proposal_path %></li>
+        <li><%= link_to t('wizard_proposals.step2.fieldset_title'), step2_wizard_proposal_path %></li>
+        <li><%= link_to t('wizard_proposals.step3.fieldset_title'), step3_wizard_proposal_path %></li>
+        <li><%= link_to t('wizard_proposals.step4.fieldset_title'), step4_wizard_proposal_path %></li>
+        <li class="active"><%= t('wizard_proposals.step5.fieldset_title') %></li>
+      </ol>
+    </div> <!--/col-sm-12 -->
+  </div> <!--/row -->
+
+</div> <!--/container -->

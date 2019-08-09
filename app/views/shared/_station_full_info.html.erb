@@ -1,0 +1,58 @@
+<fieldset class="my-fieldset">
+  <legend class="my-fieldset"><%= t('.fieldset_title') %></legend>
+
+  <div class="row">
+    <div class="form-group col-sm-3">
+      <p><strong><%= partial_data.class.human_attribute_name(:station_city_short) %></strong></p>
+      <%= partial_data.try(:station_city) %>
+    </div>
+    <div class="form-group col-sm-3">
+      <p><strong><%= partial_data.class.human_attribute_name(:station_street_short) %></strong></p>
+      <%= partial_data.try(:station_street) %>
+    </div>
+    <div class="form-group col-sm-3">
+      <p><strong><%= partial_data.class.human_attribute_name(:station_house_short) %></strong></p>
+      <%= partial_data.try(:station_house) %>
+    </div>
+    <div class="form-group col-sm-3">
+      <p><strong><%= partial_data.class.human_attribute_name(:station_number_short) %></strong></p>
+      <%= partial_data.try(:station_number) %>
+    </div>
+  </div> <!--/row -->
+
+  <% unless partial_data.lat.blank? %>
+    <div id="idMap" style="width: 100%; height: 75vh;"></div>
+  <% end %>
+
+</fieldset>
+
+
+<script src="https://www.openlayers.org/api/OpenLayers.js"></script>
+
+<script>
+  var lat            = <%= partial_data.lat %>;
+  var lon            = <%= partial_data.lng %>;
+
+  var zoom           = 18;
+  var size = new OpenLayers.Size(36,36);
+  var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
+  var icon = new OpenLayers.Icon("<%= asset_path('marker.png', locale: locale) %>", size, offset);
+
+
+  var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
+  var toProjection   = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
+  var position       = new OpenLayers.LonLat(lon, lat).transform( fromProjection, toProjection);
+
+
+  map = new OpenLayers.Map("idMap");
+
+  var mapnik         = new OpenLayers.Layer.OSM();
+  map.addLayer(mapnik);
+
+  var markers = new OpenLayers.Layer.Markers( "Markers" );
+
+  map.addLayer(markers);
+  markers.addMarker(new OpenLayers.Marker(position, icon));
+
+  map.setCenter(position, zoom);
+</script>

@@ -1,0 +1,28 @@
+<fieldset class="my-fieldset">
+  <legend class="my-fieldset"><%= t('wizard_proposals.step4.fieldset_title') %></legend>
+
+  <div class="row">
+    <div class="form-group col-sm-6">
+      <p><strong><%= partial_data.class.human_attribute_name(:category_name) %></strong></p>
+      <%= category_name(partial_data) %>
+    </div>
+  </div> <!--/row -->
+  <div class="row">
+    <div class="form-group col-sm-6">
+      <p><strong><%= partial_data.class.human_attribute_name(:exam_fullname) %></strong></p>
+      <%= partial_data.try(:exam_fullname) %>
+    </div>
+    <div class="form-group col-sm-6">
+      <p><strong><%= partial_data.class.human_attribute_name(:date_exam) %></strong></p>
+      <%= partial_data.try(:date_exam).strftime("%Y-%m-%d") %>
+    </div>
+  </div> <!--/row -->
+  <div class="row">
+    <div class="form-group col-sm-6">
+      <p><strong><%= partial_data.class.human_attribute_name(:division_fullname) %></strong></p>
+      <%= partial_data.try(:division_fullname) %>
+    </div>
+  </div> <!--/row -->
+
+</fieldset>
+

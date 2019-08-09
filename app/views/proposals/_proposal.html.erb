@@ -1,0 +1,42 @@
+<fieldset class="my-fieldset">
+  <legend class="my-fieldset"><%= rec_data_info(proposal) %></legend>
+
+
+  <%= render partial: "step1_info", locals: {partial_data: proposal} %>
+  <%= render partial: "step2_info", locals: {partial_data: proposal} %>
+  <%= render partial: "step3_info", locals: {partial_data: proposal} %>
+  <%= render partial: "step4_info", locals: {partial_data: proposal} %>
+
+  <hr class="hr-without-top-margin">
+
+  <div class="row">
+    <div class="col-sm-7">
+
+      <% if policy(proposal).destroy_self? %>
+        <%= link_to proposal_path(proposal),
+                            method: :delete,
+                            data: { confirm: t('helpers.links.confirm_destroy', data: rec_data_info(proposal)) }, 
+                            class: "btn btn-danger" do %>
+          <span class="glyphicon glyphicon-trash"></span>
+          <%= t("helpers.links.destroy") %>
+        <% end %>
+      <% end %>
+
+      <% if policy(proposal).edit_self? %>
+        <%= link_to edit_proposal_path(proposal), class: "btn btn-primary" do %>
+          <span class="glyphicon glyphicon-edit"></span>
+          <%= t("helpers.links.edit") %>
+        <% end %>
+      <% end %>
+
+    </div> <!-- /col-sm-6 -->
+
+    <div class="col-sm-5">
+      <p><strong><%= proposal.class.human_attribute_name(:status_name) %>:</strong>&nbsp;<%= proposal.try(:status_name) %></p>
+    </div> <!-- /col-sm-6 -->
+
+  </div> <!-- /row -->
+
+
+</fieldset>
+<br>

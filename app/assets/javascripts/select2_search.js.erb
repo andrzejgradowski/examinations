@@ -1,0 +1,127 @@
+$(document).ready(function() {
+
+
+  $('.exam_select').select2({
+    minimumInputLength: 0,
+    allowClear: false,
+    ajax: {
+      url: '/netpar/exams_select2_index.json',
+      dataType: 'json',
+      quietMillis: 250,
+      type: 'GET',
+      data: function(term, page) {
+        return {
+          category: $('#proposal_wizard_exam_id').data('category'),
+          q: term,
+          page_limit: 10,
+          page: page
+        };
+      },
+      results: function(data, page) {
+        //var more = (page * 10) < data.total_count;
+        var more = (page * 10) < data.meta.total_count;
+        var exams = $.map(data.exams, function(exam, i) {
+          return { id: exam.id, text: exam.fullname };
+        });
+        return { results: exams, more: more };
+      }
+    },
+    formatAjaxError: function(jqXHR, textStatus, errorThrown) {
+      console.log(jqXHR);
+      if (jqXHR.status == 401) {
+        window.location.reload();
+      } else {
+        getErrorMessage(jqXHR, jqXHR.status);
+      }
+      return errorThrown + " " + jqXHR.responseText;
+    },
+    initSelection: function(element, callback) {
+      var id=$(element).val();
+      if (id!=="") {
+        $.get("/netpar/exams/"+id+".json", function(data_from_json) {
+          if(data_from_json)
+            callback({ id: data_from_json.id, text: data_from_json.fullname });
+        });
+      }
+    },
+    dropdownCssClass: "bigdrop"
+  })
+  .on("select2-selecting", function(e) {
+    var id = e.val;
+    if (id!=="") {
+      $.get("/netpar/exams/"+id+".json", function(data_from_json) {
+        if(data_from_json) {
+          if(data_from_json.fullname !== "") {
+            document.getElementById("proposal_wizard_exam_fullname").value = data_from_json.fullname;
+            document.getElementById("proposal_wizard_date_exam").value = data_from_json.date_exam;
+          };
+        }
+      });
+    }
+  });
+
+
+
+
+  $('.division_select').select2({
+    minimumInputLength: 0,
+    allowClear: false,
+    ajax: {
+      url: '/netpar/divisions_select2_index.json',
+      dataType: 'json',
+      quietMillis: 250,
+      type: 'GET',
+      data: function(term, page) {
+        return {
+          category: $('#proposal_wizard_division_id').data('category'),
+          q: term,
+          page_limit: 10,
+          page: page
+        };
+      },
+      results: function(data, page) {
+        //var more = (page * 10) < data.total_count;
+        var more = (page * 10) < data.meta.total_count;
+        var divisions = $.map(data.divisions, function(division, i) {
+          return { id: division.id, text: division.fullname };
+        });
+        return { results: divisions, more: more };
+      }
+    },
+    formatAjaxError: function(jqXHR, textStatus, errorThrown) {
+      console.log(jqXHR);
+      if (jqXHR.status == 401) {
+        window.location.reload();
+      } else {
+        getErrorMessage(jqXHR, jqXHR.status);
+      }
+      return errorThrown + " " + jqXHR.responseText;
+    },
+    initSelection: function(element, callback) {
+      var id=$(element).val();
+      if (id!=="") {
+        $.get("/netpar/divisions/"+id+".json", function(data_from_json) {
+          if(data_from_json)
+            callback({ id: data_from_json.id, text: data_from_json.fullname });
+        });
+      }
+    },
+    dropdownCssClass: "bigdrop"
+  })
+  .on("select2-selecting", function(e) {
+    var id = e.val;
+    if (id!=="") {
+      $.get("/netpar/divisions/"+id+".json", function(data_from_json) {
+        if(data_from_json) {
+          if(data_from_json.fullname !== "") {
+            document.getElementById("proposal_wizard_division_fullname").value = data_from_json.fullname;
+          };
+        }
+      });
+    }
+  });
+
+
+
+});
+

@@ -1,0 +1,205 @@
+//@import url(https://fonts.googleapis.com/css?family=Titillium+Web:300);
+@import url(https://fonts.googleapis.com/css?family=Titillium+Web:300,700,600);
+
+$font-family-base: 'Titillium Web', sans-serif;
+//$font-family-base: Arial, "Helvetica", sans-serif;
+//$font-size-base: 0.85rem;
+$font-size-base: 14px;
+//$font-size-base: 12px;
+
+
+
+//$brand-primary:     #428bca;
+//$brand-success:     #5cb85c;
+//$brand-info:        #5bc0de;
+//$brand-warning:     #f0ad4e;
+//$brand-danger:      #d9534f;
+
+//$brand-primary:                  darken(#428bca, 6.5%) !default; // #337ab7
+//$btn-default-color:              #333 !default;
+//$btn-default-bg:                 #fff !default;
+//$btn-default-border:             #ccc !default;
+
+
+$brand-primary:     #1B3C8F;
+$brand-success:     #5cb85c;
+$brand-info:        #5bc0de;
+$brand-warning:     #f0ad4e;
+$brand-danger:      #d9534f;
+
+
+//$brand-primary:          darken(#428bca, 6.5%) !default; // #337ab7
+//$btn-default-color:                #333 !default; 
+$btn-default-bg:         lighten(#BECC25, 48.5%) !default;
+//$btn-default-border:             #ccc !default;
+
+
+
+// import the CSS framework
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "bootstrap-datetimepicker";
+
+
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+.content {
+  flex: 1 0 auto;
+}
+
+main {
+  @extend .container;
+  width: 100%;
+  padding-bottom: 15px;
+  margin-top: 93px; // accommodate the navbar 51, 52 if hover:border-bottom 
+  //margin-top: 2.0em; 
+  a {
+    text-decoration: none !important;
+  }
+  a:hover {
+    text-decoration: underline !important;
+  };
+}
+
+footer {
+  flex-shrink: 0;
+
+  padding-top: 25px;
+  padding-bottom: 25px;
+  padding-left: 30px;
+  padding-right: 30px;
+  border-top: 1px solid #C7D540;
+  color: white;
+  background-color: #555;
+  a {
+    color: #C7D540 !important;
+    text-decoration: none !important;
+  }
+  a:hover {
+    text-decoration: underline !important;
+  };
+}
+
+
+.deviseform {
+  padding-top: 25px;  
+}
+
+.glyp-index-title {
+  color: $brand-primary;
+  //color: #BECC25;
+}
+
+.index-title {
+  color: $brand-primary;
+  letter-spacing: 1px;
+}
+
+.modal .modal-body {
+    //max-height: 70vh;
+    //overflow-y: auto;
+}
+
+.center {
+  text-align: center;
+  h1 {
+    margin-bottom: 10px;
+  }
+}
+
+.center-v {
+  display: flex;
+  align-items: center; 
+}
+
+.center-v p {
+  margin: 0;
+}
+
+.hr-without-top-margin {
+  margin-top: 0px;  /*default: 20px; */
+  margin-bottom: 10px;
+}
+
+.hr-without-all-margin {
+  margin-top: 0px;  /*default: 20px; */
+  margin-bottom: 0px;
+}
+
+
+#error_explanation {
+  @extend .alert;
+  @extend .alert-danger;
+}
+
+.field_with_errors {
+  @extend .has-error;
+  display: inherit;
+  background-color: inherit;
+}
+
+.form-group.required .control-label:before{
+  color: $brand-danger;
+  content: "*";
+  position: absolute;
+  margin-left: -7px;
+}
+
+.form-group.required .control-label:hover:after{
+  background: rgba(0,0,0,.75);
+  border-radius: 5px;
+  top: -7px;
+  color: #fff;
+  content: 'wymagane/required';
+  left: 25px;
+  padding: 5px 10px;
+  position: absolute;
+  z-index: 98;
+}
+
+@import 'font_awesome5_webfont';
+
+//--------------------------------------------------------------------------
+
+blockquote {
+  font-size: 0.9em;
+  width: 100%;
+  margin: 25px auto;
+  font-style: italic;
+  color: #555555;
+  padding: 2.1em 1.8em 2.3em 1.8em ;
+  border-left: 5px solid #C7D540 ;
+  line-height: 1.6;
+  position: relative;
+  background: #EDEDED;
+}
+
+fieldset.my-fieldset {
+    border: 1px groove #ddd !important;
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+    -webkit-box-shadow:  0px 0px 0px 0px #000;
+            box-shadow:  0px 0px 0px 0px #000;
+}
+
+legend.my-fieldset {
+    font-size: 1.2em !important;
+    font-weight: normal !important;
+    text-align: left !important;
+    width:auto;
+    padding:0 10px;
+    border-bottom:none;
+}
+
+
+.breadcrumb > li + li:before {
+    color: #ccc;
+    content: "> ";
+    padding: 0 5px;
+}

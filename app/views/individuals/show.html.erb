@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h3 class="center">
+        <span class="fa fa-user glyp-index-title" aria-hidden="true"></span>
+        <span class="index-title"><%= @individual.try(:number) %></span>
+      </h3>
+    </div> <!--/col-sm-12 -->
+  </div> <!--/row -->
+
+  <%= render partial: "shared/basic_info",        locals: {partial_data: @individual} %>
+  <%= render partial: "shared/station_info",      locals: {partial_data: @individual} %>
+
+  <br>
+  <%= link_to individuals_path, class: "btn btn-default" do %>
+    <span class="fa fa-list"></span>
+    <%= t("helpers.links.index") %>
+  <% end %>
+
+</div> <!--/container -->
+

@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h3 class="center">
+        <span class="fa fa-user glyp-index-title" aria-hidden="true"></span>
+        <span class="index-title hidden-xs"><%= t '.title' %></span>
+        <span class="index-title visible-xs"><%= t '.navbar' %></span>
+      </h3>
+    </div> <!--/col-sm-12 -->
+  </div> <!--/row -->
+</div> <!--/container -->
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <table id="individuals-datatable" class="hover cell-border" cellspacing="0" width="100%", 
+        data-source="<%= individuals_path(format: :json) %>", 
+        data-locale_url="<%= datatables_lang_path(format: :json) %>", 
+        data-export_csv_url="<%= export_individuals_path(format: :csv) %>">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th><%= Individual.human_attribute_name(:number) %></th>
+            <th><%= Individual.human_attribute_name(:valid_to) %></th>
+            <th><%= Individual.human_attribute_name(:call_sign) %></th>
+            <th><%= Individual.human_attribute_name(:category) %></th>
+            <th><%= Individual.human_attribute_name(:transmitter_power) %></th>
+            <th><%= Individual.human_attribute_name(:station_location) %></th>
+          </tr>
+        </thead>
+
+        <tbody>
+           <!--data from JSON -->
+        </tbody>
+      </table>
+    </div> <!--/col-sm-12 -->
+  </div> <!--/row -->
+
+<!-- 
+  <div class="row">
+    <div class="col-sm-12">
+
+      <%= link_to export_individuals_path(format: "csv"), class: "btn btn-primary" do %>
+        <span class="fa fa-download"></span>&nbsp;<%= t("helpers.links.download") %>
+      <% end %>
+
+    </div>
+  </div>
+-->
+
+</div> <!--/container -->
+

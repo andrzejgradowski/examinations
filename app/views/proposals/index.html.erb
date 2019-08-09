@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h3 class="center">
+        <span class="fa fa-file-invoice glyp-index-title" aria-hidden="true"></span>
+        <span class="index-title hidden-xs"><%= t '.title' %></span>
+        <span class="index-title visible-xs"><%= t '.navbar' %></span>
+      </h3>
+    </div> <!--/col-sm-12 -->
+  </div> <!--/row -->
+
+  <div class="row">
+    <div class="col-sm-12">
+
+      <%= render(@proposals.order(created_at: :desc)) || t(".no_data") %>
+
+    </div> <!--/col-sm-12 -->
+  </div> <!--/row -->
+
+  <br>
+  <div class="col-sm-12">
+    <% if policy(:proposal).new_self? %> 
+      <%= link_to new_proposal_path, class: "btn btn-primary pull-right" do %>
+        <span class="glyphicon glyphicon-plus"></span>
+        <%= t("helpers.links.new") %>
+      <% end %>
+    <% end %>
+  </div> <!--/col-sm-12 -->
+
+
+  <div class="col-sm-12">
+    <% if policy(:proposal).new_self? %> 
+
+<%= link_to "Create a Proposal", step1_wizard_proposal_path, class: 'btn btn-success' %>
+
+    <% end %>
+  </div> <!--/col-sm-12 -->
+
+
+</div> <!--/container -->
