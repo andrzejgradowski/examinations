@@ -89,3 +89,5 @@ gem 'pundit'
 
 gem 'inky-rb', require: 'inky'
 gem 'premailer-rails'
+
+gem 'activepesel'

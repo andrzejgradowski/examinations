@@ -50,7 +50,7 @@ class WizardProposalsController < ApplicationController
     @proposal_wizard.proposal.attributes = proposal_wizard_params
     # set
     # TODO
-    #set_user_profile_attributes
+    set_user_profile_attributes
 
     session[:proposal_attributes] = @proposal_wizard.proposal.attributes
 
@@ -83,14 +83,14 @@ class WizardProposalsController < ApplicationController
     end
 
     def set_user_profile_attributes
-      @proposal_wizard.proposal.creator_id = current_user.id
-      @proposal_wizard.proposal.email = current_user.email
-      @proposal_wizard.proposal.name = current_user.last_name
+      @proposal_wizard.proposal.creator_id  = current_user.id
+      @proposal_wizard.proposal.email       = current_user.email
+      @proposal_wizard.proposal.name        = current_user.last_name
       @proposal_wizard.proposal.given_names = current_user.first_name
-      @proposal_wizard.proposal.pesel = current_user.pesel
-      @proposal_wizard.proposal.birth_date = current_user.birth_date
-      @proposal_wizard.proposal.birth_place = current_user.birth_city
-      @proposal_wizard.proposal.phone = current_user.phone
+      @proposal_wizard.proposal.pesel       = current_user.pesel
+      @proposal_wizard.proposal.birth_date  = current_user.birth_date if @proposal_wizard.proposal.birth_date.blank?
+      @proposal_wizard.proposal.birth_place = current_user.birth_city if @proposal_wizard.proposal.birth_place.blank?
+      @proposal_wizard.proposal.phone       = current_user.phone      if @proposal_wizard.proposal.phone.blank?
     end
 
     def wizard_proposal_next_step(step)

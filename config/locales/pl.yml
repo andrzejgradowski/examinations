@@ -58,16 +58,16 @@ pl:
     title: 'Kreator zgłoszenia'
     step1:
       fieldset_title: 'Dane podstawowe'
-      submit: 'Dalej'
+      submit: 'Następny krok -> Adres'
     step2:
       fieldset_title: 'Adres'
-      submit: 'Dalej'
+      submit: 'Następny krok -> Adres korespondencyjny'
     step3:
       fieldset_title: 'Adres korepondencyjny'
-      submit: 'Dalej'
+      submit: 'Następny krok -> Typ i rodzaj'
     step4:
-      fieldset_title: 'Typ i rodzaj świadectwa'
-      submit: 'Dalej'
+      fieldset_title: 'Typ i rodzaj'
+      submit: 'Następny krok -> Podsumowanie'
     step5:
       fieldset_title: 'Podsumowanie'
       submit: 'Zapisz'

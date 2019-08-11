@@ -33,6 +33,8 @@ GEM
       globalid (>= 0.3.6)
     activemodel (5.2.3)
       activesupport (= 5.2.3)
+    activepesel (0.1.1)
+      rails (>= 3.0.0)
     activerecord (5.2.3)
       activemodel (= 5.2.3)
       activesupport (= 5.2.3)
@@ -266,6 +268,7 @@ PLATFORMS
 DEPENDENCIES
   actionpack-action_caching
   actionpack-page_caching
+  activepesel
   ajax-datatables-rails
   better_errors
   binding_of_caller

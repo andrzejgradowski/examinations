@@ -21,6 +21,22 @@ module Wizards
       validates :given_names, presence: true, length: { in: 1..50 }
       validates :birth_place, presence: true, length: { in: 1..50 }
       validates :birth_date, presence: true
+      validate :check_pesel, unless: -> { pesel.blank? }
+      validate :check_birth_date, unless: -> { pesel.blank? }
+
+      private
+        def check_pesel
+          unless Activepesel::Pesel.new(pesel).valid?
+            errors.add(:pesel, " - jest niepoprawny")
+            false
+          end
+        end
+        def check_birth_date
+          unless Activepesel::Pesel.new(pesel).date_of_birth == birth_date
+            errors.add(:birth_date, " - niezgodność danych z danymi PESEL")
+            false
+          end
+        end
     end
 
     class Step2 < Step1
@@ -39,7 +55,7 @@ module Wizards
       validates :category, presence: true, inclusion: { in: %w(M R) } 
       validates :exam_id, presence: true
       validates :division_id, presence: true
-      validate :unique_category_for_creator , unless: -> { category.blank? }
+      validate :unique_category_for_creator, unless: -> { category.blank? }
 
       private
         def unique_category_for_creator
