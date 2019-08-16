@@ -12,7 +12,7 @@
   <div class="row">
     <div class="col-sm-12">
 
-      <%= render(@proposals.order(created_at: :desc)) || t(".no_data") %>
+      <%= render(@proposals.order(created_at: :desc)) || proposal_no_data %>
 
     </div> <!--/col-sm-12 -->
   </div> <!--/row -->
@@ -20,19 +20,10 @@
   <br>
   <div class="col-sm-12">
     <% if policy(:proposal).new_self? %> 
-      <%= link_to new_proposal_path, class: "btn btn-primary pull-right" do %>
+      <%= link_to step1_wizard_proposal_path, class: "btn btn-primary pull-right" do %>
         <span class="glyphicon glyphicon-plus"></span>
         <%= t("helpers.links.new") %>
       <% end %>
-    <% end %>
-  </div> <!--/col-sm-12 -->
-
-
-  <div class="col-sm-12">
-    <% if policy(:proposal).new_self? %> 
-
-<%= link_to "Create a Proposal", step1_wizard_proposal_path, class: 'btn btn-success' %>
-
     <% end %>
   </div> <!--/col-sm-12 -->
 

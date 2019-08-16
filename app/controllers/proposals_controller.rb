@@ -1,6 +1,6 @@
 class ProposalsController < ApplicationController
+  include ProposalsHelper
   
-
   before_action :authenticate_user!
   before_action :set_proposal, only: [:show, :edit, :update, :destroy]
 
@@ -19,37 +19,15 @@ class ProposalsController < ApplicationController
     authorize @proposal, :show_self?
   end
 
-  # GET /proposals/new
-  def new
-    @proposal = Proposal.new
-    @proposal.creator = current_user
-    authorize @proposal, :show_self?
-  end
-
   # GET /proposals/1/edit
   def edit
-  end
-
-  # POST /proposals
-  # POST /proposals.json
-  def create
-    @proposal = Proposal.new(proposal_params)
-    authorize @proposal, :create_self?
-
-    respond_to do |format|
-      if @proposal.save
-        format.html { redirect_to @proposal, notice: 'Proposal was successfully created.' }
-        format.json { render :show, status: :created, location: @proposal }
-      else
-        format.html { render :new }
-        format.json { render json: @proposal.errors, status: :unprocessable_entity }
-      end
-    end
+    authorize @proposal, :edit_self?
   end
 
   # PATCH/PUT /proposals/1
   # PATCH/PUT /proposals/1.json
   def update
+    authorize @proposal, :update_self?
     respond_to do |format|
       if @proposal.update(proposal_params)
         format.html { redirect_to @proposal, notice: 'Proposal was successfully updated.' }
@@ -72,11 +50,11 @@ class ProposalsController < ApplicationController
     authorize @proposal, :destroy_self?
     if @proposal.destroy
       #flash[:success].new = t('activerecord.successfull.messages.destroyed', data: '')
-      flash[:success] = t('activerecord.successfull.messages.destroyed', data: rec_data_info(proposal)) 
+      flash[:success] = t('activerecord.successfull.messages.destroyed', data: proposal_rec_info(@proposal)) 
       #@proposal.log_work('destroy', current_user.id)
       redirect_to proposals_url
     else 
-      flash.now[:error] = t('activerecord.errors.messages.destroyed', data: rec_data_info(proposal))
+      flash.now[:error] = t('activerecord.errors.messages.destroyed', data: proposal_rec_info(@proposal))
       redirect_to proposals_url
     end      
   end

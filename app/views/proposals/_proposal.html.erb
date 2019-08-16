@@ -1,5 +1,5 @@
 <fieldset class="my-fieldset">
-  <legend class="my-fieldset"><%= rec_data_info(proposal) %></legend>
+  <legend class="my-fieldset"><%= proposal_rec_info(proposal) %></legend>
 
 
   <%= render partial: "step1_info", locals: {partial_data: proposal} %>
@@ -15,7 +15,7 @@
       <% if policy(proposal).destroy_self? %>
         <%= link_to proposal_path(proposal),
                             method: :delete,
-                            data: { confirm: t('helpers.links.confirm_destroy', data: rec_data_info(proposal)) }, 
+                            data: { confirm: t('helpers.links.confirm_destroy', data: proposal_rec_info(proposal)) }, 
                             class: "btn btn-danger" do %>
           <span class="glyphicon glyphicon-trash"></span>
           <%= t("helpers.links.destroy") %>

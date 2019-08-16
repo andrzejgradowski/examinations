@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   scope "/:locale", locale: /#{I18n.available_locales.join("|")}/ do
 
-    resources :proposals
+    resources :proposals, only: [:index, :edit, :update, :destroy]
 
     resource :wizard_proposal do
       get :step1
@@ -31,19 +31,7 @@ Rails.application.routes.draw do
       post :validate_step
     end
 
-    resources :individuals, only: [:index, :show] do
-      get 'export', on: :collection
-    end
-
     resources :clubs, only: [:index, :show] do
-      get 'export', on: :collection
-    end
-
-    resources :individual_devices, only: [:index, :show] do
-      get 'export', on: :collection
-    end
-
-    resources :club_devices, only: [:index, :show] do
       get 'export', on: :collection
     end
 

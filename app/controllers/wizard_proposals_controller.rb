@@ -64,15 +64,15 @@ class WizardProposalsController < ApplicationController
     end
   end
 
-
-  #TODO
   def create
+    authorize @proposal_wizard.proposal, :wizard?,  policy_class: ProposalPolicy
     if @proposal_wizard.proposal.save
+      flash[:success] = t('activerecord.successfull.messages.created', data: proposal_rec_info(@proposal_wizard))
       session[:proposal_attributes] = nil
       @proposal_wizard = nil
-      redirect_to proposals_path, notice: 'Proposal succesfully created!'
+      redirect_to proposals_path
     else
-      redirect_to({ action: Wizards::Proposal::STEPS.first }, alert: 'There were a problem when creating the proposal.')
+      redirect_to({ action: Wizards::Proposal::STEPS.first }, alert: t('activerecord.errors.messages.created'))
     end
   end
 

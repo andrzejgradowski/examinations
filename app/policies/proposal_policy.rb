@@ -55,7 +55,7 @@ class ProposalPolicy < ApplicationPolicy
   end
 
   def update_self?
-    user_activities.include? 'proposal:update_self'
+    (@model.creator_id == @user.id) && @model.can_edit? && (user_activities.include? 'proposal:update_self')
   end
 
   def destroy?
@@ -63,7 +63,7 @@ class ProposalPolicy < ApplicationPolicy
   end
  
   def destroy_self?
-    user_activities.include? 'proposal:delete_self'
+    (@model.creator_id == @user.id) && @model.can_destroy? && (user_activities.include? 'proposal:delete_self')
   end
  
   # def work?
