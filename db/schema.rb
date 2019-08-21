@@ -189,6 +189,7 @@ ActiveRecord::Schema.define(version: 2019_08_04_150412) do
   end
 
   create_table "proposals", force: :cascade do |t|
+    t.uuid "multi_app_identifier", null: false
     t.integer "status", null: false
     t.string "category", limit: 1, null: false
     t.bigint "creator_id"
@@ -215,10 +216,13 @@ ActiveRecord::Schema.define(version: 2019_08_04_150412) do
     t.date "date_exam"
     t.integer "division_id"
     t.string "division_fullname"
+    t.integer "exam_fee_id"
+    t.decimal "exam_fee_price", precision: 8, scale: 2, default: "0.0"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category"], name: "index_proposals_on_category"
     t.index ["creator_id"], name: "index_proposals_on_creator_id"
+    t.index ["multi_app_identifier"], name: "index_proposals_on_multi_app_identifier"
     t.index ["pesel"], name: "index_proposals_on_pesel"
     t.index ["status"], name: "index_proposals_on_status"
   end

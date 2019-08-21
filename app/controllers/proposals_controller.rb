@@ -30,11 +30,9 @@ class ProposalsController < ApplicationController
     authorize @proposal, :update_self?
     respond_to do |format|
       if @proposal.update(proposal_params)
-        format.html { redirect_to @proposal, notice: 'Proposal was successfully updated.' }
-        format.json { render :show, status: :ok, location: @proposal }
+        format.html { redirect_to proposals_url, notice: 'Proposal was successfully updated.' }
       else
         format.html { render :edit }
-        format.json { render json: @proposal.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -42,19 +40,17 @@ class ProposalsController < ApplicationController
   # DELETE /proposals/1
   # DELETE /proposals/1.json
   def destroy
-    # @proposal.destroy
-    # respond_to do |format|
-    #   format.html { redirect_to proposals_url, notice: 'Proposal was successfully destroyed.' }
-    #   format.json { head :no_content }
-    # end
     authorize @proposal, :destroy_self?
     if @proposal.destroy
-      #flash[:success].new = t('activerecord.successfull.messages.destroyed', data: '')
       flash[:success] = t('activerecord.successfull.messages.destroyed', data: proposal_rec_info(@proposal)) 
-      #@proposal.log_work('destroy', current_user.id)
       redirect_to proposals_url
     else 
-      flash.now[:error] = t('activerecord.errors.messages.destroyed', data: proposal_rec_info(@proposal))
+      #flash.now[:error] = t('activerecord.errors.messages.destroyed', data: proposal_rec_info(@proposal))
+
+      @proposal.errors.full_messages.each do |msg|
+        flash[:error] = msg
+      end
+
       redirect_to proposals_url
     end      
   end
@@ -67,7 +63,7 @@ class ProposalsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def proposal_params
-      params.require(:proposal).permit(:status, :name, :given_names, :category, :creator_id)
+      params.require(:proposal).permit(:status, :name, :given_names, :category)
     end
 end
 

@@ -3,38 +3,41 @@
 
   <div class="row">
     <div class="form-group required col-sm-4">
+<!--
       <p><strong><%= partial_data.class.human_attribute_name(:email) %></strong></p>
+-->      
+      <p><strong><%= Proposal.human_attribute_name(:email) %></strong></p>
       <%= partial_data.try(:email) %>
     </div>
   </div> <!--/row -->
 
   <div class="row">
     <div class="form-group required col-sm-4">
-      <p><strong><%= partial_data.class.human_attribute_name(:name) %></strong></p>
+      <p><strong><%= Proposal.human_attribute_name(:name) %></strong></p>
       <%= partial_data.try(:name) %>
     </div>
     <div class="form-group required col-sm-4">
-      <p><strong><%= partial_data.class.human_attribute_name(:given_names) %></strong></p>
+      <p><strong><%= Proposal.human_attribute_name(:given_names) %></strong></p>
       <%= partial_data.try(:given_names) %>
     </div>
 
     <div class="form-group required col-sm-4">
-      <p><strong><%= partial_data.class.human_attribute_name(:pesel) %></strong></p>
+      <p><strong><%= Proposal.human_attribute_name(:pesel) %></strong></p>
       <%= partial_data.try(:pesel) %>
     </div>
   </div> <!--/row -->
 
   <div class="row">
     <div class="form-group required col-sm-4">
-      <p><strong><%= partial_data.class.human_attribute_name(:birth_place) %></strong></p>
+      <p><strong><%= Proposal.human_attribute_name(:birth_place) %></strong></p>
       <%= partial_data.try(:birth_place) %>
     </div>
     <div class="form-group required col-sm-4">
-      <p><strong><%= partial_data.class.human_attribute_name(:birth_date) %></strong></p>
+      <p><strong><%= Proposal.human_attribute_name(:birth_date) %></strong></p>
       <%= partial_data.try(:birth_date) %>
     </div>
     <div class="form-group col-sm-4">
-      <p><strong><%= partial_data.class.human_attribute_name(:phone) %></strong></p>
+      <p><strong><%= Proposal.human_attribute_name(:phone) %></strong></p>
       <%= partial_data.try(:phone) %>
     </div>
   </div> <!--/row -->

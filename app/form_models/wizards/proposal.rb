@@ -5,6 +5,7 @@ module Wizards
     class Base
       include ActiveModel::Model
   extend ActiveModel::Translation
+
       attr_accessor :proposal, :all_is_ok
 
       delegate *::Proposal.attribute_names.map { |attr| [attr, "#{attr}="] }.flatten, to: :proposal
@@ -56,6 +57,7 @@ module Wizards
       validates :exam_id, presence: true
       validates :division_id, presence: true
       validate :unique_category_for_creator, unless: -> { category.blank? }
+      #validate :check_min_years_old, unless: -> { division_id.blank? }
 
       private
         def unique_category_for_creator
@@ -64,19 +66,23 @@ module Wizards
             false
           end
         end
+
+        def check_min_years_old
+          division_obj = NetparDivision.new(id: division_id)
+          division_obj_response = division_obj.request_with_id
+          division_min_years_old = JSON.parse(division_obj_response.body)['min_years_old']
+          if (birth_date + division_min_years_old.years) > Time.zone.now
+            errors.add(:division_id, " - Przystąpienie do egzaminu wymaga ukończenia #{division_min_years_old} lat")
+            false
+          else
+            true
+          end
+        end
     end
 
     class Step5 < Step4
-      # validates :exam_id, presence: true
-      # validate :category_compliance, unless: -> { exam_id.blank? } 
-
-      # private
-      #   def category_compliance
-      #     unless category == exam_category
-      #       errors.add(:exam_id, " - Niewłaściwa kategoria sesji egzaminacyjnej. Wybierz ponownie")
-      #       false
-      #     end
-      #   end
+      validates :exam_fee_id, presence: true
+      validates :exam_fee_price, presence: true
     end
 
   end

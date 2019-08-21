@@ -1,8 +1,9 @@
 class CreateProposals < ActiveRecord::Migration[5.2]
   def change
     create_table :proposals do |t|
-      t.integer :status,                        null: false, index: true
-      t.string :category,                       limit: 1, null: false, index: true
+      t.uuid :multi_app_identifier,         null: false, index: true
+      t.integer :status,                    null: false, index: true
+      t.string :category,                   limit: 1, null: false, index: true
       #add_reference :orders, :creator, foreign_key: { to_table: :users }
       t.references :creator, foreign_key: { to_table: :users }
       # customer
@@ -48,6 +49,8 @@ class CreateProposals < ActiveRecord::Migration[5.2]
       t.date :date_exam
       t.integer :division_id
       t.string :division_fullname
+      t.integer :exam_fee_id
+      t.decimal :exam_fee_price, precision: 8, scale: 2, default: 0.00
       #t.string   "examination_result",          limit: 1
       #t.integer  "customer_id"
       #t.string   "category",                    limit: 1

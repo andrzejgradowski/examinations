@@ -40,6 +40,14 @@ class WizardProposalsController < ApplicationController
   def step5
     # @proposal_wizard.proposal.user_id = current_user.id
     authorize @proposal_wizard.proposal, :wizard?,  policy_class: ProposalPolicy
+    # !!!!!!!!!!!!!
+    @proposal_wizard.proposal.esod_category = 41
+
+    exam_fee_obj = NetparExamFee.new(division_id: @proposal_wizard.proposal.division_id, esod_category: @proposal_wizard.proposal.esod_category)
+    exam_fee_obj.request_find
+   
+    @proposal_wizard.proposal.exam_fee_id = exam_fee_obj.id
+    @proposal_wizard.proposal.exam_fee_price = exam_fee_obj.price
   end
 
 
@@ -49,7 +57,6 @@ class WizardProposalsController < ApplicationController
     @proposal_wizard = wizard_proposal_for_step(current_step)
     @proposal_wizard.proposal.attributes = proposal_wizard_params
     # set
-    # TODO
     set_user_profile_attributes
 
     session[:proposal_attributes] = @proposal_wizard.proposal.attributes
@@ -72,7 +79,8 @@ class WizardProposalsController < ApplicationController
       @proposal_wizard = nil
       redirect_to proposals_path
     else
-      redirect_to({ action: Wizards::Proposal::STEPS.first }, alert: t('activerecord.errors.messages.created'))
+      render params[:current_step]
+      #redirect_to({ action: Wizards::Proposal::STEPS.first }, alert: t('activerecord.errors.messages.created' ))
     end
   end
 
@@ -108,7 +116,7 @@ class WizardProposalsController < ApplicationController
         :email, :phone, :name, :given_names, :pesel, :birth_date, :birth_place, 
         :address_city, :address_street, :address_house, :address_number, :address_postal_code,
         :c_address_city, :c_address_street, :c_address_house, :c_address_number, :c_address_postal_code,
-        :esod_category, :exam_id, :exam_fullname, :date_exam, :division_id, :division_fullname)
+        :esod_category, :exam_id, :exam_fullname, :date_exam, :division_id, :division_fullname, :exam_fee_id, :exam_fee_price)
     end
 
   class InvalidStep < StandardError; end

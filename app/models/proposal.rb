@@ -1,4 +1,17 @@
+require 'net/http'
+
 class Proposal < ApplicationRecord
+
+  HTTP_ERRORS = [
+    EOFError,
+    Errno::ECONNRESET,
+    Errno::EINVAL,
+    Net::HTTPBadResponse,
+    Net::HTTPHeaderSyntaxError,
+    Net::ProtocolError,
+    Timeout::Error,
+    Errno::ECONNREFUSED
+  ]
 
   PROPOSAL_CREATED = 1
   PROPOSAL_APPROVED = 2
@@ -31,24 +44,137 @@ class Proposal < ApplicationRecord
   validates :creator, presence: true
 
   # callbacks
-  after_initialize :set_initial_status
+  after_initialize :set_initial_status_and_multi_app_identifier
 
   def save
     return false if invalid?
-    ActiveRecord::Base.transaction do
-      super
-      Rails.logger.info('...........................................')
-      Rails.logger.info('........./save with API..............')
-      Rails.logger.info('...........................................')
-      #user.create_location!(country: country, city: city)
+#    ApplicationRecord.transaction do
+    Proposal.transaction do
+      if new_record?
+        netpar_proposal_obj = NetparProposal.new(netpar_proposal: JSON.parse(self.to_json) )
+        response = netpar_proposal_obj.request_create 
+      else
+        netpar_proposal_obj = NetparProposal.new(multi_app_identifier: self.multi_app_identifier, netpar_proposal: JSON.parse(self.to_json) )
+        response = netpar_proposal_obj.request_update
+      end
+
+    rescue *HTTP_ERRORS => e
+      Rails.logger.error('======== API ERROR "models/proposal/save - API ERROR" (1) ===================')
+      Rails.logger.error("#{e}")
+      errors.add(:base, "#{e}")
+      Rails.logger.error('=============================================================================')
+      raise ActiveRecord::Rollback, "#{e}"
+      false
+    rescue StandardError => e
+      Rails.logger.error('======== API ERROR "models/proposal/save - API ERROR" (2) ===================')
+      Rails.logger.error("#{e}")
+      errors.add(:base, "#{e}")
+      Rails.logger.error('=============================================================================')
+      raise ActiveRecord::Rollback, "#{e}"
+      false
+    else
+      case response
+      when Net::HTTPOK, Net::HTTPCreated
+        save!
+        true   # success response
+      when Net::HTTPClientError, Net::HTTPInternalServerError
+        Rails.logger.error('======== API ERROR "models/proposal/save" (3) ===============================')
+        Rails.logger.error("code: #{response.code}, message: #{response.message}, body: #{response.body}")
+        errors.add(:base, "code: #{response.code}, message: #{response.message}, body: #{response.body}")
+        Rails.logger.error('=============================================================================')
+        raise ActiveRecord::Rollback, "#{e}"
+        false
+      when response.class != 'String'
+        Rails.logger.error('======== API ERROR "models/proposal/save" (4) ===============================')
+        Rails.logger.error("code: #{response.code}, message: #{response.message}, body: #{response.body}")
+        errors.add(:base, "code: #{response.code}, message: #{response.message}, body: #{response.body}")
+        Rails.logger.error('=============================================================================')
+        raise ActiveRecord::Rollback, "#{e}"
+        false
+      else
+        Rails.logger.error('======== API ERROR "models/proposal/save" (5) ===============================')
+        Rails.logger.error("#{response}")
+        errors.add(:base, "#{response}")
+        Rails.logger.error('=============================================================================')
+        raise ActiveRecord::Rollback, "#{response}"
+        false
+      end
     end
-    true
-  rescue ActiveRecord::StatementInvalid => e
+  rescue  => exception
+    Rails.logger.error('============= ERROR models/proposal/save =======================================')
+    Rails.logger.error('... rescue => exception')
+    Rails.logger.error("... #{exception.message}")
+    Rails.logger.error("... #{exception.couse.message}")
     # Handle exception that caused the transaction to fail
     # e.message and e.cause.message can be helpful
-    errors.add(:base, e.message)
+    errors.add(:base, "#{exception.message}")
+    errors.add(:base, "#{exception.couse.message}")
+    Rails.logger.error('================================================================================')
     false
   end
+  
+  def destroy
+    return false if invalid?
+#    ApplicationRecord.transaction do
+    Proposal.transaction do
+      netpar_proposal_obj = NetparProposal.new(multi_app_identifier: self.multi_app_identifier, netpar_proposal: JSON.parse(self.to_json) )
+      response = netpar_proposal_obj.request_destroy
+
+    rescue *HTTP_ERRORS => e
+      Rails.logger.error('======== API ERROR "models/proposal/destroy - API ERROR" (1) ================')
+      Rails.logger.error("#{e}")
+      errors.add(:base, "#{e}")
+      Rails.logger.error('=============================================================================')
+      raise ActiveRecord::Rollback, "#{e}"
+      false
+    rescue StandardError => e
+      Rails.logger.error('======== API ERROR "models/proposal/destroy - API ERROR" (2) ================')
+      Rails.logger.error("#{e}")
+      errors.add(:base, "#{e}")
+      Rails.logger.error('=============================================================================')
+      raise ActiveRecord::Rollback, "#{e}"
+      false
+    else
+      case response
+      when Net::HTTPNoContent
+        with_transaction_returning_status { super }
+        true   # success response
+      when Net::HTTPClientError, Net::HTTPInternalServerError
+        Rails.logger.error('======== API ERROR "models/proposal/destroy" (3) ============================')
+        Rails.logger.error("code: #{response.code}, message: #{response.message}, body: #{response.body}")
+        errors.add(:base, "code: #{response.code}, message: #{response.message}, body: #{response.body}")
+        Rails.logger.error('=============================================================================')
+        raise ActiveRecord::Rollback, "#{e}"
+        false
+      when response.class != 'String'
+        Rails.logger.error('======== API ERROR "models/proposal/destroy" (4) ============================')
+        Rails.logger.error("code: #{response.code}, message: #{response.message}, body: #{response.body}")
+        errors.add(:base, "code: #{response.code}, message: #{response.message}, body: #{response.body}")
+        Rails.logger.error('=============================================================================')
+        raise ActiveRecord::Rollback, "#{e}"
+        false
+      else
+        Rails.logger.error('======== API ERROR "models/proposal/destroy" (5) ============================')
+        Rails.logger.error("#{response}")
+        errors.add(:base, "#{response}")
+        Rails.logger.error('=============================================================================')
+        raise ActiveRecord::Rollback, "#{response}"
+        false
+      end
+    end
+  rescue  => exception
+    Rails.logger.error('============= ERROR models/proposal/destroy ====================================')
+    Rails.logger.error('... rescue => exception')
+    Rails.logger.error("... #{exception.message}")
+    Rails.logger.error("... #{exception.couse.message}")
+    # Handle exception that caused the transaction to fail
+    # e.message and e.cause.message can be helpful
+    errors.add(:base, "#{exception.message}")
+    errors.add(:base, "#{exception.couse.message}")
+    Rails.logger.error('================================================================================')
+    false
+  end
+  
 
   def status_name
     case status
@@ -79,8 +205,9 @@ class Proposal < ApplicationRecord
 
   private
   
-    def set_initial_status
+    def set_initial_status_and_multi_app_identifier
       self.status = PROPOSAL_CREATED unless self.status.present?
+      self.multi_app_identifier = SecureRandom.uuid unless self.multi_app_identifier.present?
     end
 
 end

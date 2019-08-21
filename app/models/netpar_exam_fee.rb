@@ -1,7 +1,7 @@
 require 'net/http'
 
-class NetparExam
-	include ActiveModel::Model
+class NetparExamFee
+  include ActiveModel::Model
 
   HTTP_ERRORS = [
     EOFError,
@@ -14,18 +14,16 @@ class NetparExam
     Errno::ECONNREFUSED
   ]
 
-	attr_accessor :category, :q, :page, :page_limit, :id
+  attr_accessor :id, :division_id, :esod_category, :price
 
   def initialize(params = {})
-    @category = params.fetch(:category, '')
-    @q = params.fetch(:q, '')
-    @page = params.fetch(:page, 0)
-    @page_limit = params.fetch(:page_limit, 10)
     @id = params.fetch(:id, 0)
+    @division_id = params.fetch(:division_id, 0)
+    @esod_category = params.fetch(:esod_category, 0)
   end
 
   def request_with_id
-    uri = URI("#{Rails.application.secrets[:netpar2015_api_url]}/exams/#{@id}")
+    uri = URI("#{Rails.application.secrets[:netpar2015_api_url]}/exam_fees/#{@id}")
     http = Net::HTTP.new(uri.host, uri.port)
     # SSL 
     http.use_ssl = true if uri.scheme == "https" 
@@ -35,14 +33,14 @@ class NetparExam
     response = http.request(req)
 
   rescue *HTTP_ERRORS => e
-    Rails.logger.error('======== API ERROR "models/netpar_exam/request_with_id" (1) =================')
+    Rails.logger.error('======== API ERROR "models/netpar_exam_fee/request_with_id" (1) =============')
     Rails.logger.error("#{e}")
     errors.add(:base, "#{e}")
     Rails.logger.error('=============================================================================')
     #false    # non-success response
     "#{e}"
   rescue StandardError => e
-    Rails.logger.error('======== API ERROR "models/netpar_exam/request_with_id" (2) =================')
+    Rails.logger.error('======== API ERROR "models/netpar_exam_fee/request_with_id" (2) =============')
     Rails.logger.error("#{e}")
     errors.add(:base, "#{e}")
     Rails.logger.error('=============================================================================')
@@ -54,7 +52,7 @@ class NetparExam
       #true   # success response
       response
     when Net::HTTPClientError, Net::HTTPInternalServerError
-      Rails.logger.error('======== API ERROR "models/netpar_exam/request_with_id" (3) =================')
+      Rails.logger.error('======== API ERROR "models/netpar_exam_fee/request_with_id" (3) =============')
       Rails.logger.error("code: #{response.code}, message: #{response.message}, body: #{response.body}")
       errors.add(:base, "code: #{response.code}, message: #{response.message}, body: #{response.body}")
       Rails.logger.error('=============================================================================')
@@ -63,27 +61,32 @@ class NetparExam
     end
   end
 
-  def request_collection
-    uri = URI("#{Rails.application.secrets[:netpar2015_api_url]}/exams")
+  def request_find
+    uri = URI("#{Rails.application.secrets[:netpar2015_api_url]}/exam_fees/find")
     http = Net::HTTP.new(uri.host, uri.port)
     # SSL 
     http.use_ssl = true if uri.scheme == "https" 
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE if uri.scheme == "https" # Sets the HTTPS verify mode
     # /SSL 
     req = Net::HTTP::Get.new(uri.path, {'Content-Type' => 'application/json', 'Authorization' => "Token token=#{NetparUser.netparuser_token}"})
-    params = {:q => "#{@q}", :page => "#{@page}", :page_limit => "#{@page_limit}", :category => "#{@category}"}
+    params = {:division_id => "#{@division_id}", :esod_category => "#{@esod_category}"}
     req.body = params.to_json
     response = http.request(req)
+    #JSON.parse(response.body)
+    body_parsed = JSON.parse(response.body)
+    @id = body_parsed["id"]
+    @price = body_parsed["price"]
+    response
 
   rescue *HTTP_ERRORS => e
-    Rails.logger.error('======== API ERROR "models/netpar_exam/request_collection" (1) ==============')
+    Rails.logger.error('======== API ERROR "models/netpar_exam_fee/find" (1) ========================')
     Rails.logger.error("#{e}")
     errors.add(:base, "#{e}")
     Rails.logger.error('=============================================================================')
     #false    # non-success response
     "#{e}"
   rescue StandardError => e
-    Rails.logger.error('======== API ERROR "models/netpar_exam/request_collection" (2) ==============')
+    Rails.logger.error('======== API ERROR "models/netpar_exam_fee/find" (2) ========================')
     Rails.logger.error("#{e}")
     errors.add(:base, "#{e}")
     Rails.logger.error('=============================================================================')
@@ -95,7 +98,7 @@ class NetparExam
       #true   # success response
       response
     when Net::HTTPClientError, Net::HTTPInternalServerError
-      Rails.logger.error('======== API ERROR "models/netpar_exam/request_collection" (3) ==============')
+      Rails.logger.error('======== API ERROR "models/netpar_exam_fee/find" (3) ========================')
       Rails.logger.error("code: #{response.code}, message: #{response.message}, body: #{response.body}")
       errors.add(:base, "code: #{response.code}, message: #{response.message}, body: #{response.body}")
       Rails.logger.error('=============================================================================')
@@ -103,5 +106,6 @@ class NetparExam
       response
     end
   end
+
 
 end
