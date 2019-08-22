@@ -57,7 +57,7 @@ module Wizards
       validates :exam_id, presence: true
       validates :division_id, presence: true
       validate :unique_category_for_creator, unless: -> { category.blank? }
-      #validate :check_min_years_old, unless: -> { division_id.blank? }
+      validate :check_min_years_old, unless: -> { division_id.blank? }
 
       private
         def unique_category_for_creator
