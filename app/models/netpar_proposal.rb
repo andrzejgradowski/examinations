@@ -49,10 +49,10 @@ class NetparProposal
 
   def request_create
     uri = URI("#{Rails.application.secrets[:netpar2015_api_url]}/proposals")
-    http = Net::HTTP.new(uri.host, uri.port)
-    # SSL 
-    http.use_ssl = true if uri.scheme == "https" 
-    http.verify_mode = OpenSSL::SSL::VERIFY_NONE if uri.scheme == "https" # Sets the HTTPS verify mode
+    # http = Net::HTTP.new(uri.host, uri.port)
+    # # SSL 
+    # http.use_ssl = true if uri.scheme == "https" 
+    # http.verify_mode = OpenSSL::SSL::VERIFY_NONE if uri.scheme == "https" # Sets the HTTPS verify mode
     # /SSL 
 
     request = Net::HTTP::Post.new(uri)
@@ -65,6 +65,8 @@ class NetparProposal
 
     request.set_form_data( proposal_data )
     response = Net::HTTP.start(uri.hostname, uri.port) do |http|
+      http.use_ssl = true if uri.scheme == "https" 
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE if uri.scheme == "https" # Sets the HTTPS verify mode
       http.request(request)
     end
 
@@ -101,11 +103,11 @@ class NetparProposal
 
   def request_update
     uri = URI("#{Rails.application.secrets[:netpar2015_api_url]}/proposals/#{@multi_app_identifier}")
-    http = Net::HTTP.new(uri.host, uri.port)
-    # SSL 
-    http.use_ssl = true if uri.scheme == "https" 
-    http.verify_mode = OpenSSL::SSL::VERIFY_NONE if uri.scheme == "https" # Sets the HTTPS verify mode
-    # /SSL 
+    # http = Net::HTTP.new(uri.host, uri.port)
+    # # SSL 
+    # http.use_ssl = true if uri.scheme == "https" 
+    # http.verify_mode = OpenSSL::SSL::VERIFY_NONE if uri.scheme == "https" # Sets the HTTPS verify mode
+    # # /SSL 
 
     request = Net::HTTP::Patch.new(uri)
     request["Content-Type"] = "application/json"
@@ -117,6 +119,8 @@ class NetparProposal
 
     request.set_form_data( proposal_data )
     response = Net::HTTP.start(uri.hostname, uri.port) do |http|
+      http.use_ssl = true if uri.scheme == "https" 
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE if uri.scheme == "https" # Sets the HTTPS verify mode
       http.request(request)
     end
 
