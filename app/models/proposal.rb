@@ -13,13 +13,13 @@ class Proposal < ApplicationRecord
     Errno::ECONNREFUSED
   ]
 
-  PROPOSAL_CREATED = 1
-  PROPOSAL_APPROVED = 2
-  PROPOSAL_NOT_APPROVED = 3
-  PROPOSAL_PAYED = 4
-  PROPOSAL_CLOSED = 5
+  PROPOSAL_STATUS_CREATED = 1
+  PROPOSAL_STATUS_APPROVED = 2
+  PROPOSAL_STATUS_NOT_APPROVED = 3
+  PROPOSAL_STATUS_PAYED = 4
+  PROPOSAL_STATUS_CLOSED = 5
 
-  PROPOSAL_STATUSES = [PROPOSAL_CREATED, PROPOSAL_APPROVED, PROPOSAL_NOT_APPROVED, PROPOSAL_PAYED, PROPOSAL_CLOSED]
+  PROPOSAL_STATUSES = [PROPOSAL_STATUS_CREATED, PROPOSAL_STATUS_APPROVED, PROPOSAL_STATUS_NOT_APPROVED, PROPOSAL_STATUS_PAYED, PROPOSAL_STATUS_CLOSED]
 
   CATEGORY_NAME_M = "Świadectwo służby morskiej i żeglugi śródlądowej"
   CATEGORY_NAME_R = "Świadectwo służby radioamatorskiej"
@@ -28,9 +28,9 @@ class Proposal < ApplicationRecord
   belongs_to :creator, class_name: "User", foreign_key: :creator_id
 
   # validates
-  validates :status, presence: true, inclusion: { in: PROPOSAL_STATUSES }
+  validates :proposal_status_id, presence: true, inclusion: { in: PROPOSAL_STATUSES }
   validates :category, presence: true, inclusion: { in: %w(M R) },
-                    uniqueness: { conditions: -> { where.not(status: [PROPOSAL_CLOSED]) }, 
+                    uniqueness: { conditions: -> { where.not(proposal_status_id: [PROPOSAL_STATUS_CLOSED]) }, 
                                   scope: [:creator_id], message: " - Jest aktualnie procedowane Twoje zgłoszenie dla tej służby" }
 
   validates :email, presence: true, format: { with: /@/ }
@@ -177,16 +177,16 @@ class Proposal < ApplicationRecord
   
 
   def status_name
-    case status
-    when PROPOSAL_CREATED
+    case proposal_status_id
+    when PROPOSAL_STATUS_CREATED
       'Zgłoszenie utworzone'
-    when PROPOSAL_APPROVED
+    when PROPOSAL_STATUS_APPROVED
       'Zgłoszenie zatwierdzone'
-    when PROPOSAL_NOT_APPROVED
+    when PROPOSAL_STATUS_NOT_APPROVED
       'Zgłoszenie odrzucone'
-    when PROPOSAL_PAYED
+    when PROPOSAL_STATUS_PAYED
       'Zgłoszenie opłacone'
-    when PROPOSAL_CLOSED
+    when PROPOSAL_STATUS_CLOSED
       'Zgłoszenie zamknięte'
     when 0, nil
       ''
@@ -196,17 +196,17 @@ class Proposal < ApplicationRecord
   end
 
   def can_destroy?
-    status != PROPOSAL_CLOSED
+    proposal_status_id != PROPOSAL_STATUS_CLOSED
   end
 
   def can_edit?
-    status != PROPOSAL_CLOSED
+    proposal_status_id != PROPOSAL_STATUS_CLOSED
   end
 
   private
   
     def set_initial_status_and_multi_app_identifier
-      self.status = PROPOSAL_CREATED unless self.status.present?
+      self.proposal_status_id = PROPOSAL_STATUS_CREATED unless self.proposal_status_id.present?
       self.multi_app_identifier = SecureRandom.uuid unless self.multi_app_identifier.present?
     end
 

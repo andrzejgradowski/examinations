@@ -190,7 +190,7 @@ ActiveRecord::Schema.define(version: 2019_08_04_150412) do
 
   create_table "proposals", force: :cascade do |t|
     t.uuid "multi_app_identifier", null: false
-    t.integer "status", null: false
+    t.integer "proposal_status_id", null: false
     t.string "category", limit: 1, null: false
     t.bigint "creator_id"
     t.string "name", limit: 160, default: "", null: false
@@ -224,7 +224,7 @@ ActiveRecord::Schema.define(version: 2019_08_04_150412) do
     t.index ["creator_id"], name: "index_proposals_on_creator_id"
     t.index ["multi_app_identifier"], name: "index_proposals_on_multi_app_identifier"
     t.index ["pesel"], name: "index_proposals_on_pesel"
-    t.index ["status"], name: "index_proposals_on_status"
+    t.index ["proposal_status_id"], name: "index_proposals_on_proposal_status_id"
   end
 
   create_table "roles", force: :cascade do |t|

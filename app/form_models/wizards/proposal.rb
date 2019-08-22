@@ -61,7 +61,7 @@ module Wizards
 
       private
         def unique_category_for_creator
-          if ::Proposal.where(category: category, creator_id: creator_id).where.not(status: [::Proposal::PROPOSAL_CLOSED]).any? 
+          if ::Proposal.where(category: category, creator_id: creator_id).where.not(proposal_status_id: [::Proposal::PROPOSAL_STATUS_CLOSED]).any? 
             errors.add(:category, " - Jest aktualnie procedowane Twoje zgłoszenie dla tej służby")
             false
           end

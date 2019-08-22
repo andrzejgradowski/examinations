@@ -2,7 +2,7 @@ class CreateProposals < ActiveRecord::Migration[5.2]
   def change
     create_table :proposals do |t|
       t.uuid :multi_app_identifier,         null: false, index: true
-      t.integer :status,                    null: false, index: true
+      t.integer :proposal_status_id,        null: false, index: true
       t.string :category,                   limit: 1, null: false, index: true
       #add_reference :orders, :creator, foreign_key: { to_table: :users }
       t.references :creator, foreign_key: { to_table: :users }
