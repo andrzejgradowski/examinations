@@ -57,6 +57,7 @@ class ProposalsController < ApplicationController
       @proposal.esod_category = 41 if @proposal.current_step == 'step4'
       set_exam_fee_attributes if @proposal.current_step == 'step6'
 
+      @proposal.confirm_that_the_data_is_correct = false
       render :new
     else
       session[:proposal_step] = session[:proposal_params] = nil
@@ -216,7 +217,7 @@ class ProposalsController < ApplicationController
         :address_city, :address_street, :address_house, :address_number, :address_postal_code,
         :c_address_city, :c_address_street, :c_address_house, :c_address_number, :c_address_postal_code,
         :category, :esod_category, :exam_id, :exam_fullname, :date_exam, :division_id, :division_fullname, 
-        :exam_fee_id, :exam_fee_price)
+        :exam_fee_id, :exam_fee_price, :confirm_that_the_data_is_correct)
     end
 
 end

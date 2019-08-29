@@ -24,7 +24,7 @@ class Proposal < ApplicationRecord
   CATEGORY_NAME_M = "Świadectwo służby morskiej i żeglugi śródlądowej"
   CATEGORY_NAME_R = "Świadectwo służby radioamatorskiej"
 
-  attr_writer :current_step, :all_is_ok
+  attr_writer :current_step
 
   # relations
   belongs_to :creator, class_name: "User", foreign_key: :creator_id
@@ -37,58 +37,42 @@ class Proposal < ApplicationRecord
   validates :proposal_status_id, presence: true, inclusion: { in: PROPOSAL_STATUSES }
 
   # step 1
-  # validates :email, presence: true, format: { with: /@/ }, if: -> { current_step == 'step1' }
-  # validates :name, presence: true, length: { in: 1..160 }, if: -> { current_step == 'step1' }
-  # validates :given_names, presence: true, length: { in: 1..50 }, if: -> { current_step == 'step1' }
-  # validates :birth_place, presence: true, length: { in: 1..50 }, if: -> { current_step == 'step1' }
-  # validates :birth_date, presence: true, if: -> { current_step == 'step1' }
-  # validate :check_pesel, if: -> { current_step == 'step1' && pesel.present? }
-  # validate :check_birth_date, if: -> { current_step == 'step1' && pesel.present? }
-  # OR:
-  with_options if: -> { current_step == 'step1' } do |step|
-    step.validates :email, presence: true, format: { with: /@/ }
-    step.validates :name, presence: true, length: { in: 1..160 }
-    step.validates :given_names, presence: true, length: { in: 1..50 }
-    step.validates :birth_place, presence: true, length: { in: 1..50 }
-    step.validates :birth_date, presence: true
-    step.validate :check_pesel, if: -> { pesel.present? }
-    step.validate :check_birth_date, if: -> { pesel.present? }
-  end
+  validates :email, presence: true, format: { with: /@/ }, if: -> { current_step == 'step1' }
+  validates :name, presence: true, length: { in: 1..160 }, if: -> { current_step == 'step1' }
+  validates :given_names, presence: true, length: { in: 1..50 }, if: -> { current_step == 'step1' }
+  validates :birth_place, presence: true, length: { in: 1..50 }, if: -> { current_step == 'step1' }
+  validates :birth_date, presence: true, if: -> { current_step == 'step1' }
+  validate :check_pesel, if: -> { pesel.present? && current_step == 'step1' }
+  validate :check_birth_date, if: -> { pesel.present? && current_step == 'step1' }
 
   # step2
-  with_options if: -> { current_step == 'step2' } do |step|
-    step.validates :address_city, presence: true, length: { in: 1..50 }
-    step.validates :address_house, presence: true, length: { in: 1..10 }
-    step.validates :address_postal_code, presence: true, length: { in: 6..10 }
-  end
+  validates :address_city, presence: true, length: { in: 1..50 }, if: -> { current_step == 'step2' }
+  validates :address_house, presence: true, length: { in: 1..10 }, if: -> { current_step == 'step2' }
+  validates :address_postal_code, presence: true, length: { in: 6..10 }, if: -> { current_step == 'step2' }
 
   # step3
-  with_options if: -> { current_step == 'step3' } do |step|
-    step.validates :c_address_city, presence: true, length: { in: 1..50 }
-    step.validates :c_address_house, presence: true, length: { in: 1..10 }
-    step.validates :c_address_postal_code, presence: true, length: { in: 6..10 }
-  end
+  validates :c_address_city, presence: true, length: { in: 1..50 }, if: -> { current_step == 'step3' }
+  validates :c_address_house, presence: true, length: { in: 1..10 }, if: -> { current_step == 'step3' }
+  validates :c_address_postal_code, presence: true, length: { in: 6..10 }, if: -> { current_step == 'step3' }
 
   # step4
-  with_options if: -> { current_step == 'step4' } do |step|
-    step.validates :category, presence: true, inclusion: { in: %w(M R) }
-    step.validate :unique_category_for_creator, if: -> { category.present?}
-    step.validates :exam_id, presence: true
-    step.validates :division_id, presence: true
-    step.validate :check_min_years_old, if: -> { division_id.present? }
-
-    step.validates :esod_category, presence: true
-  end
+  validates :category, presence: true, inclusion: { in: %w(M R) }, if: -> { current_step == 'step4' }
+  validate :unique_category_for_creator, if: -> { category.present? && current_step == 'step4' }
+  validates :exam_id, presence: true, if: -> { current_step == 'step4' }
+  validates :division_id, presence: true, if: -> { current_step == 'step4' }
+  validate :check_min_years_old, if: -> { division_id.present? && current_step == 'step4' }
+  validates :esod_category, presence: true, if: -> { current_step == 'step4' }
 
   # step5
-  with_options if: -> { current_step == 'step5' } do |step|
-    step.validate :check_attached_bank_pdf
-    step.validate :check_attached_face_image
-  end
+  validate :check_attached_bank_pdf, if: -> { current_step == 'step5' }
+  validate :check_attached_face_image, if: -> { current_step == 'step5' }
 
   # step6
-  validates :exam_fee_id, presence: true, if: -> { current_step == 'step6' && esod_category.present? && division_id.present? }
-  validates :exam_fee_price, presence: true, if: -> { current_step == 'step6' && esod_category.present? && division_id.present? }
+  validates :exam_fee_id, presence: true, if: -> { esod_category.present? && division_id.present? && current_step == 'step6' }
+  validates :exam_fee_price, presence: true, if: -> { esod_category.present? && division_id.present? && current_step == 'step6' }
+
+  validate :check_confirm_that_the_data_is_correct, if: -> { last_step? }
+
 
   # callbacks
   after_initialize :set_initial_status_and_multi_app_identifier
@@ -304,6 +288,7 @@ class Proposal < ApplicationRecord
         false
       end
     end
+
     def check_birth_date
       unless Activepesel::Pesel.new(pesel).date_of_birth == birth_date
         errors.add(:birth_date, " - niezgodność danych z danymi PESEL")
@@ -374,6 +359,13 @@ class Proposal < ApplicationRecord
         end
       end
       analyze_value
+    end
+
+    def check_confirm_that_the_data_is_correct
+      unless confirm_that_the_data_is_correct == true
+        errors.add(:confirm_that_the_data_is_correct, " - Musisz potwierdzić poprawność danych")
+        false
+      end
     end
 
 

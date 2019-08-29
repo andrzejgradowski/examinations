@@ -20,7 +20,7 @@ class NetparProposal
 
 
   def initialize(params = {})
-    @multi_app_identifier = params.fetch(:multi_app_identifier, 0)
+    @multi_app_identifier = params.fetch(:multi_app_identifier, '')
     # params netpar_proposal as Hash!
     @netpar_proposal = params.fetch("netpar_proposal".to_sym)
   end

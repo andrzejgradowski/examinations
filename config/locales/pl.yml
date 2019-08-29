@@ -139,7 +139,7 @@ pl:
         exam_fee_price: 'Opłata'
         face_image: 'Zdjęcie'
         bank_pdf: 'Bankowe potwierdzenie wykonania przelewu'
-        all_is_ok: 'Dane powyższe są zgodne z prawdą, co potwierdzam'
+        confirm_that_the_data_is_correct: 'Dane powyższe są zgodne z prawdą, co potwierdzam'
     errors:
       messages:
         record_invalid: "Validation failed: %{errors}"
