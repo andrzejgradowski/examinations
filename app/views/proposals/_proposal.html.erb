@@ -10,7 +10,16 @@
   <hr class="hr-without-top-margin">
 
   <div class="row">
-    <div class="col-sm-7">
+    <div class="col-sm-12">
+      <p><strong><%= proposal.class.human_attribute_name(:status_name) %>:</strong>&nbsp;<%= proposal_rec_status_name(proposal) %></p>
+      <%= render partial: "proposals/status_id_#{proposal.proposal_status_id}_comment" %>
+    </div> <!-- /col-sm-6 -->
+  </div> <!-- /row -->
+
+  <hr class="hr-without-top-margin">
+
+  <div class="row">
+    <div class="col-sm-12">
 
       <% if policy(proposal).show_self? %>
         <%= link_to proposal_path(proposal), class: "btn btn-primary" do %>
@@ -19,11 +28,7 @@
         <% end %>
       <% end %>
 
-    </div> <!-- /col-sm-6 -->
-
-    <div class="col-sm-5">
-      <p><strong><%= proposal.class.human_attribute_name(:status_name) %>:</strong>&nbsp;<%= proposal.try(:status_name) %></p>
-    </div> <!-- /col-sm-6 -->
+    </div> <!-- /col-sm-12 -->
 
   </div> <!-- /row -->
 

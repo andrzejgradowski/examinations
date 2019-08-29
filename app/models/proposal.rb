@@ -16,10 +16,9 @@ class Proposal < ApplicationRecord
   PROPOSAL_STATUS_CREATED = 1
   PROPOSAL_STATUS_APPROVED = 2
   PROPOSAL_STATUS_NOT_APPROVED = 3
-  PROPOSAL_STATUS_PAYED = 4
-  PROPOSAL_STATUS_CLOSED = 5
+  PROPOSAL_STATUS_CLOSED = 4
 
-  PROPOSAL_STATUSES = [PROPOSAL_STATUS_CREATED, PROPOSAL_STATUS_APPROVED, PROPOSAL_STATUS_NOT_APPROVED, PROPOSAL_STATUS_PAYED, PROPOSAL_STATUS_CLOSED]
+  PROPOSAL_STATUSES = [PROPOSAL_STATUS_CREATED, PROPOSAL_STATUS_APPROVED, PROPOSAL_STATUS_NOT_APPROVED, PROPOSAL_STATUS_CLOSED]
 
   CATEGORY_NAME_M = "Świadectwo służby morskiej i żeglugi śródlądowej"
   CATEGORY_NAME_R = "Świadectwo służby radioamatorskiej"
@@ -68,8 +67,8 @@ class Proposal < ApplicationRecord
   validate :check_attached_face_image, if: -> { current_step == 'step5' }
 
   # step6
-  validates :exam_fee_id, presence: true, if: -> { esod_category.present? && division_id.present? && current_step == 'step6' }
-  validates :exam_fee_price, presence: true, if: -> { esod_category.present? && division_id.present? && current_step == 'step6' }
+  validates :exam_fee_id, presence: true, if: -> { esod_category.present? && division_id.present? && current_step == 'step5' }
+  validates :exam_fee_price, presence: true, if: -> { esod_category.present? && division_id.present? && current_step == 'step5' }
 
   validate :check_confirm_that_the_data_is_correct, if: -> { last_step? }
 
@@ -243,25 +242,6 @@ class Proposal < ApplicationRecord
     false
   end
   
-
-  def status_name
-    case proposal_status_id
-    when PROPOSAL_STATUS_CREATED
-      'Zgłoszenie utworzone'
-    when PROPOSAL_STATUS_APPROVED
-      'Zgłoszenie zatwierdzone'
-    when PROPOSAL_STATUS_NOT_APPROVED
-      'Zgłoszenie odrzucone'
-    when PROPOSAL_STATUS_PAYED
-      'Zgłoszenie opłacone'
-    when PROPOSAL_STATUS_CLOSED
-      'Zgłoszenie zamknięte'
-    when 0, nil
-      ''
-    else
-      'Error !'
-    end  
-  end
 
   def can_destroy?
     proposal_status_id != PROPOSAL_STATUS_CLOSED

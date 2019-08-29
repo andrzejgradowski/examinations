@@ -1,7 +1,7 @@
 module ProposalsHelper
 
-  def category_name(proposal)
-    case proposal.category
+  def category_name(data)
+    case data.category
     when 'M'
       Proposal::CATEGORY_NAME_M
     when 'R'
@@ -11,10 +11,6 @@ module ProposalsHelper
     else
       nil
     end  
-  end
-
-  def proposal_rec_info(proposal)
-    t('proposals.proposal.rec_info', data: "#{proposal.created_at.strftime('%Y-%m-%d %H:%M:%S')} [#{category_name(proposal)}]")
   end
 
   def proposal_no_data
@@ -38,5 +34,12 @@ module ProposalsHelper
     data.html_safe
   end
 
+  def proposal_rec_info(data)
+    t('proposals.proposal.rec_info', data: "#{data.created_at.strftime('%Y-%m-%d %H:%M:%S')} [#{category_name(data)}]")
+  end
+
+  def proposal_rec_status_name(data)
+    t("proposals.status_id_#{data.proposal_status_id}_name")
+  end
 
 end

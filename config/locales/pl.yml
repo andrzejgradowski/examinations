@@ -27,6 +27,10 @@ pl:
     show:
       title: 'Klub'
   proposals:
+    status_id_1_name: 'Zgłoszenie utworzone'
+    status_id_2_name: 'Zgłoszenie zatwierdzone'
+    status_id_3_name: 'Zgłoszenie odrzucone'
+    status_id_4_name: 'Zgłoszenie zamknięte'
     new:
       title: 'Kreator Zgłoszenia'
     index:
@@ -136,7 +140,7 @@ pl:
         division_id: 'Rodzaj'
         division_fullname: 'Rodzaj'
         exam_fee_id: 'Opłata'
-        exam_fee_price: 'Opłata'
+        exam_fee_price: 'Wymagana opłata'
         face_image: 'Zdjęcie'
         bank_pdf: 'Bankowe potwierdzenie wykonania przelewu'
         confirm_that_the_data_is_correct: 'Dane powyższe są zgodne z prawdą, co potwierdzam'

@@ -55,7 +55,7 @@ class ProposalsController < ApplicationController
     if @proposal.new_record?
       set_address_attributes if @proposal.current_step == 'step3'
       @proposal.esod_category = 41 if @proposal.current_step == 'step4'
-      set_exam_fee_attributes if @proposal.current_step == 'step6'
+      set_exam_fee_attributes if @proposal.current_step == 'step5'
 
       @proposal.confirm_that_the_data_is_correct = false
       render :new
