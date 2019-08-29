@@ -1,5 +1,40 @@
-<h1>New Proposal</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h3 class="center">
+        <span class="fa fa-file-invoice glyp-index-title" aria-hidden="true"></span>
+        <span class="index-title"><%= t '.title' %></span>
+      </h3>
+    </div> <!--/col-sm-12 -->
+  </div> <!--/row -->
 
-<%= render 'form', proposal: @proposal %>
+  <%= form_with(model: @proposal, local: true) do |f| %>
 
-<%= link_to 'Back', proposals_path %>
+  	<%= form_errors_for f.object %>
+
+    <%= render "form_#{@proposal.current_step}", f: f %>
+
+    <div class="row">
+	    <div class="col-sm-12">
+
+				<%= f.button(:class => "btn btn-primary", :name => "back_button") do %>
+          <span><%= fa_icon("chevron-left", :text => t("proposals.form_#{@proposal.current_step}.submit_back")) %></span>
+				<% end unless @proposal.first_step? %>
+
+        <% unless @proposal.last_step? %>
+  				<%= f.button(:class => "btn btn-primary", disabled: @proposal.last_step?, :id => "wizard_btn_submit") do %>
+            <span><%= fa_icon("chevron-right", :text => t("proposals.form_#{@proposal.current_step}.submit"), right: true) %></span>
+  				<% end %>
+        <% else %>
+          <%= f.button(:class => "btn btn-success", disabled: @proposal.last_step?, :id => "wizard_btn_submit") do %>
+            <span><%= fa_icon("check", :text => t("proposals.form_#{@proposal.current_step}.submit"), right: true) %></span>
+          <% end %>
+        <% end %>
+
+	    </div> <!--/col-sm-12 -->
+    </div> <!--/row -->
+
+	<% end %>
+
+</div> <!--/container -->
+

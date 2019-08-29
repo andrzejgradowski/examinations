@@ -1,10 +1,10 @@
 <fieldset class="my-fieldset">
-  <legend class="my-fieldset"><%= t('wizard_proposals.step1.fieldset_title') %></legend>
+  <legend class="my-fieldset"><%= t('proposals.form_step1.fieldset_title') %></legend>
 
   <div class="row">
     <div class="form-group required col-sm-4">
 <!--
-      <p><strong><%= partial_data.class.human_attribute_name(:email) %></strong></p>
+      <p><strong><%#= partial_data.class.human_attribute_name(:email) %></strong></p>
 -->      
       <p><strong><%= Proposal.human_attribute_name(:email) %></strong></p>
       <%= partial_data.try(:email) %>

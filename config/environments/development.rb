@@ -25,8 +25,8 @@ Rails.application.configure do
       driver: :hiredis, 
       url: Rails.application.secrets.redis_url,     
       connect_timeout: 30,  # Defaults to 20 seconds
-      read_timeout:    0.2, # Defaults to 1 second
-      write_timeout:   0.2, # Defaults to 1 second
+      read_timeout:    1.0, # Defaults to 1 second
+      write_timeout:   1.0, # Defaults to 1 second
      
       error_handler: -> (method:, returning:, exception:) {
         # Report errors to Sentry as warnings
@@ -70,5 +70,13 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  # Store uploaded files on the local file system (see config/storage.yml for options)
+  config.active_storage.service = :local
+  # config.default_url_options = { host: Rails.application.secrets.domain_name }
+  #Rails.application.routes.default_url_options[:host] = 'localhost:3000'
+  Rails.application.routes.default_url_options = { host: Rails.application.secrets.domain_name }
+
+
 
 end

@@ -2,22 +2,75 @@
   <div class="row">
     <div class="col-sm-12">
       <h3 class="center">
-        <span class="fa fa-flag glyp-index-title" aria-hidden="true"></span>
-        <span class="index-title"><%= @club.try(:number) %></span>
+        <span class="fa fa-file-invoice glyp-index-title" aria-hidden="true"></span>
+        <span class="index-title"><%= t '.title' %></span>
       </h3>
     </div> <!--/col-sm-12 -->
   </div> <!--/row -->
 
-  <%= render partial: "basic_info",        locals: {partial_data: @proposal} %>
-  <%#= render partial: "shared/station_full_info", locals: {partial_data: @club} %>
-  <%#= render partial: "shared/applicant_info",    locals: {partial_data: @club} %>
-  <%#= render partial: "shared/enduser_info",      locals: {partial_data: @club} %>
+  <div class="row">
+    <div class="col-sm-12">
 
-  <br>
-  <%= link_to proposals_path, class: "btn btn-default" do %>
-    <span class="fa fa-list"></span>
-    <%= t("helpers.links.index") %>
-  <% end %>
+
+
+<fieldset class="my-fieldset">
+  <legend class="my-fieldset"><%= proposal_rec_info(@proposal) %></legend>
+
+  <%= render partial: "show_step1", locals: {partial_data: @proposal} %>
+  <%= render partial: "show_step2", locals: {partial_data: @proposal} %>
+  <%= render partial: "show_step3", locals: {partial_data: @proposal} %>
+  <%= render partial: "show_step4", locals: {partial_data: @proposal} %>
+  <%= render partial: "show_step5", locals: {partial_data: @proposal} %>
+
+  <hr class="hr-without-top-margin">
+
+  <div class="row">
+    <div class="col-sm-7">
+
+      <%= link_to proposals_path, class: "btn btn-default" do %>
+        <span class="fa fa-list"></span>
+        <%= t("helpers.links.index") %>
+      <% end %>
+
+      <% if policy(@proposal).destroy_self? %>
+        <%= link_to proposal_path(@proposal),
+                            method: :delete,
+                            data: { confirm: t('helpers.links.confirm_destroy', data: proposal_rec_info(@proposal)) }, 
+                            class: "btn btn-danger" do %>
+          <span class="glyphicon glyphicon-trash"></span>
+          <%= t("helpers.links.destroy") %>
+        <% end %>
+      <% end %>
+
+      <% if policy(@proposal).edit_self? %>
+        <%= link_to edit_proposal_path(@proposal), class: "btn btn-primary" do %>
+          <span class="glyphicon glyphicon-edit"></span>
+          <%= t("helpers.links.edit") %>
+        <% end %>
+      <% end %>
+
+    </div> <!-- /col-sm-6 -->
+
+    <div class="col-sm-5">
+      <p><strong><%= @proposal.class.human_attribute_name(:status_name) %>:</strong>&nbsp;<%= @proposal.try(:status_name) %></p>
+    </div> <!-- /col-sm-6 -->
+
+  </div> <!-- /row -->
+
+
+</fieldset>
+<br>
+
+
+
+
+
+
+
+
+    </div> <!--/col-sm-12 -->
+  </div> <!--/row -->
 
 </div> <!--/container -->
+
 

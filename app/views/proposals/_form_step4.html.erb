@@ -1,0 +1,70 @@
+<div class="row">
+  <div class="col-sm-12">
+
+    <%= f.hidden_field :esod_category %>
+    <%= f.hidden_field :exam_fullname %>
+    <%= f.hidden_field :date_exam %>
+    <%= f.hidden_field :division_fullname %>
+
+    <fieldset class="my-fieldset">
+      <legend class="my-fieldset"><%= t('.fieldset_title') %></legend>
+
+      <div class="row">
+        <div class="form-group col-sm-8">
+
+          <div class="row">
+            <div class="form-group col-sm-12">
+              <%= f.label :category, class: 'control-label' %>
+              <%= f.select :category, 
+                    options_for_select([[Proposal::CATEGORY_NAME_M, 'M'], [Proposal::CATEGORY_NAME_R, 'R']], selected: @proposal.category), 
+                    { include_blank: true}, 
+                    { onchange: "change_category_select(this.options[this.selectedIndex].value);", autofocus: true, class: 'form-control input-sm', disabled: false } %>
+            </div>
+          </div>  
+
+          <div class="row">
+            <div class="form-group col-sm-12">
+              <%= f.label :exam_id, class: "control-label" %>
+              <%= f.hidden_field :exam_id,
+                                class: "form-control input-sm exam_select", 
+                                placeholder: "Wybierz Sesję",
+                                disabled: false,
+                                style: "width:100%",
+                                id: "proposal_exam_id", 
+                                readonly: @proposal.category.blank?,
+                                "data-category": "#{@proposal.category}" %>
+            </div>
+          </div> <!--/row -->
+
+
+          <div class="row">
+            <div class="form-group col-sm-12">
+              <%= f.label :division_id, class: "control-label" %>
+              <%= f.hidden_field :division_id,
+                                class: "form-control input-sm division_select", 
+                                placeholder: "Wybierz Rodzaj",
+                                disabled: false,
+                                style: "width:100%",
+                                id: "proposal_division_id", 
+                                readonly: @proposal.category.blank?,
+                                "data-category": "#{@proposal.category}" %>
+            </div>
+          </div> <!--/row -->
+        </div>  
+
+        <div class="form-group col-sm-4">
+          <div class="row">
+            <div class="col-sm-12">
+              <blockquote>
+                <p>Lista sesji zawiera tylko te sesje, które odbędą się nie wcześniej niż za tygodzień i dla których dostępne są jeszcze wolne miejsca.</p> 
+                <p>Wyszukuj po nazwie miejscowości, województwa, dacie lub numerze. Warunki można łączyć oddzielając je spacją np. Bydgo 2019-10</p>
+              </blockquote>
+            </div> <!-- /.col-sm-5 -->
+          </div> <!--/row -->
+        </div>
+      </div> <!--/row -->
+
+    </fieldset>
+
+  </div> <!--/col-sm-12 -->
+</div> <!--/row -->

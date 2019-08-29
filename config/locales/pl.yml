@@ -20,76 +20,52 @@ pl:
   static_pages:
     home:
       title: 'UKE Egzaminy'
-  individuals:
-    index:
-      title: 'Wykaz pozwoleń wydanych osobom fizycznym'
-      navbar: 'Osoby'
-    show:
-      title: 'Osoba'
   clubs:
     index:
       title: 'Wykaz pozwoleń wydanych osobom prawnym'
       navbar: 'Kluby'
     show:
       title: 'Klub'
-  individual_devices:
-    index:
-      title: 'Wykaz pozwoleń wydanych osobom fizycznym na urządzenia bezobsługowe'
-      navbar: 'Bezobsługowe - Osoby'
-    show:
-      title: 'Bezobsługowe - Osoba'
-  club_devices:
-    index:
-      title: 'Wykaz pozwoleń wydanych osobom prawnym na urządzenia bezobsługowe'
-      navbar: 'Bezobsługowe - Kluby'
-    show:
-      title: 'Bezobsługowe - Klub'
   proposals:
+    new:
+      title: 'Kreator Zgłoszenia'
     index:
       title: 'Zgłoszenia'
       navbar: 'Zgłoszenia'
-      no_data: 'Brak danych'
+      no_data: 'Brak zgłoszeń'
+      no_data_comment: 'Aktualnie nie masz zarejestowanych żadnych zgłoszeń. Wybierz przycisk "Utwórz Zgłoszenie" aby utworzyć i wysłać elektroniczne zgłoszenie na egzamin.'
+    form_step1:
+      fieldset_title: 'Dane podstawowe'
+      submit: 'Adres'
+    form_step2:
+      fieldset_title: 'Adres'
+      submit_back: 'Dane podstawowe'
+      submit: 'Adres korespondencyjny'
+    form_step3:
+      fieldset_title: 'Adres korepondencyjny'
+      submit_back: 'Adres'
+      submit: 'Typ i rodzaj'
+    form_step4:
+      fieldset_title: 'Typ i rodzaj'
+      submit_back: 'Adres korespondencyjny'
+      submit: 'Załączniki'
+    form_step5:
+      fieldset_title: 'Załączniki'
+      submit_back: 'Typ i rodzaj'
+      submit: 'Podsumowanie'
+    form_step6:
+      fieldset_title: 'Podsumowanie'
+      submit_back: 'Załączniki'
+      submit: 'Zapisz i wyślij zgłoszenie!'
     proposal:
       rec_info: 'Zgłoszenie %{data}'
       navbar: 'Zgłoszenie'
     show:
       title: 'Zgłoszenie'
-  wizard_proposals:
-    title: 'Kreator zgłoszenia'
-    step1:
-      fieldset_title: 'Dane podstawowe'
-      submit: 'Następny krok -> Adres'
-    step2:
-      fieldset_title: 'Adres'
-      submit: 'Następny krok -> Adres korespondencyjny'
-    step3:
-      fieldset_title: 'Adres korepondencyjny'
-      submit: 'Następny krok -> Typ i rodzaj'
-    step4:
-      fieldset_title: 'Typ i rodzaj'
-      submit: 'Następny krok -> Podsumowanie'
-    step5:
-      fieldset_title: 'Podsumowanie'
-      submit: 'Zapisz'
-  shared:
-    basic_info:
-      fieldset_title: 'Dane podstawowe'
-    additional_info:
-      fieldset_title: 'Informacje dodatkowe'
-    station_info:
-      fieldset_title: 'Stacja'
-    station_full_info:
-      fieldset_title: 'Stacja'
-    applicant_info:
-      fieldset_title: 'Wnioskodawca'
-    enduser_info:
-      fieldset_title: 'Użytkownik'
   activerecord:
     models:
-      individual: 'Osoba'
       club: 'Klub'
-      individual_device: 'Bezobsługowe - Osoba'
-      club_device: 'Bezobsługowe - Klub'
+      user: 'Użytkownik'
       proposal: 'Zgłoszenie'
     attributes:
       club:
@@ -161,14 +137,9 @@ pl:
         division_fullname: 'Rodzaj'
         exam_fee_id: 'Opłata'
         exam_fee_price: 'Opłata'
-      wizards/proposal/step1:
-        email: "E-mail"
-        name: "Nazwisko"
-        given_names: "Imię"
-        pesel: "PESEL"
-        birth_date: "Data urodzenia"
-        birth_place: "Miejsce urodzenia"
-        phone: 'Telefon'
+        face_image: 'Zdjęcie'
+        bank_pdf: 'Bankowe potwierdzenie wykonania przelewu'
+        all_is_ok: 'Dane powyższe są zgodne z prawdą, co potwierdzam'
     errors:
       messages:
         record_invalid: "Validation failed: %{errors}"
@@ -390,7 +361,7 @@ pl:
       update: Aktualizuj %{model}
     links:
       index: 'Lista'
-      show: 'Podgląd'
+      show: 'Pokaż szczegóły'
       new:  'Dodaj'
       edit: 'Edycja'
       back: 'Powrót'
@@ -411,33 +382,6 @@ pl:
       new: "Nowy %{model}"
       delete: "Usuń %{model}"
       change_your_password: "Zmiań swoje hasło"
-    label:
-      wizards/proposal/step1:
-        email: "E-mail"
-        name: "Nazwisko"
-        given_names: "Imię"
-        pesel: "PESEL"
-        birth_date: "Data urodzenia"
-        birth_place: "Miejsce urodzenia"
-        phone: "Telefon"
-      wizards/proposal/step2:
-        address_city: 'Miejscowość'
-        address_street: 'Ulica'
-        address_house: 'Dom'
-        address_number: 'Lokal'
-        address_postal_code: 'Kod pocztowy'
-      wizards/proposal/step3:
-        c_address_city: 'Miejscowość'
-        c_address_street: 'Ulica'
-        c_address_house: 'Dom'
-        c_address_number: 'Lokal'
-        c_address_postal_code: 'Kod pocztowy'
-      wizards/proposal/step4:
-        category: 'Typ świadectwa'
-        exam_id: 'Sesja egzaminacyjna'
-        division_id: 'Rodzaj'
-      wizards/proposal/step5:
-        all_is_ok: 'Dane powyższe są zgodne z prawdą, co potwierdzam'
   number:
     currency:
       format:

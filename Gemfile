@@ -53,6 +53,7 @@ gem 'listen', '>= 3.0.5', '< 3.2'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+gem 'rails-i18n'
 gem 'bootstrap-sass', '3.4.1'
 
 gem 'momentjs-rails'
@@ -67,7 +68,6 @@ gem 'select2-rails', '3.5.9.3'
 gem 'jquery-datatables', '= 1.10.16' #1.10.16 bo z .19 jest jakis problem z wyswietlaniem strzalek sortowania
 gem 'ajax-datatables-rails' #, '= 0.4.0' jeżeli wywala się na custom_filter
 
-gem 'redis-rails'
 gem "hiredis"
 gem "redis", "~> 4.0"
 
@@ -91,3 +91,5 @@ gem 'inky-rb', require: 'inky'
 gem 'premailer-rails'
 
 gem 'activepesel'
+gem 'mini_magick'
+gem 'image_processing', '~> 1.2'

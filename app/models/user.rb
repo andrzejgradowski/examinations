@@ -8,6 +8,10 @@ class User < ApplicationRecord
 
   has_many :proposals, class_name: 'Proposal', primary_key: 'id', foreign_key: 'creator_id'
 
+  has_one_attached :face_image
+  has_one_attached :bank_pdf
+
+
   after_commit :set_default_role, on: :create
 
   def set_default_role

@@ -30,5 +30,8 @@ module Examinations
     config.i18n.default_locale = :pl
     config.i18n.available_locales = [:pl, :en]
 
+
+    #config.active_storage.variant_processor = :vips
+
   end
 end

@@ -1,24 +1,24 @@
 function change_category_select(category_code) {
 
   if (category_code !== "") {
-    if (category_code !== $('#proposal_wizard_exam_id').data('category')) {
-      $('#proposal_wizard_exam_id').data('category', category_code); 
-      $('#proposal_wizard_exam_id').select2("val", "");
-      $("#proposal_wizard_exam_id").select2("readonly", false);
+    if (category_code !== $('#proposal_exam_id').data('category')) {
+      $('#proposal_exam_id').data('category', category_code); 
+      $('#proposal_exam_id').select2("val", "");
+      $("#proposal_exam_id").select2("readonly", false);
     };
-    if (category_code !== $('#proposal_wizard_division_id').data('category')) {
-      $('#proposal_wizard_division_id').data('category', category_code); 
-      $('#proposal_wizard_division_id').select2("val", "");
-      $("#proposal_wizard_division_id").select2("readonly", false);
+    if (category_code !== $('#proposal_division_id').data('category')) {
+      $('#proposal_division_id').data('category', category_code); 
+      $('#proposal_division_id').select2("val", "");
+      $("#proposal_division_id").select2("readonly", false);
     };
   } else {
-    $('#proposal_wizard_exam_id').data('category', ""); 
-    $('#proposal_wizard_exam_id').select2("val", "");
-    $("#proposal_wizard_exam_id").select2("readonly", true);
+    $('#proposal_exam_id').data('category', ""); 
+    $('#proposal_exam_id').select2("val", "");
+    $("#proposal_exam_id").select2("readonly", true);
 
-    $('#proposal_wizard_division_id').data('category', ""); 
-    $('#proposal_wizard_division_id').select2("val", "");
-    $("#proposal_wizard_division_id").select2("readonly", true);
+    $('#proposal_division_id').data('category', ""); 
+    $('#proposal_division_id').select2("val", "");
+    $("#proposal_division_id").select2("readonly", true);
   };
 
 

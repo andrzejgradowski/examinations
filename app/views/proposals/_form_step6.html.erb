@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-sm-12">
+
+    <%= f.hidden_field :exam_fee_id %>
+    <%= f.hidden_field :exam_fee_price %>
+
+    <%= render partial: "proposals/show_step1", locals: {partial_data: @proposal} %>
+    <%= render partial: "proposals/show_step2", locals: {partial_data: @proposal} %>
+    <%= render partial: "proposals/show_step3", locals: {partial_data: @proposal} %>
+    <%= render partial: "proposals/show_step4", locals: {partial_data: @proposal} %>
+    <%= render partial: "proposals/show_step5", locals: {partial_data: @proposal} %>
+
+    <div class="row">
+      <div class="form-group col-sm-4">
+        <%= f.check_box :all_is_ok, id: "proposal_wizard_all_is_ok", onclick: "status_all_is_ok(this.checked)" %>&nbsp;&nbsp;
+        <%= f.label :all_is_ok, class: 'control-label' %>
+      </div>
+    </div> <!--/row -->
+
+  </div> <!--/col-sm-12 -->
+</div> <!--/row -->
