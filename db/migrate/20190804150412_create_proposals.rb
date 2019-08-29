@@ -57,7 +57,7 @@ class CreateProposals < ActiveRecord::Migration[5.2]
       #t.integer  "user_id"
       #t.integer  "certificate_id"
       #t.boolean  "supplementary",               default: false, null: false
-      t.boolean :check_confirm_that_the_data_is_correct, default: false
+      t.boolean :confirm_that_the_data_is_correct, default: false
 
       t.timestamps
     end

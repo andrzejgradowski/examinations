@@ -349,8 +349,8 @@ class Proposal < ApplicationRecord
             errors.add(:face_image, ' - nieprawidłowy typ pliku (plik content_type ["image/jpeg", "image/png"])')
             analyze_value = false
           else
-            unless self.creator.face_image.blob.byte_size < 300000
-              errors.add(:face_image, ' - plik jest za duży (max 300kB)')
+            unless self.creator.face_image.blob.byte_size < 2000000
+              errors.add(:face_image, ' - plik jest za duży (max 2MB)')
               analyze_value = false
             else
              analyze_value = true
