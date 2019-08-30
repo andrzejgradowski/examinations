@@ -113,6 +113,10 @@ class Proposal < ApplicationRecord
     ApplicationRecord.transaction do
 #    Proposal.transaction do
       if new_record?
+        creator = User.find(self.creator_id)
+        self.bank_pdf_blob_url   = Rails.application.routes.url_helpers.rails_blob_url(creator.bank_pdf) if creator.bank_pdf.attached?
+        self.face_image_blob_url = Rails.application.routes.url_helpers.rails_blob_url(creator.face_image) if creator.face_image.attached?
+
         # Insert data to Netpar2015
         netpar_proposal_obj = NetparProposal.new(netpar_proposal: JSON.parse(self.to_json) )
         response = netpar_proposal_obj.request_create

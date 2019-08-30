@@ -120,11 +120,15 @@ class ProposalsController < ApplicationController
     end
 
     def move_attached_files_from_user_to_proposal
-      attachment_record_bank_pdf = ActiveStorage::Attachment.find_by(name: 'bank_pdf', record: current_user)
-      attachment_record_bank_pdf.update(record: @proposal)
-      attachment_record_face_image = ActiveStorage::Attachment.find_by(name: 'face_image', record: current_user)
-      attachment_record_face_image.update(record: @proposal) if @proposal.division_face_image_required
-      clear_attached_to_user_files
+      ApplicationRecord.transaction do
+        attachment_record_bank_pdf = ActiveStorage::Attachment.find_by(name: 'bank_pdf', record: current_user)
+        attachment_record_bank_pdf.update(record: @proposal)
+
+        attachment_record_face_image = ActiveStorage::Attachment.find_by(name: 'face_image', record: current_user)
+        attachment_record_face_image.update(record: @proposal) if @proposal.division_face_image_required
+
+        clear_attached_to_user_files
+      end
     end
 
     def upload_bank_pdf_to_current_user_cache
