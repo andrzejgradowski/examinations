@@ -144,6 +144,7 @@ pl:
         face_image: 'Zdjęcie'
         bank_pdf: 'Bankowe potwierdzenie wykonania przelewu'
         confirm_that_the_data_is_correct: 'Dane powyższe są zgodne z prawdą, co potwierdzam'
+        not_approved_comment: 'Powód odrzucenia zgłoszenia'
     errors:
       messages:
         record_invalid: "Validation failed: %{errors}"

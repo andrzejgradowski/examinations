@@ -1,0 +1,7 @@
+<div class="row">
+  <div class="form-group col-sm-12">
+    <p><strong><%= Proposal.human_attribute_name(:not_approved_comment) %></strong></p>
+    <p class='text-danger'><%= partial_data.not_approved_comment.gsub(/\n/, '<br>').html_safe %></p>
+  </div>
+</div> <!--/row -->
+

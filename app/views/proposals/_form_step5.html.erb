@@ -22,7 +22,7 @@
             </div>
           </div>  
 
-          <% if @proposal.division_face_image_required %>
+          <% if @proposal.division_face_image_required? %>
             <div class="row">
               <div class="form-group require col-sm-12">
                 <%= f.label :face_image, class: 'control-label' %>
