@@ -59,8 +59,8 @@ class CreateProposals < ActiveRecord::Migration[5.2]
       #t.boolean  "supplementary",               default: false, null: false
       t.boolean :confirm_that_the_data_is_correct, default: false
 
-      t.text :bank_pdf_blob_url
-      t.text :face_image_blob_url
+      t.text :bank_pdf_blob_path
+      t.text :face_image_blob_path
       t.text :not_approved_comment
 
       t.timestamps
