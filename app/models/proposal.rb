@@ -108,7 +108,7 @@ class Proposal < ApplicationRecord
   end 
 
 
-  def save
+  def save_new_rec_and_push
     return false if invalid?
     ApplicationRecord.transaction do
 #    Proposal.transaction do
@@ -142,8 +142,12 @@ class Proposal < ApplicationRecord
     else
       case response
       when Net::HTTPOK, Net::HTTPCreated
-        #save!
-        super
+        save!
+        attachment_record_bank_pdf = ActiveStorage::Attachment.find_by(name: 'bank_pdf', record: self.creator)
+        attachment_record_bank_pdf.update(record: self)
+        attachment_record_face_image = ActiveStorage::Attachment.find_by(name: 'face_image', record: self.creator)
+        attachment_record_face_image.update(record: self) if attachment_record_face_image.present? && division_face_image_required?
+        #super
         true   # success response
       when Net::HTTPClientError, Net::HTTPInternalServerError
         Rails.logger.error('======== API ERROR "models/proposal/save" (3) ===============================')
@@ -181,7 +185,7 @@ class Proposal < ApplicationRecord
     false
   end
   
-  def destroy
+  def destroy_and_push
     return false if invalid?
     ApplicationRecord.transaction do
 #    Proposal.transaction do
@@ -208,7 +212,8 @@ class Proposal < ApplicationRecord
         #with_transaction_returning_status { super }
         self.face_image.purge
         self.bank_pdf.purge
-        super
+        #super
+        destroy!
         true   # success response
       when Net::HTTPClientError, Net::HTTPInternalServerError
         Rails.logger.error('======== API ERROR "models/proposal/destroy" (3) ============================')
@@ -255,7 +260,7 @@ class Proposal < ApplicationRecord
     proposal_status_id != PROPOSAL_STATUS_CLOSED
   end
 
-  def division_face_image_required
+  def division_face_image_required?
     category == 'M' 
   end
 
@@ -322,7 +327,7 @@ class Proposal < ApplicationRecord
 
     def check_attached_face_image
       analyze_value = true
-      unless self.division_face_image_required
+      unless self.division_face_image_required?
         analyze_value = true
       else
         unless self.creator.face_image.attached?

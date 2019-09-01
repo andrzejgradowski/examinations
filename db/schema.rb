@@ -221,6 +221,7 @@ ActiveRecord::Schema.define(version: 2019_08_04_150412) do
     t.boolean "confirm_that_the_data_is_correct", default: false
     t.text "bank_pdf_blob_url"
     t.text "face_image_blob_url"
+    t.text "not_approved_comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category"], name: "index_proposals_on_category"

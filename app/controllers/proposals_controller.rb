@@ -45,7 +45,7 @@ class ProposalsController < ApplicationController
       @proposal.previous_step
     elsif @proposal.last_step?
       if @proposal.all_valid?
-        move_attached_files_from_user_to_proposal if @proposal.save
+        @proposal.save_new_rec_and_push
       end
     else
       @proposal.next_step if @proposal.valid?
@@ -89,7 +89,7 @@ class ProposalsController < ApplicationController
   # DELETE /proposals/1.json
   def destroy
     authorize @proposal, :destroy_self?
-    if @proposal.destroy
+    if @proposal.destroy_and_push
       flash[:success] = t('activerecord.successfull.messages.destroyed', data: proposal_rec_info(@proposal)) 
       redirect_to proposals_url
     else 
@@ -117,18 +117,6 @@ class ProposalsController < ApplicationController
     def clear_attached_to_user_files
       clear_attached_to_user_bank_pdf
       clear_attached_to_user_face_image
-    end
-
-    def move_attached_files_from_user_to_proposal
-      ApplicationRecord.transaction do
-        attachment_record_bank_pdf = ActiveStorage::Attachment.find_by(name: 'bank_pdf', record: current_user)
-        attachment_record_bank_pdf.update(record: @proposal)
-
-        attachment_record_face_image = ActiveStorage::Attachment.find_by(name: 'face_image', record: current_user)
-        attachment_record_face_image.update(record: @proposal) if @proposal.division_face_image_required
-
-        clear_attached_to_user_files
-      end
     end
 
     def upload_bank_pdf_to_current_user_cache

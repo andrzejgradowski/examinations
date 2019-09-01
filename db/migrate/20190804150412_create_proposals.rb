@@ -61,6 +61,7 @@ class CreateProposals < ActiveRecord::Migration[5.2]
 
       t.text :bank_pdf_blob_url
       t.text :face_image_blob_url
+      t.text :not_approved_comment
 
       t.timestamps
     end

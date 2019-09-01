@@ -23,7 +23,7 @@
       <% end %>
     </div>
     
-    <% if partial_data.division_face_image_required %>
+    <% if partial_data.division_face_image_required? %>
       <div class="form-group col-sm-6">
         <p><strong><%= Proposal.human_attribute_name(:face_image) %></strong></p>
        	<% if source_data.face_image.attached? %>
