@@ -17,30 +17,6 @@ en:
   static_pages:
     home:
       title: 'UKE Eeexams'
-  individuals:
-    index:
-      title: 'A list of authorizations issued for private persons'
-      navbar: 'Individuals'
-    show:
-      title: 'Individual'
-  clubs:
-    index:
-      title: 'A list of authorizations issued for legal entity'
-      navbar: 'Clubs'
-    show:
-      title: 'Club'
-  individual_devices:
-    index:
-      title: 'A list of authorizations issued for private persons - automatic stations'
-      navbar: 'Individual automatic stations'
-    show:
-      title: 'Individual automatic station'
-  club_devices:
-    index:
-      title: 'A list of authorizations issued for legal entity - automatic stations'
-      navbar: 'Club automatic stations'
-    show:
-      title: 'Club automatic station'
   proposals:
     index:
       title: 'Proposals'
@@ -49,25 +25,9 @@ en:
       rec_info: 'Proposal %{data}'
     show:
       title: 'Proposal'
-  shared:
-    basic_info:
-      fieldset_title: 'Basic information'
-    additional_info:
-      fieldset_title: 'Additional information'
-    station_info:
-      fieldset_title: 'Station'
-    station_full_info:
-      fieldset_title: 'Station'
-    applicant_info:
-      fieldset_title: 'Applicant'
-    enduser_info:
-      fieldset_title: 'Enduser'    
   activerecord:
     models:
-      individual: 'Individual'
       club: 'Club'
-      individual_device: 'Individual automatic stations'
-      club_device: 'Club automatic stations'
       proposal: 'Proposal'
     attributes:
       individual:

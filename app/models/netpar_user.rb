@@ -1,7 +1,7 @@
 require 'net/http'
 
 class NetparUser
-	include ActiveModel::Model
+  include ActiveModel::Model
 
   HTTP_ERRORS = [
     EOFError,
@@ -14,7 +14,7 @@ class NetparUser
     Errno::ECONNREFUSED
   ]
 
-	attr_accessor :username, :password, :token
+  attr_accessor :username, :password, :token
 
   def initialize()
     @username = "#{Rails.application.secrets[:netpar2015_api_user]}"    
@@ -83,9 +83,5 @@ class NetparUser
       $user_netpar_token 
     end
   end
-
-
-
-
 
 end

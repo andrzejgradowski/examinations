@@ -64,10 +64,6 @@ gem 'jquery-rails'
 gem 'font_awesome5_rails'
 gem 'select2-rails', '3.5.9.3'
 
-
-gem 'jquery-datatables', '= 1.10.16' #1.10.16 bo z .19 jest jakis problem z wyswietlaniem strzalek sortowania
-gem 'ajax-datatables-rails' #, '= 0.4.0' jeżeli wywala się na custom_filter
-
 gem "hiredis"
 gem "redis", "~> 4.0"
 
@@ -76,10 +72,7 @@ gem 'rack-attack'
 gem "actionpack-page_caching"
 gem "actionpack-action_caching"
 
-gem 'whenever', require: false
-
 gem 'mina'
-gem 'mina-whenever', require: false
 
 gem 'piwik_analytics'
 

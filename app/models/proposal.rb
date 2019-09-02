@@ -295,13 +295,26 @@ class Proposal < ApplicationRecord
     def check_min_years_old
       division_obj = NetparDivision.new(id: division_id)
       division_obj_response = division_obj.request_with_id
-      division_min_years_old = JSON.parse(division_obj_response.body)['min_years_old']
-      if (birth_date + division_min_years_old.years) > Time.zone.now
-        errors.add(:division_id, " - Przystąpienie do egzaminu wymaga ukończenia #{division_min_years_old} lat")
+
+      case division_obj_response
+      when Net::HTTPOK
+        division_min_years_old = JSON.parse(division_obj_response.body)['min_years_old']
+        if (birth_date + division_min_years_old.years) > Time.zone.now
+          errors.add(:division_id, " - Przystąpienie do egzaminu wymaga ukończenia #{division_min_years_old} lat")
+          false
+        else
+          true
+        end
+      when Net::HTTPClientError, Net::HTTPInternalServerError
+        errors.add(:base, "code: #{division_obj_response.code}, message: #{division_obj_response.message}, body: #{division_obj_response.body}")
+        false        
+      when division_obj_response.class != 'String'
+        errors.add(:base, "code: #{division_obj_response.code}, message: #{division_obj_response.message}, body: #{division_obj_response.body}")
         false
       else
-        true
-      end
+        errors.add(:base, "#{division_obj_response}")
+        false
+      end   
     end
 
     def check_attached_bank_pdf

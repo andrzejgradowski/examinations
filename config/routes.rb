@@ -18,14 +18,7 @@ Rails.application.routes.draw do
 
   scope "/:locale", locale: /#{I18n.available_locales.join("|")}/ do
 
-    #resources :proposals, only: [:index, :edit, :update, :destroy]
     resources :proposals
-
-    resources :clubs, only: [:index, :show] do
-      get 'export', on: :collection
-    end
-
-    get 'datatables/lang'
 
 	  get 'static_pages/home'
 
@@ -38,5 +31,16 @@ Rails.application.routes.draw do
   #               format: false
 
 
+  namespace :api, defaults: { format: :json } do
+    require 'api_constraints'
+    namespace :v1, constraints: ApiConstraints.new(version: 1, default: true) do
+      get :token, controller: 'base_api'
 
+      resources :proposals, param: :multi_app_identifier, except: [:new, :edit, :create, :destroy]
+
+    end
+
+    namespace :v2 do
+    end
+  end
 end
