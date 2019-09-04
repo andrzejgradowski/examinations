@@ -10,7 +10,7 @@ class ProposalsController < ApplicationController
   # GET /proposals
   # GET /proposals.json
   def index
-    @proposals = policy_scope(Proposal)    
+    @proposals = policy_scope(Proposal) 
   end
 
   # GET /proposals/1

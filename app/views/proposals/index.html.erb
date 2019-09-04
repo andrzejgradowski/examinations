@@ -18,12 +18,14 @@
 
   <br>
   <div class="col-sm-12">
+
     <% if policy(:proposal).new_self? %> 
       <%= link_to new_proposal_path(wizard_step: 'step1'), class: "btn btn-primary pull-right" do %>
         <span class="glyphicon glyphicon-plus"></span>
         <%= t("helpers.submit.create", model: @proposals.model_name.human) %>
       <% end %>
     <% end %>
+
   </div> <!--/col-sm-12 -->
 
 </div> <!--/container -->

@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
   scope "/:locale", locale: /#{I18n.available_locales.join("|")}/ do
 
+    resources :uke_regulations, only: [:index]
     resources :proposals
 
 	  get 'static_pages/home'

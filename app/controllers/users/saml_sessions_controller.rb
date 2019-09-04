@@ -55,7 +55,8 @@ class Users::SamlSessionsController < Devise::SessionsController
 
   def after_sign_in_path_for(resource_or_scope)
     # BJ 2019.07.23
-    stored_location_for(resource_or_scope) || proposals_path(locale: locale)
+    #stored_location_for(resource_or_scope) || proposals_path(locale: locale)
+    stored_location_for(resource_or_scope) || uke_regulations_path(locale: locale)
   end
 
   def metadata
