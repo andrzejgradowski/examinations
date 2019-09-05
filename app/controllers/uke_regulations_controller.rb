@@ -10,14 +10,16 @@ class UkeRegulationsController < ApplicationController
 
     if ur.response.kind_of? Net::HTTPSuccess
       if ur.accepted
-        redirect_to proposals_path
+        #redirect_to proposals_path
+        redirect_to root_path
       else
+        sign_out if user_signed_in? 
         url = ur.generate_acceptance_url
         redirect_to "#{url}"
       end
     else
       sign_out if user_signed_in?     
-      flash.now[:error] = "Errors:  #{ur.errors.full_messages}"
+      #flash.now[:error] = "Errors:  #{ur.errors.full_messages}"
       redirect_to root_path
     end
   end
