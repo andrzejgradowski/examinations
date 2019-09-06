@@ -45,30 +45,25 @@ class Proposal < ApplicationRecord
   validate :check_birth_date, if: -> { pesel.present? && current_step == 'step1' }
 
   # step2
-  validates :address_city, presence: true, length: { in: 1..50 }, if: -> { current_step == 'step2' }
-  validates :address_house, presence: true, length: { in: 1..10 }, if: -> { current_step == 'step2' }
-  validates :address_postal_code, presence: true, length: { in: 6..10 }, if: -> { current_step == 'step2' }
+  validates :c_address_city, presence: true, length: { in: 1..50 }, if: -> { current_step == 'step2' }
+  validates :c_address_house, presence: true, length: { in: 1..10 }, if: -> { current_step == 'step2' }
+  validates :c_address_postal_code, presence: true, length: { in: 6..10 }, if: -> { current_step == 'step2' }
 
   # step3
-  validates :c_address_city, presence: true, length: { in: 1..50 }, if: -> { current_step == 'step3' }
-  validates :c_address_house, presence: true, length: { in: 1..10 }, if: -> { current_step == 'step3' }
-  validates :c_address_postal_code, presence: true, length: { in: 6..10 }, if: -> { current_step == 'step3' }
+  validates :category, presence: true, inclusion: { in: %w(M R) }, if: -> { current_step == 'step3' }
+  validate :unique_category_for_creator, if: -> { category.present? && current_step == 'step3' }
+  validates :exam_id, presence: true, if: -> { current_step == 'step3' }
+  validates :division_id, presence: true, if: -> { current_step == 'step3' }
+  validate :check_min_years_old, if: -> { division_id.present? && current_step == 'step3' }
+  validates :esod_category, presence: true, if: -> { current_step == 'step3' }
 
   # step4
-  validates :category, presence: true, inclusion: { in: %w(M R) }, if: -> { current_step == 'step4' }
-  validate :unique_category_for_creator, if: -> { category.present? && current_step == 'step4' }
-  validates :exam_id, presence: true, if: -> { current_step == 'step4' }
-  validates :division_id, presence: true, if: -> { current_step == 'step4' }
-  validate :check_min_years_old, if: -> { division_id.present? && current_step == 'step4' }
-  validates :esod_category, presence: true, if: -> { current_step == 'step4' }
+  validate :check_attached_bank_pdf, if: -> { current_step == 'step4' }
+  validate :check_attached_face_image, if: -> { current_step == 'step4' }
 
   # step5
-  validate :check_attached_bank_pdf, if: -> { current_step == 'step5' }
-  validate :check_attached_face_image, if: -> { current_step == 'step5' }
-
-  # step6
-  validates :exam_fee_id, presence: true, if: -> { esod_category.present? && division_id.present? && current_step == 'step5' }
-  validates :exam_fee_price, presence: true, if: -> { esod_category.present? && division_id.present? && current_step == 'step5' }
+  validates :exam_fee_id, presence: true, if: -> { esod_category.present? && division_id.present? && current_step == 'step4' }
+  validates :exam_fee_price, presence: true, if: -> { esod_category.present? && division_id.present? && current_step == 'step4' }
 
   validate :check_confirm_that_the_data_is_correct, if: -> { last_step? }
 
@@ -77,7 +72,7 @@ class Proposal < ApplicationRecord
   after_initialize :set_initial_status_and_multi_app_identifier
 
   def steps
-    %w[step1 step2 step3 step4 step5 step6]
+    %w[step1 step2 step3 step4 step5]
   end
 
   def current_step

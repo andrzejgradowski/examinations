@@ -1,54 +1,17 @@
 <div class="row">
   <div class="col-sm-12">
 
-    <%= f.hidden_field :exam_fee_id %>
-    <%= f.hidden_field :exam_fee_price %>
+    <%= render partial: "proposals/show_step1", locals: {partial_data: @proposal} %>
+    <%= render partial: "proposals/show_step2", locals: {partial_data: @proposal} %>
+    <%= render partial: "proposals/show_step3", locals: {partial_data: @proposal} %>
+    <%= render partial: "proposals/show_step4", locals: {partial_data: @proposal} %>
 
-    <fieldset class="my-fieldset">
-      <legend class="my-fieldset"><%= t('.fieldset_title') %></legend>
-
-      <div class="row">
-        <div class="form-group col-sm-4">
-
-          <div class="row">
-            <div class="form-group col-sm-12">
-              <p><strong><%= Proposal.human_attribute_name(:exam_fee_price) %></strong>: <%= number_with_precision(f.object.exam_fee_price, precision: 2, delimiter: ' ', separator: ',') %><span> PLN</span><p>
-            </div>
-
-            <div class="form-group require col-sm-12">
-              <%= f.label :bank_pdf, class: 'control-label' %>
-              <%= f.file_field :bank_pdf, accept: 'application/pdf', autofocus: true, class: 'form-control input-sm', disabled: false %>
-              <%#= f.model if f.object_name.face_image.attached? %>
-            </div>
-          </div>  
-
-          <% if @proposal.division_face_image_required? %>
-            <div class="row">
-              <div class="form-group require col-sm-12">
-                <%= f.label :face_image, class: 'control-label' %>
-                <%= f.file_field :face_image, accept: 'image/png, image/jpeg', autofocus: true, class: 'form-control input-sm', disabled: false %>
-                <%#= f.model if f.object_name.face_image.attached? %>
-              </div>
-            </div>  
-          <% end %>
-
-        </div>  
-
-        <div class="form-group col-sm-8">
-          <div class="row">
-            <div class="col-sm-12">
-              <blockquote>
-                <p>Bankowe potwierdzenie wykonania przelewu winnno być plikiem typu "pdf" pobranym ze strony WWW Twojego banku.</p> 
-                <% if @proposal.division_face_image_required? %>
-                <p>Należy dołączać aktualne zdjęcie, odzwierciedlające wizerunek twarzy w sposób niebudzący wątpliwości, o wymiarach 35×45 mm, minimalnej rozdzielczości 300 dpi, wykonane na jednolitym jasnym tle, mające dobrą ostrość oraz odwzorowujące naturalny kolor skóry, obejmujące wizerunek od wierzchołka głowy do górnej części barków, tak aby twarz zajmowała 70–80% zdjęcia, pokazujące wyraźnie oczy, zwłaszcza źrenice i przedstawiające osobę w pozycji frontalnej, bez nakrycia głowy i okularów z ciemnymi szkłami, patrzącą na wprost z otwartymi oczami, nieprzesłoniętymi włosami, z naturalnym wyrazem twarzy i zamkniętymi ustami (podobnie jak zdjęcia do dowodu osobistego lub paszportu). </p>
-                <% end %>
-              </blockquote>
-            </div> <!-- /.col-sm-5 -->
-          </div> <!--/row -->
-        </div>
-      </div> <!--/row -->
-
-    </fieldset>
+    <div class="row">
+      <div class="form-group col-sm-4">
+        <%= f.check_box :confirm_that_the_data_is_correct, id: "proposal_wizard_all_is_ok", onclick: "status_all_is_ok(this.checked)" %>&nbsp;&nbsp;
+        <%= f.label :confirm_that_the_data_is_correct, class: 'control-label' %>
+      </div>
+    </div> <!--/row -->
 
   </div> <!--/col-sm-12 -->
 </div> <!--/row -->

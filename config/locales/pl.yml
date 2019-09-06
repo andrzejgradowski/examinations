@@ -36,22 +36,18 @@ pl:
       fieldset_title: 'Dane podstawowe'
       submit: 'Adres'
     form_step2:
-      fieldset_title: 'Adres'
-      submit_back: 'Dane podstawowe'
-      submit: 'Adres korespondencyjny'
-    form_step3:
       fieldset_title: 'Adres korepondencyjny'
-      submit_back: 'Adres'
+      submit_back: 'Dane podstawowe'
       submit: 'Typ i rodzaj'
-    form_step4:
+    form_step3:
       fieldset_title: 'Typ i rodzaj'
       submit_back: 'Adres korespondencyjny'
       submit: 'Załączniki'
-    form_step5:
+    form_step4:
       fieldset_title: 'Załączniki'
       submit_back: 'Typ i rodzaj'
       submit: 'Podsumowanie'
-    form_step6:
+    form_step5:
       fieldset_title: 'Podsumowanie'
       submit_back: 'Załączniki'
       submit: 'Zapisz i wyślij zgłoszenie!'
@@ -86,7 +82,7 @@ pl:
         c_address_house: 'Dom'
         c_address_number: 'Lokal'
         c_address_postal_code: 'Kod pocztowy'
-        category: 'Typ świadectwa'
+        category: 'Służba'
         category_name: 'Typ świadectwa'
         exam_id: 'Sesja egzaminacyjna'
         exam_fullname: 'Sesja egzaminacyjna'

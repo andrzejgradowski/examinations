@@ -53,9 +53,8 @@ class ProposalsController < ApplicationController
     session[:proposal_step] = @proposal.current_step
 
     if @proposal.new_record?
-      set_address_attributes if @proposal.current_step == 'step3'
-      @proposal.esod_category = 41 if @proposal.current_step == 'step4'
-      set_exam_fee_attributes if @proposal.current_step == 'step5'
+      @proposal.esod_category = 41 if @proposal.current_step == 'step3'
+      set_exam_fee_attributes if @proposal.current_step == 'step4'
 
       @proposal.confirm_that_the_data_is_correct = false
       render :new
@@ -146,14 +145,6 @@ class ProposalsController < ApplicationController
       @proposal.birth_date  = current_user.birth_date
       @proposal.birth_place = current_user.birth_city
       @proposal.phone       = current_user.phone
-    end
-
-    def set_address_attributes
-      @proposal.c_address_city        = @proposal.address_city        if @proposal.c_address_city.blank? 
-      @proposal.c_address_street      = @proposal.address_street      if @proposal.c_address_street.blank?
-      @proposal.c_address_house       = @proposal.address_house       if @proposal.c_address_house.blank?
-      @proposal.c_address_number      = @proposal.address_number      if @proposal.c_address_number.blank?
-      @proposal.c_address_postal_code = @proposal.address_postal_code if @proposal.c_address_postal_code.blank?
     end
 
     def set_exam_fee_attributes

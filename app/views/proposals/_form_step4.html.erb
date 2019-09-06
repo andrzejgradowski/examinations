@@ -1,63 +1,47 @@
 <div class="row">
   <div class="col-sm-12">
 
-    <%= f.hidden_field :esod_category %>
-    <%= f.hidden_field :exam_fullname %>
-    <%= f.hidden_field :date_exam %>
-    <%= f.hidden_field :division_fullname %>
+    <%= f.hidden_field :exam_fee_id %>
+    <%= f.hidden_field :exam_fee_price %>
 
     <fieldset class="my-fieldset">
       <legend class="my-fieldset"><%= t('.fieldset_title') %></legend>
 
       <div class="row">
-        <div class="form-group col-sm-8">
+        <div class="form-group col-sm-4">
 
           <div class="row">
             <div class="form-group col-sm-12">
-              <%= f.label :category, class: 'control-label' %>
-              <%= f.select :category, 
-                    options_for_select([[Proposal::CATEGORY_NAME_M, 'M'], [Proposal::CATEGORY_NAME_R, 'R']], selected: @proposal.category), 
-                    { include_blank: true}, 
-                    { onchange: "change_category_select(this.options[this.selectedIndex].value);", autofocus: true, class: 'form-control input-sm', disabled: false } %>
+              <p><strong><%= Proposal.human_attribute_name(:exam_fee_price) %></strong>: <%= number_with_precision(f.object.exam_fee_price, precision: 2, delimiter: ' ', separator: ',') %><span> PLN</span><p>
+            </div>
+
+            <div class="form-group require col-sm-12">
+              <%= f.label :bank_pdf, class: 'control-label' %>
+              <%= f.file_field :bank_pdf, accept: 'application/pdf', autofocus: true, class: 'form-control input-sm', disabled: false %>
+              <%#= f.model if f.object_name.face_image.attached? %>
             </div>
           </div>  
 
-          <div class="row">
-            <div class="form-group col-sm-12">
-              <%= f.label :exam_id, class: "control-label" %>
-              <%= f.hidden_field :exam_id,
-                                class: "form-control input-sm exam_select", 
-                                placeholder: "Wybierz Sesję",
-                                disabled: false,
-                                style: "width:100%",
-                                id: "proposal_exam_id", 
-                                readonly: @proposal.category.blank?,
-                                "data-category": "#{@proposal.category}" %>
-            </div>
-          </div> <!--/row -->
+          <% if @proposal.division_face_image_required? %>
+            <div class="row">
+              <div class="form-group require col-sm-12">
+                <%= f.label :face_image, class: 'control-label' %>
+                <%= f.file_field :face_image, accept: 'image/png, image/jpeg', autofocus: true, class: 'form-control input-sm', disabled: false %>
+                <%#= f.model if f.object_name.face_image.attached? %>
+              </div>
+            </div>  
+          <% end %>
 
-
-          <div class="row">
-            <div class="form-group col-sm-12">
-              <%= f.label :division_id, class: "control-label" %>
-              <%= f.hidden_field :division_id,
-                                class: "form-control input-sm division_select", 
-                                placeholder: "Wybierz Rodzaj",
-                                disabled: false,
-                                style: "width:100%",
-                                id: "proposal_division_id", 
-                                readonly: @proposal.category.blank?,
-                                "data-category": "#{@proposal.category}" %>
-            </div>
-          </div> <!--/row -->
         </div>  
 
-        <div class="form-group col-sm-4">
+        <div class="form-group col-sm-8">
           <div class="row">
             <div class="col-sm-12">
               <blockquote>
-                <p>Lista sesji zawiera tylko te sesje, które odbędą się nie wcześniej niż za tydzień i dla których dostępne są jeszcze wolne miejsca.</p> 
-                <p>Wyszukuj po nazwie miejscowości, województwa, dacie lub numerze. Warunki można łączyć oddzielając je spacją np. Bydgo 2019-10</p>
+                <p>Bankowe potwierdzenie wykonania przelewu winnno być plikiem typu "pdf" pobranym ze strony WWW Twojego banku.</p> 
+                <% if @proposal.division_face_image_required? %>
+                <p>Należy dołączać aktualne zdjęcie, odzwierciedlające wizerunek twarzy w sposób niebudzący wątpliwości, o wymiarach 35×45 mm, minimalnej rozdzielczości 300 dpi, wykonane na jednolitym jasnym tle, mające dobrą ostrość oraz odwzorowujące naturalny kolor skóry, obejmujące wizerunek od wierzchołka głowy do górnej części barków, tak aby twarz zajmowała 70–80% zdjęcia, pokazujące wyraźnie oczy, zwłaszcza źrenice i przedstawiające osobę w pozycji frontalnej, bez nakrycia głowy i okularów z ciemnymi szkłami, patrzącą na wprost z otwartymi oczami, nieprzesłoniętymi włosami, z naturalnym wyrazem twarzy i zamkniętymi ustami (podobnie jak zdjęcia do dowodu osobistego lub paszportu). </p>
+                <% end %>
               </blockquote>
             </div> <!-- /.col-sm-5 -->
           </div> <!--/row -->

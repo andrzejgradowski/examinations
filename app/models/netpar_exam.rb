@@ -14,10 +14,11 @@ class NetparExam
     Errno::ECONNREFUSED
   ]
 
-	attr_accessor :category, :q, :page, :page_limit, :id
+	attr_accessor :category, :division_id, :q, :page, :page_limit, :id
 
   def initialize(params = {})
     @category = params.fetch(:category, '')
+    @division_id = params.fetch(:division_id, 0)
     @q = params.fetch(:q, '')
     @page = params.fetch(:page, 0)
     @page_limit = params.fetch(:page_limit, 10)
@@ -71,7 +72,7 @@ class NetparExam
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE if uri.scheme == "https" # Sets the HTTPS verify mode
     # /SSL 
     req = Net::HTTP::Get.new(uri.path, {'Content-Type' => 'application/json', 'Authorization' => "Token token=#{NetparUser.netparuser_token}"})
-    params = {:q => "#{@q}", :page => "#{@page}", :page_limit => "#{@page_limit}", :category => "#{@category}"}
+    params = {:q => "#{@q}", :page => "#{@page}", :page_limit => "#{@page_limit}", :category => "#{@category}", :division_id => "#{@division_id}"}
     req.body = params.to_json
     response = http.request(req)
 

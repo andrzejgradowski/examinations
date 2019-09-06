@@ -3,29 +3,29 @@
 
     <div class="row">
       <div class="form-group required col-sm-2">
-        <p><strong><%= Proposal.human_attribute_name(:address_postal_code) %></strong></p>
-        <%= partial_data.try(:address_postal_code) %>
+        <p><strong><%= Proposal.human_attribute_name(:c_address_postal_code) %></strong></p>
+        <%= partial_data.try(:c_address_postal_code) %>
       </div>
       <div class="form-group required col-sm-4">
-        <p><strong><%= Proposal.human_attribute_name(:address_city) %></strong></p>
-        <%= partial_data.try(:address_city) %>
+        <p><strong><%= Proposal.human_attribute_name(:c_address_city) %></strong></p>
+        <%= partial_data.try(:c_address_city) %>
       </div>
     </div> <!--/row -->
 
     <div class="row">
       <div class="form-group col-sm-4">
-        <p><strong><%= Proposal.human_attribute_name(:address_street) %></strong></p>
-        <%= partial_data.try(:address_street) %>
+        <p><strong><%= Proposal.human_attribute_name(:c_address_street) %></strong></p>
+        <%= partial_data.try(:c_address_street) %>
       </div>
 
       <div class="form-group required col-sm-2">
-        <p><strong><%= Proposal.human_attribute_name(:address_house) %></strong></p>
-        <%= partial_data.try(:address_house) %>
+        <p><strong><%= Proposal.human_attribute_name(:c_address_house) %></strong></p>
+        <%= partial_data.try(:c_address_house) %>
       </div>
 
       <div class="form-group col-sm-2">
-        <p><strong><%= Proposal.human_attribute_name(:address_number) %></strong></p>
-        <%= partial_data.try(:address_number) %>
+        <p><strong><%= Proposal.human_attribute_name(:c_address_number) %></strong></p>
+        <%= partial_data.try(:c_address_number) %>
       </div>
     </div> <!--/row -->
 

@@ -1,33 +1,28 @@
 <fieldset class="my-fieldset">
   <legend class="my-fieldset"><%= t('proposals.form_step3.fieldset_title') %></legend>
 
-    <div class="row">
-      <div class="form-group required col-sm-2">
-        <p><strong><%= Proposal.human_attribute_name(:c_address_postal_code) %></strong></p>
-        <%= partial_data.try(:c_address_postal_code) %>
-      </div>
-      <div class="form-group required col-sm-4">
-        <p><strong><%= Proposal.human_attribute_name(:c_address_city) %></strong></p>
-        <%= partial_data.try(:c_address_city) %>
-      </div>
-    </div> <!--/row -->
-
-    <div class="row">
-      <div class="form-group col-sm-4">
-        <p><strong><%= Proposal.human_attribute_name(:c_address_street) %></strong></p>
-        <%= partial_data.try(:c_address_street) %>
-      </div>
-
-      <div class="form-group required col-sm-2">
-        <p><strong><%= Proposal.human_attribute_name(:c_address_house) %></strong></p>
-        <%= partial_data.try(:c_address_house) %>
-      </div>
-
-      <div class="form-group col-sm-2">
-        <p><strong><%= Proposal.human_attribute_name(:c_address_number) %></strong></p>
-        <%= partial_data.try(:c_address_number) %>
-      </div>
-    </div> <!--/row -->
+  <div class="row">
+    <div class="form-group col-sm-8">
+      <p><strong><%= Proposal.human_attribute_name(:category_name) %></strong></p>
+      <%= category_name(partial_data) %>
+    </div>
+  </div> <!--/row -->
+  <div class="row">
+    <div class="form-group col-sm-8">
+      <p><strong><%= Proposal.human_attribute_name(:division_fullname) %></strong></p>
+      <%= partial_data.try(:division_fullname) %>
+    </div>
+  </div> <!--/row -->
+  <div class="row">
+    <div class="form-group col-sm-8">
+      <p><strong><%= Proposal.human_attribute_name(:exam_fullname) %></strong></p>
+      <%= partial_data.try(:exam_fullname) %>
+    </div>
+    <div class="form-group col-sm-4">
+      <p><strong><%= Proposal.human_attribute_name(:date_exam) %></strong></p>
+      <%= partial_data.try(:date_exam).strftime("%Y-%m-%d") %>
+    </div>
+  </div> <!--/row -->
 
 </fieldset>
 
