@@ -83,7 +83,7 @@ pl:
         c_address_number: 'Lokal'
         c_address_postal_code: 'Kod pocztowy'
         category: 'Służba'
-        category_name: 'Typ świadectwa'
+        category_name: 'Służba'
         exam_id: 'Sesja egzaminacyjna'
         exam_fullname: 'Sesja egzaminacyjna'
         date_exam: 'Data egzaminu'
