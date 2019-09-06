@@ -38,7 +38,7 @@ pl:
     form_step2:
       fieldset_title: 'Adres korepondencyjny'
       submit_back: 'Dane podstawowe'
-      submit: 'Typ i rodzaj'
+      submit: 'Służba, rodzaj i sesja'
     form_step3:
       fieldset_title: 'Służba, rodzaj i sesja'
       submit_back: 'Adres korespondencyjny'
