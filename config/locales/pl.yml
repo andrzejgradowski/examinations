@@ -40,12 +40,12 @@ pl:
       submit_back: 'Dane podstawowe'
       submit: 'Typ i rodzaj'
     form_step3:
-      fieldset_title: 'Typ i rodzaj'
+      fieldset_title: 'Służba, rodzaj i sesja'
       submit_back: 'Adres korespondencyjny'
       submit: 'Załączniki'
     form_step4:
       fieldset_title: 'Załączniki'
-      submit_back: 'Typ i rodzaj'
+      submit_back: 'Służba, rodzaj i sesja'
       submit: 'Podsumowanie'
     form_step5:
       fieldset_title: 'Podsumowanie'
