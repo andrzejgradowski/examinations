@@ -222,15 +222,16 @@ ActiveRecord::Schema.define(version: 2019_08_04_150412) do
     t.integer "esod_category"
     t.integer "exam_id"
     t.string "exam_fullname"
-    t.date "date_exam"
+    t.date "exam_date_exam"
     t.integer "division_id"
     t.string "division_fullname"
+    t.integer "division_min_years_old"
     t.integer "exam_fee_id"
     t.decimal "exam_fee_price", precision: 8, scale: 2, default: "0.0"
     t.boolean "confirm_that_the_data_is_correct", default: false
     t.text "bank_pdf_blob_path"
     t.text "face_image_blob_path"
-    t.text "not_approved_comment"
+    t.text "not_approved_comment", default: ""
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category"], name: "index_proposals_on_category"

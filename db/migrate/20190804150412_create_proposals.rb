@@ -46,9 +46,10 @@ class CreateProposals < ActiveRecord::Migration[5.2]
       #t.string   "examination_category",        limit: 1, default: "Z",   null: false
       t.integer :exam_id
       t.string :exam_fullname
-      t.date :date_exam
+      t.date :exam_date_exam
       t.integer :division_id
       t.string :division_fullname
+      t.integer :division_min_years_old
       t.integer :exam_fee_id
       t.decimal :exam_fee_price, precision: 8, scale: 2, default: 0.00
       #t.string   "examination_result",          limit: 1
@@ -61,7 +62,7 @@ class CreateProposals < ActiveRecord::Migration[5.2]
 
       t.text :bank_pdf_blob_path
       t.text :face_image_blob_path
-      t.text :not_approved_comment
+      t.text :not_approved_comment, default: ""
 
       t.timestamps
     end

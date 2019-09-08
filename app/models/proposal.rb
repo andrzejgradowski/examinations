@@ -54,7 +54,7 @@ class Proposal < ApplicationRecord
   validate :unique_category_for_creator, if: -> { category.present? && current_step == 'step3' }
   validates :exam_id, presence: true, if: -> { current_step == 'step3' }
   validates :division_id, presence: true, if: -> { current_step == 'step3' }
-  validate :check_min_years_old, if: -> { division_id.present? && current_step == 'step3' }
+  validate :check_min_years_old, if: -> { division_min_years_old.present? && current_step == 'step3' }
   validates :esod_category, presence: true, if: -> { current_step == 'step3' }
 
   # step4
@@ -70,6 +70,8 @@ class Proposal < ApplicationRecord
 
   # callbacks
   after_initialize :set_initial_status_and_multi_app_identifier
+  after_commit :send_created_notification, on: :create
+  after_commit :send_updated_notification, on: :update
 
   def steps
     %w[step1 step2 step3 step4 step5]
@@ -259,6 +261,22 @@ class Proposal < ApplicationRecord
     category == 'M' 
   end
 
+
+  def send_created_notification
+    ProposalMailer.new_proposal(self).deliver_later
+  end
+
+  def send_updated_notification
+    case self.proposal_status_id
+    when PROPOSAL_STATUS_APPROVED
+      ProposalMailer.approved(self).deliver_later
+    when PROPOSAL_STATUS_NOT_APPROVED
+      ProposalMailer.not_approved(self).deliver_later      
+    when PROPOSAL_STATUS_CLOSED
+      ProposalMailer.closed(self).deliver_later      
+    end
+  end
+
   private
   
     def set_initial_status_and_multi_app_identifier
@@ -288,28 +306,10 @@ class Proposal < ApplicationRecord
     end
 
     def check_min_years_old
-      division_obj = NetparDivision.new(id: division_id)
-      division_obj_response = division_obj.request_with_id
-
-      case division_obj_response
-      when Net::HTTPOK
-        division_min_years_old = JSON.parse(division_obj_response.body)['min_years_old']
-        if (birth_date + division_min_years_old.years) > Time.zone.now
-          errors.add(:division_id, " - Przystąpienie do egzaminu wymaga ukończenia #{division_min_years_old} lat")
-          false
-        else
-          true
-        end
-      when Net::HTTPClientError, Net::HTTPInternalServerError
-        errors.add(:base, "code: #{division_obj_response.code}, message: #{division_obj_response.message}, body: #{division_obj_response.body}")
-        false        
-      when division_obj_response.class != 'String'
-        errors.add(:base, "code: #{division_obj_response.code}, message: #{division_obj_response.message}, body: #{division_obj_response.body}")
+      if (birth_date + division_min_years_old.years) > Time.zone.now
+        errors.add(:division_id, " - Przystąpienie do egzaminu wymaga ukończenia #{division_min_years_old} lat")
         false
-      else
-        errors.add(:base, "#{division_obj_response}")
-        false
-      end   
+      end
     end
 
     def check_attached_bank_pdf

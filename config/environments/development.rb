@@ -69,8 +69,6 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-
   # Store uploaded files on the local file system (see config/storage.yml for options)
   config.active_storage.service = :local
   # config.default_url_options = { host: Rails.application.secrets.domain_name }
@@ -78,5 +76,23 @@ Rails.application.configure do
   Rails.application.routes.default_url_options = { host: Rails.application.secrets.domain_name }
 
 
+
+  config.action_mailer.smtp_settings = {
+    address: Rails.application.secrets.email_provider_address,
+    port: Rails.application.secrets.email_provider_port,
+    domain: Rails.application.secrets.domain_name,
+    user_name: Rails.application.secrets.email_provider_username,
+    password: Rails.application.secrets.email_provider_password,
+    authentication: "plain",
+#    openssl_verify_mode: 'none',
+    enable_starttls_auto: true
+  }
+
+  #config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.default_url_options = { :host => Rails.application.secrets.domain_name }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.raise_delivery_errors = true
+  # Send email in development mode?
+  config.action_mailer.perform_deliveries = true
 
 end

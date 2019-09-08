@@ -54,6 +54,7 @@ $(document).ready(function() {
         if(data_from_json) {
           if(data_from_json.fullname !== "") {
             document.getElementById("proposal_division_fullname").value = data_from_json.fullname;
+            document.getElementById("proposal_division_min_years_old").value = data_from_json.min_years_old;
           };
         }
       });
@@ -113,7 +114,7 @@ $(document).ready(function() {
         if(data_from_json) {
           if(data_from_json.fullname !== "") {
             document.getElementById("proposal_exam_fullname").value = data_from_json.fullname;
-            document.getElementById("proposal_date_exam").value = data_from_json.date_exam;
+            document.getElementById("proposal_exam_date_exam").value = data_from_json.date_exam;
           };
         }
       });

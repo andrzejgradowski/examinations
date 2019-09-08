@@ -19,8 +19,8 @@
       <%= partial_data.try(:exam_fullname) %>
     </div>
     <div class="form-group col-sm-4">
-      <p><strong><%= Proposal.human_attribute_name(:date_exam) %></strong></p>
-      <%= partial_data.try(:date_exam).strftime("%Y-%m-%d") %>
+      <p><strong><%= Proposal.human_attribute_name(:exam_date_exam) %></strong></p>
+      <%= partial_data.try(:exam_date_exam).strftime("%Y-%m-%d") %>
     </div>
   </div> <!--/row -->
 
