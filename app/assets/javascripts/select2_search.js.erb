@@ -54,6 +54,7 @@ $(document).ready(function() {
         if(data_from_json) {
           if(data_from_json.fullname !== "") {
             document.getElementById("proposal_division_fullname").value = data_from_json.fullname;
+            document.getElementById("proposal_division_short_name").value = data_from_json.short_name;
             document.getElementById("proposal_division_min_years_old").value = data_from_json.min_years_old;
           };
         }

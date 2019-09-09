@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 2019_08_04_150412) do
     t.date "exam_date_exam"
     t.integer "division_id"
     t.string "division_fullname"
+    t.string "division_short_name"
     t.integer "division_min_years_old"
     t.integer "exam_fee_id"
     t.decimal "exam_fee_price", precision: 8, scale: 2, default: "0.0"
@@ -83,6 +84,7 @@ ActiveRecord::Schema.define(version: 2019_08_04_150412) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category"], name: "index_proposals_on_category"
+    t.index ["creator_id", "division_id"], name: "index_proposals_on_creator_id_and_division_id"
     t.index ["creator_id"], name: "index_proposals_on_creator_id"
     t.index ["multi_app_identifier"], name: "index_proposals_on_multi_app_identifier"
     t.index ["pesel"], name: "index_proposals_on_pesel"

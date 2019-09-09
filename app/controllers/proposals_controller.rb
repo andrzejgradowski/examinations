@@ -166,7 +166,8 @@ class ProposalsController < ApplicationController
         :email, :phone, :name, :given_names, :pesel, :birth_date, :birth_place, 
         :address_city, :address_street, :address_house, :address_number, :address_postal_code,
         :c_address_city, :c_address_street, :c_address_house, :c_address_number, :c_address_postal_code,
-        :category, :esod_category, :exam_id, :exam_fullname, :exam_date_exam, :division_id, :division_fullname, :division_min_years_old, 
+        :category, :esod_category, :exam_id, :exam_fullname, :exam_date_exam, 
+        :division_id, :division_fullname, :division_short_name, :division_min_years_old, 
         :exam_fee_id, :exam_fee_price, :face_image, :bank_pdf)
     end
 
@@ -199,7 +200,8 @@ class ProposalsController < ApplicationController
         :email, :phone, :name, :given_names, :pesel, :birth_date, :birth_place, 
         :address_city, :address_street, :address_house, :address_number, :address_postal_code,
         :c_address_city, :c_address_street, :c_address_house, :c_address_number, :c_address_postal_code,
-        :category, :esod_category, :exam_id, :exam_fullname, :exam_date_exam, :division_id, :division_fullname, :division_min_years_old, 
+        :category, :esod_category, :exam_id, :exam_fullname, :exam_date_exam, 
+        :division_id, :division_fullname, :division_short_name, :division_min_years_old, 
         :exam_fee_id, :exam_fee_price, :confirm_that_the_data_is_correct)
     end
 

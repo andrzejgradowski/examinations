@@ -52,7 +52,7 @@ class Proposal < ApplicationRecord
 
   # step3
   validates :category, presence: true, inclusion: { in: %w(M R) }, if: -> { current_step == 'step3' }
-  validate :unique_category_for_creator, if: -> { category.present? && current_step == 'step3' }
+  validate :unique_division_for_creator, if: -> { division_id.present? && current_step == 'step3' }
   validates :exam_id, presence: true, if: -> { current_step == 'step3' }
   validates :division_id, presence: true, if: -> { current_step == 'step3' }
   validate :check_min_years_old, if: -> { division_min_years_old.present? && current_step == 'step3' }
@@ -306,9 +306,9 @@ class Proposal < ApplicationRecord
       end
     end
 
-    def unique_category_for_creator
-      if Proposal.where(category: category, creator_id: creator_id).where.not(proposal_status_id: [::Proposal::PROPOSAL_STATUS_CLOSED]).any? 
-        errors.add(:category, " - Jest aktualnie procedowane Twoje zgłoszenie dla tej służby")
+    def unique_division_for_creator
+      if Proposal.where(division_id: division_id, creator_id: creator_id).where.not(proposal_status_id: [Proposal::PROPOSAL_STATUS_CLOSED, Proposal::PROPOSAL_STATUS_ANNULLED]).any? 
+        errors.add(:division_id, " - Jest aktualnie procedowane Twoje zgłoszenie dla tego typu świadectwa")
         false
       end
     end

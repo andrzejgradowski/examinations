@@ -49,6 +49,7 @@ class CreateProposals < ActiveRecord::Migration[5.2]
       t.date :exam_date_exam
       t.integer :division_id
       t.string :division_fullname
+      t.string :division_short_name
       t.integer :division_min_years_old
       t.integer :exam_fee_id
       t.decimal :exam_fee_price, precision: 8, scale: 2, default: 0.00
@@ -66,6 +67,8 @@ class CreateProposals < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
+    add_index :proposals, [:creator_id, :division_id]
+
   end
 end
 

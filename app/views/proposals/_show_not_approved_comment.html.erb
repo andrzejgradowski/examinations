@@ -1,2 +1,2 @@
-<p><strong><%= Proposal.human_attribute_name(:not_approved_comment) %></strong></p>
-<p><%= partial_data.not_approved_comment.gsub(/\n/, '<br>').html_safe %></p>
+    <p><strong><%= Proposal.human_attribute_name(:not_approved_comment) %></strong></p>
+    <p class='text-danger'><%= partial_data.not_approved_comment.gsub(/\n/, '<br>').html_safe %></p>
