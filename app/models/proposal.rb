@@ -71,8 +71,9 @@ class Proposal < ApplicationRecord
 
   # callbacks
   after_initialize :set_initial_status_and_multi_app_identifier
-  after_commit :send_created_notification, on: :create
-  after_commit :send_updated_notification, on: :update
+  # after_commit :send_created_notification, on: :create
+  # after_commit :send_updated_notification, on: :update
+  after_commit :send_notification
 
   def steps
     %w[step1 step2 step3 step4 step5]
@@ -269,19 +270,18 @@ class Proposal < ApplicationRecord
     category == 'M' 
   end
 
-
-  def send_created_notification
-    ProposalMailer.new_proposal(self).deliver_later
-  end
-
-  def send_updated_notification
+  def send_notification
     case self.proposal_status_id
+    when PROPOSAL_STATUS_CREATED
+      ProposalMailer.created(self).deliver_later
     when PROPOSAL_STATUS_APPROVED
       ProposalMailer.approved(self).deliver_later
     when PROPOSAL_STATUS_NOT_APPROVED
       ProposalMailer.not_approved(self).deliver_later      
     when PROPOSAL_STATUS_CLOSED
       ProposalMailer.closed(self).deliver_later      
+    when PROPOSAL_STATUS_ANNULLED
+      ProposalMailer.annulled(self).deliver_later      
     end
   end
 

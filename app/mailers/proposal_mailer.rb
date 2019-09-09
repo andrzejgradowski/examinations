@@ -4,7 +4,7 @@ class ProposalMailer < ApplicationMailer
   default from: Rails.application.secrets.email_provider_username
   default cc: Rails.application.secrets.email_provider_username
 
-  def new_proposal(proposal)
+  def created(proposal)
     @proposal = proposal
     @proposal_fullname = "#{proposal_rec_info(@proposal)}"
     @proposal_url_uuid = Rails.application.routes.url_helpers.url_for(only_path: false, controller: 'proposals', action: 'show', multi_app_identifier: @proposal.multi_app_identifier, locale: locale)
@@ -38,6 +38,17 @@ class ProposalMailer < ApplicationMailer
   end
 
   def closed(proposal)
+    @proposal = proposal
+    @proposal_fullname = "#{proposal_rec_info(@proposal)}"
+    @proposal_url_uuid = Rails.application.routes.url_helpers.url_for(only_path: false, controller: 'proposals', action: 'show', multi_app_identifier: @proposal.multi_app_identifier, locale: locale)
+
+    attachments.inline['logo_app.jpg'] = File.read("app/assets/images/logo_application.png")
+    attachments.inline['logo_uke.jpg'] = File.read("app/assets/images/logo_uke_pl_do_lewej_small.png")
+
+    mail(to: @proposal.creator.email, subject: "#{t('description')} - #{@proposal_fullname}" )
+  end
+
+  def annulled(proposal)
     @proposal = proposal
     @proposal_fullname = "#{proposal_rec_info(@proposal)}"
     @proposal_url_uuid = Rails.application.routes.url_helpers.url_for(only_path: false, controller: 'proposals', action: 'show', multi_app_identifier: @proposal.multi_app_identifier, locale: locale)
