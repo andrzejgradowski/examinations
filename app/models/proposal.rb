@@ -307,7 +307,7 @@ class Proposal < ApplicationRecord
     end
 
     def unique_division_for_creator
-      if Proposal.where(division_id: division_id, creator_id: creator_id).where.not(proposal_status_id: [Proposal::PROPOSAL_STATUS_CLOSED, Proposal::PROPOSAL_STATUS_ANNULLED]).any? 
+      if Proposal.where(division_id: division_id, creator_id: creator_id, proposal_status_id: [PROPOSAL_STATUS_CREATED, PROPOSAL_STATUS_APPROVED]).any? 
         errors.add(:division_id, " - Jest aktualnie procedowane Twoje zgłoszenie dla tego typu świadectwa")
         false
       end
