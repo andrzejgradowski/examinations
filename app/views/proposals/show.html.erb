@@ -8,6 +8,8 @@
     </div> <!--/col-sm-12 -->
   </div> <!--/row -->
 
+  <%= form_errors_for @proposal %>
+
   <div class="row">
     <div class="col-sm-12">
 
@@ -39,18 +41,18 @@
               <%= t("helpers.links.index") %>
             <% end %>
 
-            <% if policy(@proposal).destroy_self? %>
-              <%= link_to proposal_path(@proposal),
-                                  method: :delete,
-                                  data: { confirm: t('helpers.links.confirm_destroy', data: proposal_rec_info(@proposal)) }, 
-                                  class: "btn btn-danger" do %>
-                <span class="glyphicon glyphicon-trash"></span>
-                <%= t("helpers.links.destroy") %>
-              <% end %>
-            <% end %>
-
             <% if policy(@proposal).edit_self? %>
-              <%= link_to edit_proposal_path(@proposal), class: "btn btn-primary disabled" do %>
+
+              <%= link_to update_annulled_proposal_path(multi_app_identifier: @proposal.multi_app_identifier),
+                                  method: :patch, 
+                                  data: { confirm: t('helpers.links.confirm_annulled', data: proposal_rec_info(@proposal)) }, 
+                                  class: "btn btn-warning" do %>
+                <span class="glyphicon glyphicon-trash"></span>
+                <%= t("helpers.links.annulled") %>
+              <% end %>
+
+
+              <%= link_to edit_proposal_path(multi_app_identifier: @proposal.multi_app_identifier), class: "btn btn-primary" do %>
                 <span class="glyphicon glyphicon-edit"></span>
                 <%= t("helpers.links.edit") %>
               <% end %>

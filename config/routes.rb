@@ -19,8 +19,10 @@ Rails.application.routes.draw do
   scope "/:locale", locale: /#{I18n.available_locales.join("|")}/ do
 
     resources :uke_regulations, only: [:index]
-    resources :proposals, except: [:show]
-    resources :proposals, param: :multi_app_identifier, only: [:show]
+    resources :proposals, param: :multi_app_identifier, except: [:destroy] do
+      patch 'update_annulled', on: :member
+    end
+
 
 	  get 'static_pages/home'
 

@@ -22,10 +22,13 @@
     <div class="col-sm-12">
 
       <% if policy(proposal).show_self? %>
-        <%= link_to url_for(only_path: true, controller: 'proposals', action: 'show', multi_app_identifier: proposal.multi_app_identifier, locale: locale), class: "btn btn-primary" do %>
+
+        <%= link_to proposal_path(multi_app_identifier: proposal.multi_app_identifier), 
+                            class: "btn btn-primary" do %>
           <span class="glyphicon glyphicon-eye-open"></span>
           <%= t("helpers.links.show") %>
         <% end %>
+
       <% end %>
 
     </div> <!-- /col-sm-12 -->

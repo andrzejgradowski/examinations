@@ -13,7 +13,7 @@
     <div class="panel-body">
       <ul>
       <% object.errors.full_messages.each do |msg| %>
-        <li><h5><%= msg %></h5></li>
+        <li><h5><%= msg.force_encoding("UTF-8") %></h5></li>
       <% end %>
       </ul>
     </div>

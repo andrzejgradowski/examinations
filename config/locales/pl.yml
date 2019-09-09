@@ -25,6 +25,7 @@ pl:
     status_id_2_name: 'Zgłoszenie zaakceptowane'
     status_id_3_name: 'Zgłoszenie odrzucone'
     status_id_4_name: 'Zgłoszenie zamknięte'
+    status_id_5_name: 'Zgłoszenie anulowane'
     new:
       title: 'Kreator Zgłoszenia'
     index:
@@ -114,6 +115,7 @@ pl:
         created: 'Wpis: "%{data}" został pomyślnie utworzony.'
         updated: 'Wpis: "%{data}" został pomyślnie zaktualizowany.'
         destroyed: 'Wpis: "%{data}" został pomyślnie usunięty.'
+        annulled: 'Wpis: "%{data}" został pomyślnie anulowany.'
         add_role: 'Użytkownikowi "%{parent}" pomyślnie dodano rolę "%{child}".'
         remove_role: 'Użytkownikowi "%{parent}" została pomyślnie usunięta rola "%{child}".'
         account_off: 'Pomyślnie wyłączono konto "%{data}".'
@@ -326,6 +328,8 @@ pl:
       confirm_destroy: 'Na pewno chcesz usunąć wpis: "%{data}"?'
       destroy: "Usuń"
       destroy_account: "Usuń moje konto"
+      confirm_annulled: 'Na pewno chcesz anulować "%{data}"?'
+      annulled: "Anuluj zgłoszenie"
       send_email: "Wyślij email"
       download: "Pobierz"
       filter: "Filtruj dane"

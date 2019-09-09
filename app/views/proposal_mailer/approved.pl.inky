@@ -21,8 +21,7 @@
   <row>
     <columns>
       <h4>Gratulacje!</h4> 
-      <p>W programie <strong>UKE Egzaminy</strong> <%= link_to @proposal_fullname, @proposal_url_uuid, target: "_blank" %></p>
-      <p>otrzymało status <strong>ZAAKCEPTOWANE</strong>.</p> 
+      <p>W programie <strong>UKE Egzaminy</strong> <%= link_to @proposal_fullname, @proposal_url_uuid, target: "_blank" %> otrzymało status <strong>ZAAKCEPTOWANE</strong>.</p> 
       <spacer size="16"></spacer>
       <p>...Czekamy na Ciebie w dniu <%= "#{@proposal.exam_date_exam.strftime("%Y-%m-%d")}" %>.</p> 
     </columns>

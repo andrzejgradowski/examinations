@@ -2,7 +2,7 @@ class ProposalsController < ApplicationController
   include ProposalsHelper
   
   before_action :authenticate_user!
-  before_action :set_proposal, only: [:edit, :update, :destroy]
+  before_action :set_proposal, only: [:show, :edit, :update, :update_annulled]
 
   after_action :verify_authorized, except: :index
   after_action :verify_policy_scoped, only: :index
@@ -16,11 +16,6 @@ class ProposalsController < ApplicationController
   # GET /proposals/1
   # GET /proposals/1.json
   def show
-    if params[:multi_app_identifier].present?
-      @proposal = Proposal.find_by(multi_app_identifier: params[:multi_app_identifier])
-    else
-      set_proposal
-    end
     authorize @proposal, :show_self?
   end
 
@@ -50,7 +45,7 @@ class ProposalsController < ApplicationController
       @proposal.previous_step
     elsif @proposal.last_step?
       if @proposal.all_valid?
-        @proposal.save_new_rec_and_push
+        @proposal.save_rec_and_push
       end
     else
       @proposal.next_step if @proposal.valid?
@@ -89,21 +84,20 @@ class ProposalsController < ApplicationController
     end
   end
 
-  # DELETE /proposals/1
-  # DELETE /proposals/1.json
-  def destroy
-    authorize @proposal, :destroy_self?
-    if @proposal.destroy_and_push
-      flash[:success] = t('activerecord.successfull.messages.destroyed', data: proposal_rec_info(@proposal)) 
-      redirect_to proposals_url
-    else 
-      flash[:error] = t('activerecord.errors.messages.destroyed', data: proposal_rec_info(@proposal))
-      @proposal.errors.full_messages.each do |msg|
-        flash[:error] = msg
-      end
+  def update_annulled
+    @proposal.proposal_status_id = Proposal::PROPOSAL_STATUS_ANNULLED
+    #authorize @proposal, :update_self?
+    authorize @proposal, :create_self?
 
-      redirect_to proposals_url
-    end      
+    respond_to do |format|
+      if @proposal.save_rec_and_push
+        flash[:warning] = t('activerecord.successfull.messages.annulled', data: proposal_rec_info(@proposal))
+        format.html { redirect_to proposal_url }
+      else
+        @proposal.proposal_status_id_was
+        format.html { render :show }
+      end
+    end
   end
 
   private
@@ -162,7 +156,8 @@ class ProposalsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_proposal
-      @proposal = Proposal.find(params[:id])
+      @proposal = Proposal.find_by(multi_app_identifier: params[:multi_app_identifier])
+      # @proposal = Proposal.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

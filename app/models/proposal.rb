@@ -17,8 +17,9 @@ class Proposal < ApplicationRecord
   PROPOSAL_STATUS_APPROVED = 2
   PROPOSAL_STATUS_NOT_APPROVED = 3
   PROPOSAL_STATUS_CLOSED = 4
+  PROPOSAL_STATUS_ANNULLED = 5
 
-  PROPOSAL_STATUSES = [PROPOSAL_STATUS_CREATED, PROPOSAL_STATUS_APPROVED, PROPOSAL_STATUS_NOT_APPROVED, PROPOSAL_STATUS_CLOSED]
+  PROPOSAL_STATUSES = [PROPOSAL_STATUS_CREATED, PROPOSAL_STATUS_APPROVED, PROPOSAL_STATUS_NOT_APPROVED, PROPOSAL_STATUS_CLOSED, PROPOSAL_STATUS_ANNULLED]
 
   CATEGORY_NAME_M = "Świadectwo służby morskiej i żeglugi śródlądowej"
   CATEGORY_NAME_R = "Świadectwo służby radioamatorskiej"
@@ -105,11 +106,12 @@ class Proposal < ApplicationRecord
   end 
 
 
-  def save_new_rec_and_push
+  def save_rec_and_push
     return false if invalid?
     ApplicationRecord.transaction do
 #    Proposal.transaction do
-      if new_record?
+      this_is_new_record = new_record?
+      if this_is_new_record
         creator = User.find(self.creator_id)
         self.bank_pdf_blob_path   = Rails.application.routes.url_helpers.rails_blob_path(creator.bank_pdf) if creator.bank_pdf.attached?
         self.face_image_blob_path = Rails.application.routes.url_helpers.rails_blob_path(creator.face_image) if creator.face_image.attached?
@@ -140,10 +142,12 @@ class Proposal < ApplicationRecord
       case response
       when Net::HTTPOK, Net::HTTPCreated
         save!
-        attachment_record_bank_pdf = ActiveStorage::Attachment.find_by(name: 'bank_pdf', record: self.creator)
-        attachment_record_bank_pdf.update(record: self)
-        attachment_record_face_image = ActiveStorage::Attachment.find_by(name: 'face_image', record: self.creator)
-        attachment_record_face_image.update(record: self) if attachment_record_face_image.present? && division_face_image_required?
+        if this_is_new_record
+          attachment_record_bank_pdf = ActiveStorage::Attachment.find_by(name: 'bank_pdf', record: self.creator)
+          attachment_record_bank_pdf.update(record: self)
+          attachment_record_face_image = ActiveStorage::Attachment.find_by(name: 'face_image', record: self.creator)
+          attachment_record_face_image.update(record: self) if attachment_record_face_image.present? && division_face_image_required?
+        end
         #super
         true   # success response
       when Net::HTTPClientError, Net::HTTPInternalServerError
@@ -250,11 +254,15 @@ class Proposal < ApplicationRecord
   
 
   def can_destroy?
-    proposal_status_id != PROPOSAL_STATUS_CLOSED
+    [PROPOSAL_STATUS_CREATED].include?(proposal_status_id) 
+  end
+
+  def can_annulled?
+    [PROPOSAL_STATUS_CREATED, PROPOSAL_STATUS_APPROVED].include?(proposal_status_id) 
   end
 
   def can_edit?
-    proposal_status_id != PROPOSAL_STATUS_CLOSED
+    [PROPOSAL_STATUS_CREATED].include?(proposal_status_id) 
   end
 
   def division_face_image_required?

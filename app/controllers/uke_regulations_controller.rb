@@ -22,9 +22,7 @@ class UkeRegulationsController < ApplicationController
     #   flash[:error] = "Errors:  #{ur.errors.full_messages}"
     #   redirect_to root_path
     # end
-
-
-    
+    flash[:warning] = "Odblokuj UkeRegulations"
     redirect_to root_path
   end
 

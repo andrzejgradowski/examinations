@@ -20,8 +20,7 @@
 
   <row>
     <columns>
-      <p>W programie <strong>UKE Egzaminy</strong> <%= link_to @proposal_fullname, @proposal_url_uuid, target: "_blank" %></p>
-      <p>otrzymało status <strong><span class="text-danger">ODRZUCONE</span></strong> z powodu:</p> 
+      <p>W programie <strong>UKE Egzaminy</strong> <%= link_to @proposal_fullname, @proposal_url_uuid, target: "_blank" %> otrzymało status <strong>ODRZUCONE</strong> z powodu:</p> 
       <p><%= @proposal.not_approved_comment.gsub(/\n/, '<br>').html_safe %></p> 
       <spacer size="16"></spacer>
       <p>...Spróbuj raz jeszcze i ponownie utwórz zgłoszenie!</p> 
