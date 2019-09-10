@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_04_150412) do
+ActiveRecord::Schema.define(version: 2019_09_10_210400) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,11 +57,6 @@ ActiveRecord::Schema.define(version: 2019_08_04_150412) do
     t.string "birth_place", limit: 50, default: ""
     t.string "phone", limit: 50, default: ""
     t.string "email", limit: 50, default: "", null: false
-    t.string "address_city", limit: 50, default: "", null: false
-    t.string "address_street", limit: 50, default: ""
-    t.string "address_house", limit: 10, default: ""
-    t.string "address_number", limit: 10, default: ""
-    t.string "address_postal_code", limit: 10, default: ""
     t.string "c_address_city", limit: 50, default: ""
     t.string "c_address_street", limit: 50, default: ""
     t.string "c_address_house", limit: 10, default: ""

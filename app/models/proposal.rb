@@ -262,8 +262,11 @@ class Proposal < ApplicationRecord
   end
 
   def send_notification
-    unless proposal_status_id == proposal_status_id_was
-      case self.proposal_status_id
+    if saved_change_to_proposal_status_id?
+      puts '------------------------------------------------------------------------------'
+      puts ' saved_change_to_proposal_status_id? = true'
+      puts '------------------------------------------------------------------------------'
+      case proposal_status_id
       when PROPOSAL_STATUS_CREATED
         ProposalMailer.created(self).deliver_later
       when PROPOSAL_STATUS_APPROVED
@@ -277,7 +280,7 @@ class Proposal < ApplicationRecord
       end
     else
       puts '------------------------------------------------------------------------------'
-      puts ' zmiana bez zmiany statusu'
+      puts ' saved_change_to_proposal_status_id? = false'
       puts '------------------------------------------------------------------------------'
     end
   end
