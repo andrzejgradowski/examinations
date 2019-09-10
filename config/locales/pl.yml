@@ -145,7 +145,6 @@ pl:
       update?: ' BRAK UPRAWNIEŃ: Nie możesz edytować danych tego zgłoszenia!'
       create?: ' BRAK UPRAWNIEŃ: Nie możesz tworzyć zgłoszenia!'
       destroy?: ' BRAK UPRAWNIEŃ: Nie możesz usuwać tego zgłoszenia!'
-      wizard?: ' BRAK UPRAWNIEŃ: Nie możesz tworzyć zgłoszenia!'
   date:
     abbr_day_names:
     - nie

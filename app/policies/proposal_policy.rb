@@ -6,10 +6,6 @@ class ProposalPolicy < ApplicationPolicy
     @model = model
   end
 
-  def wizard?
-    (@model.creator_id == @user.id) && (user_activities.include? 'proposal:show_self') 
-  end
-
   def index?
     user_activities.include? 'proposal:index'
   end
@@ -42,30 +38,11 @@ class ProposalPolicy < ApplicationPolicy
     user_activities.include? 'proposal:create_self'
   end
 
-  def edit?
-    update?
+
+  def annulled_self?
+    (@model.creator_id == @user.id) && @model.can_annulled? && (user_activities.include? 'proposal:update_self')
   end
 
-  def edit_self?
-    update_self?
-  end
-
-  def update?
-    user_activities.include? 'proposal:update'
-  end
-
-  def update_self?
-    (@model.creator_id == @user.id) && @model.can_edit? && (user_activities.include? 'proposal:update_self')
-  end
-
-  def destroy?
-    user_activities.include? 'proposal:delete'
-  end
- 
-  def destroy_self?
-    (@model.creator_id == @user.id) && @model.can_destroy? && (user_activities.include? 'proposal:delete_self')
-  end
- 
   # def work?
   #   user_activities.include? 'proposal:work'
   # end

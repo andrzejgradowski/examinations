@@ -253,17 +253,8 @@ class Proposal < ApplicationRecord
     false
   end
   
-
-  def can_destroy?
-    [PROPOSAL_STATUS_CREATED].include?(proposal_status_id) 
-  end
-
   def can_annulled?
     [PROPOSAL_STATUS_CREATED, PROPOSAL_STATUS_APPROVED].include?(proposal_status_id) 
-  end
-
-  def can_edit?
-    [PROPOSAL_STATUS_CREATED].include?(proposal_status_id) 
   end
 
   def division_face_image_required?
@@ -271,17 +262,23 @@ class Proposal < ApplicationRecord
   end
 
   def send_notification
-    case self.proposal_status_id
-    when PROPOSAL_STATUS_CREATED
-      ProposalMailer.created(self).deliver_later
-    when PROPOSAL_STATUS_APPROVED
-      ProposalMailer.approved(self).deliver_later
-    when PROPOSAL_STATUS_NOT_APPROVED
-      ProposalMailer.not_approved(self).deliver_later      
-    when PROPOSAL_STATUS_CLOSED
-      ProposalMailer.closed(self).deliver_later      
-    when PROPOSAL_STATUS_ANNULLED
-      ProposalMailer.annulled(self).deliver_later      
+    unless proposal_status_id == proposal_status_id_was
+      case self.proposal_status_id
+      when PROPOSAL_STATUS_CREATED
+        ProposalMailer.created(self).deliver_later
+      when PROPOSAL_STATUS_APPROVED
+        ProposalMailer.approved(self).deliver_later
+      when PROPOSAL_STATUS_NOT_APPROVED
+        ProposalMailer.not_approved(self).deliver_later      
+      when PROPOSAL_STATUS_CLOSED
+        ProposalMailer.closed(self).deliver_later      
+      when PROPOSAL_STATUS_ANNULLED
+        ProposalMailer.annulled(self).deliver_later      
+      end
+    else
+      puts '------------------------------------------------------------------------------'
+      puts ' zmiana bez zmiany statusu'
+      puts '------------------------------------------------------------------------------'
     end
   end
 

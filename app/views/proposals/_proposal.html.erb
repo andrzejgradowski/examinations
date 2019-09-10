@@ -1,5 +1,5 @@
 <fieldset class="my-fieldset">
-  <legend class="my-fieldset"><%= proposal_rec_info(proposal) %></legend>
+  <legend class="my-fieldset"><strong><%= proposal_rec_info(proposal) %></strong></legend>
 
   <%#= render partial: "show_step1", locals: {partial_data: proposal} %>
   <%#= render partial: "show_step2", locals: {partial_data: proposal} %>
@@ -25,7 +25,7 @@
 
         <%= link_to proposal_path(multi_app_identifier: proposal.multi_app_identifier), 
                             class: "btn btn-primary" do %>
-          <span class="glyphicon glyphicon-eye-open"></span>
+          <span class="fa fa-eye"></span>
           <%= t("helpers.links.show") %>
         <% end %>
 

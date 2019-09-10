@@ -8,13 +8,15 @@
     </div> <!--/col-sm-12 -->
   </div> <!--/row -->
 
+  <br>
+
   <%= form_errors_for @proposal %>
 
   <div class="row">
     <div class="col-sm-12">
 
       <fieldset class="my-fieldset">
-        <legend class="my-fieldset"><%= proposal_rec_info(@proposal) %></legend>
+        <legend class="my-fieldset"><strong><%= proposal_rec_info(@proposal) %></strong></legend>
 
         <%= render partial: "show_step1", locals: {partial_data: @proposal} %>
         <%= render partial: "show_step2", locals: {partial_data: @proposal} %>
@@ -41,20 +43,13 @@
               <%= t("helpers.links.index") %>
             <% end %>
 
-            <% if policy(@proposal).edit_self? %>
-
+            <% if policy(@proposal).annulled_self? %>
               <%= link_to update_annulled_proposal_path(multi_app_identifier: @proposal.multi_app_identifier),
                                   method: :patch, 
                                   data: { confirm: t('helpers.links.confirm_annulled', data: proposal_rec_info(@proposal)) }, 
                                   class: "btn btn-warning" do %>
-                <span class="glyphicon glyphicon-trash"></span>
+                <span class="fa fa-trash"></span>
                 <%= t("helpers.links.annulled") %>
-              <% end %>
-
-
-              <%= link_to edit_proposal_path(multi_app_identifier: @proposal.multi_app_identifier), class: "btn btn-primary" do %>
-                <span class="glyphicon glyphicon-edit"></span>
-                <%= t("helpers.links.edit") %>
               <% end %>
             <% end %>
 

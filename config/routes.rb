@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   scope "/:locale", locale: /#{I18n.available_locales.join("|")}/ do
 
     resources :uke_regulations, only: [:index]
-    resources :proposals, param: :multi_app_identifier, except: [:destroy] do
+    resources :proposals, param: :multi_app_identifier, except: [:edit, :update, :destroy] do
       patch 'update_annulled', on: :member
     end
 

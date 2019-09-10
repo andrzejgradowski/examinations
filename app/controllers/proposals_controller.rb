@@ -2,7 +2,7 @@ class ProposalsController < ApplicationController
   include ProposalsHelper
   
   before_action :authenticate_user!
-  before_action :set_proposal, only: [:show, :edit, :update, :update_annulled]
+  before_action :set_proposal, only: [:show, :update_annulled]
 
   after_action :verify_authorized, except: :index
   after_action :verify_policy_scoped, only: :index
@@ -66,28 +66,9 @@ class ProposalsController < ApplicationController
     end
   end
 
-  # GET /proposals/1/edit
-  def edit
-    authorize @proposal, :edit_self?
-  end
-
-  # PATCH/PUT /proposals/1
-  # PATCH/PUT /proposals/1.json
-  def update
-    authorize @proposal, :update_self?
-    respond_to do |format|
-      if @proposal.update(proposal_params)
-        format.html { redirect_to proposals_url, notice: 'Proposal was successfully updated.' }
-      else
-        format.html { render :edit }
-      end
-    end
-  end
-
   def update_annulled
+    authorize @proposal, :annulled_self?
     @proposal.proposal_status_id = Proposal::PROPOSAL_STATUS_ANNULLED
-    #authorize @proposal, :update_self?
-    authorize @proposal, :create_self?
 
     respond_to do |format|
       if @proposal.save_rec_and_push
