@@ -124,6 +124,7 @@ class ProposalsController < ApplicationController
       @proposal.pesel       = current_user.pesel
       @proposal.birth_date  = current_user.birth_date
       @proposal.birth_place = current_user.birth_city
+      @proposal.family_name = current_user.family_name
       @proposal.phone       = current_user.phone
     end
 
@@ -144,7 +145,7 @@ class ProposalsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def proposal_params
       params.require(:proposal).permit(:creator_id,
-        :email, :phone, :name, :given_names, :pesel, :birth_date, :birth_place, 
+        :email, :phone, :name, :given_names, :pesel, :citizenship_code, :birth_date, :birth_place, :family_name, 
         :c_address_city, :c_address_street, :c_address_house, :c_address_number, :c_address_postal_code,
         :category, :esod_category, :exam_id, :exam_fullname, :exam_date_exam, 
         :division_id, :division_fullname, :division_short_name, :division_min_years_old, 
@@ -177,7 +178,7 @@ class ProposalsController < ApplicationController
       end
 
       params.require(:proposal).permit(:creator_id,
-        :email, :phone, :name, :given_names, :pesel, :birth_date, :birth_place, 
+        :email, :phone, :name, :given_names, :pesel, :citizenship_code, :birth_date, :birth_place, :family_name, 
         :c_address_city, :c_address_street, :c_address_house, :c_address_number, :c_address_postal_code,
         :category, :esod_category, :exam_id, :exam_fullname, :exam_date_exam, 
         :division_id, :division_fullname, :division_short_name, :division_min_years_old, 

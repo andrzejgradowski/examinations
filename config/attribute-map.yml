@@ -27,6 +27,7 @@
 "username": "user_name"
 "birthdate": "birth_date"
 "birthcity": "birth_city"
+"familyname": "family_name"
 "pesel": "pesel"
 "passport": "passport"
 "phone": "phone"

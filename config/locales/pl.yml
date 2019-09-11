@@ -70,8 +70,10 @@ pl:
         name: 'Nazwisko'
         given_names: 'Imię'
         pesel: 'Pesel'
+        citizenship_code: "Obywatelstwo"
         birth_date: "Data urodzenia"
         birth_place: "Miejsce urodzenia"
+        family_name: "Nazwisko rodowe"
         phone: 'Telefon'
         address_city: 'Miejscowość'
         address_street: 'Ulica'

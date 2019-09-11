@@ -86,3 +86,5 @@ gem 'premailer-rails'
 gem 'activepesel'
 gem 'mini_magick'
 gem 'image_processing', '~> 1.2'
+
+gem 'country_select', '~> 4.0'

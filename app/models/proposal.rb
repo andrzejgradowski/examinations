@@ -40,8 +40,10 @@ class Proposal < ApplicationRecord
   validates :email, presence: true, format: { with: /@/ }, if: -> { current_step == 'step1' }
   validates :name, presence: true, length: { in: 1..160 }, if: -> { current_step == 'step1' }
   validates :given_names, presence: true, length: { in: 1..50 }, if: -> { current_step == 'step1' }
+  validates :citizenship_code, presence: true, length: { in: 1..50 }, if: -> { current_step == 'step1' }
   validates :birth_place, presence: true, length: { in: 1..50 }, if: -> { current_step == 'step1' }
   validates :birth_date, presence: true, if: -> { current_step == 'step1' }
+  validates :family_name, presence: true, length: { in: 1..50 }, if: -> { current_step == 'step1' }
   validate :check_pesel, if: -> { pesel.present? && current_step == 'step1' }
   validate :check_birth_date, if: -> { pesel.present? && current_step == 'step1' }
 
@@ -263,9 +265,6 @@ class Proposal < ApplicationRecord
 
   def send_notification
     if saved_change_to_proposal_status_id?
-      puts '------------------------------------------------------------------------------'
-      puts ' saved_change_to_proposal_status_id? = true'
-      puts '------------------------------------------------------------------------------'
       case proposal_status_id
       when PROPOSAL_STATUS_CREATED
         ProposalMailer.created(self).deliver_later
@@ -280,6 +279,7 @@ class Proposal < ApplicationRecord
       end
     else
       puts '------------------------------------------------------------------------------'
+      puts ' edycja bez zmiany proposal_status_id !!! ???'
       puts ' saved_change_to_proposal_status_id? = false'
       puts '------------------------------------------------------------------------------'
     end

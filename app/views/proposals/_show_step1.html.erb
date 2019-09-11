@@ -9,9 +9,6 @@
       <p><strong><%= Proposal.human_attribute_name(:email) %></strong></p>
       <%= partial_data.try(:email) %>
     </div>
-  </div> <!--/row -->
-
-  <div class="row">
     <div class="form-group required col-sm-4">
       <p><strong><%= Proposal.human_attribute_name(:name) %></strong></p>
       <%= partial_data.try(:name) %>
@@ -20,10 +17,16 @@
       <p><strong><%= Proposal.human_attribute_name(:given_names) %></strong></p>
       <%= partial_data.try(:given_names) %>
     </div>
+  </div> <!--/row -->
 
+  <div class="row">
     <div class="form-group required col-sm-4">
       <p><strong><%= Proposal.human_attribute_name(:pesel) %></strong></p>
       <%= partial_data.try(:pesel) %>
+    </div>
+    <div class="form-group required col-sm-4">
+      <p><strong><%= Proposal.human_attribute_name(:citizenship_code) %></strong></p>
+      <%= partial_data.try(:citizenship_code) %>
     </div>
   </div> <!--/row -->
 
@@ -36,6 +39,13 @@
       <p><strong><%= Proposal.human_attribute_name(:birth_date) %></strong></p>
       <%= partial_data.try(:birth_date) %>
     </div>
+    <div class="form-group required col-sm-4">
+      <p><strong><%= Proposal.human_attribute_name(:family_name) %></strong></p>
+      <%= partial_data.try(:family_name) %>
+    </div>
+  </div> <!--/row -->
+
+  <div class="row">
     <div class="form-group col-sm-4">
       <p><strong><%= Proposal.human_attribute_name(:phone) %></strong></p>
       <%= partial_data.try(:phone) %>
