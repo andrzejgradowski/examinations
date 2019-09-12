@@ -4,9 +4,6 @@ pl:
   title: "Egzaminy"
   description: "UKE Egzaminy"
   layouts:
-    header:
-      menu:
-        data: 'Dane'
     footer:
       brand: 'Urząd Komunikacji Elektronicznej'
       brand_address_1: 'ul. Giełdowa 7/9'
