@@ -26,7 +26,8 @@
     </div>
     <div class="form-group required col-sm-4">
       <p><strong><%= Proposal.human_attribute_name(:citizenship_code) %></strong></p>
-      <%= partial_data.try(:citizenship_code) %>
+      <%= ISO3166::Country[partial_data.citizenship_code] %> (<%= partial_data.citizenship_code%>)
+      <%#= partial_data.try(:citizenship_code) %>
     </div>
   </div> <!--/row -->
 
