@@ -76,7 +76,7 @@ gem 'mina'
 
 gem 'piwik_analytics'
 
-#gem 'devise'
+gem "devise", ">= 4.7.1"
 gem 'devise_saml_authenticatable'
 gem 'pundit'
 
