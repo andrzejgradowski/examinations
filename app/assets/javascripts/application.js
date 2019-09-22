@@ -19,4 +19,5 @@
 //= require bootstrap-sprockets
 //= require bootstrap
 //= require bootstrap-datetimepicker
+//= require toastr
 //= require_tree .

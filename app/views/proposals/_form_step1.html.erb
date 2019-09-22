@@ -30,8 +30,8 @@
         </div>
         <div class="form-group required col-sm-5">
           <%= f.label :citizenship_code, class: 'control-label' %>
-          <%= f.country_select :citizenship_code, priority_countries = ["PL"], options = {}, autofocus: current_user.pesel.present?, :class => "form-control input-sm" %>
-       </div>
+          <%= f.country_select :citizenship_code, priority_countries = ["pl"], options = {}, autofocus: current_user.pesel.present?, :class => "form-control input-sm" %>
+        </div>
       </div> <!--/row -->
 
       <div class="row">

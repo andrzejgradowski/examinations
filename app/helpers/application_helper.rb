@@ -3,10 +3,14 @@ module ApplicationHelper
   # for layouts/messages
   def flash_class_name(name)
     case name
-    when 'notice' then 'success'
-    when 'alert'  then 'danger'
-    when 'error'  then 'danger'
-    else name
+    when 'notice'
+      'success'
+    when 'alert'
+      'error'
+    when 'danger'
+      'error'
+    else 
+      name
     end
   end
 

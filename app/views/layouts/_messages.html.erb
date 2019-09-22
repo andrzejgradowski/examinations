@@ -1,10 +1,29 @@
 <% flash.each do |name, msg| %>
   <% if msg.is_a?(String) %>
-    <div class="alert alert-<%= flash_class_name(name) %>" role="alert">
-      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span>
-      <span class="sr-only">Close</span>
-      </button>
-      <%= content_tag :div, msg, :id => "flash_#{name}" %>
-    </div>
+
+    <script type="text/javascript">
+
+      toastr.options = {
+        "closeButton": false,
+        "debug": true,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+      }
+
+      toastr['<%= flash_class_name(name) %>']('<%= msg %>' )
+
+    </script>
   <% end %>
 <% end %>
+
