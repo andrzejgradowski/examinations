@@ -59,5 +59,8 @@ class User < ApplicationRecord
   #   end
   # end
 
+  before_save do
+    self.email.downcase! if self.email
+  end
 
 end
