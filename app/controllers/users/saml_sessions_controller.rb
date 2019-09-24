@@ -68,8 +68,9 @@ class Users::SamlSessionsController < Devise::SessionsController
     if params[:SAMLRequest] && Devise.saml_session_index_key
       saml_config = saml_config(get_idp_entity_id(params))
       logout_request = OneLogin::RubySaml::SloLogoutrequest.new(params[:SAMLRequest], settings: saml_config)
-      resource_class.reset_session_key_for(logout_request.name_id)
-
+      # BJ 2019.09.24 
+      #resource_class.reset_session_key_for(logout_request.name_id)
+      resource_class.reset_session_key_for(logout_request.name_id.downcase)
       redirect_to generate_idp_logout_response(saml_config, logout_request.id)
     elsif params[:SAMLResponse]
       #Currently Devise handles the session invalidation when the request is made.
