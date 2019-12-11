@@ -1,0 +1,59 @@
+<spacer size="16"></spacer>
+<container>
+
+  <row class="collapsed">
+    <columns small="3">
+      <spacer size="16"></spacer>
+      <center>
+        <%=link_to( image_tag( attachments['logo_app.jpg'].url, alt: "LOGO" ), root_url(locale), target: "_blank" ) %>
+      </center>
+    </columns>
+    <columns small="9">
+      <spacer size="16"></spacer>
+        <h5 class="h5-small text-right"><%= "#{@proposal.try(:email)}" %></h5>
+        <h5 class="h5-small text-right"><%= "#{@proposal.try(:given_names)} #{@proposal.try(:name)}" %></h5>
+    </columns>
+  </row>
+
+  <spacer size="16"></spacer>
+
+
+  <row>
+    <columns>
+      <p>W programie <strong>UKE Egzaminy</strong> <%= link_to @proposal_fullname, @proposal_url_uuid, target: "_blank" %> otrzymało status <strong>ZAMKNIĘTE</strong>. Powodem zamknięcia jest nieobecność na egzaminie.</p>
+      <spacer size="16"></spacer>
+      <p>...Spróbuj raz jeszcze i ponownie zapisz się na egzamin!</p> 
+    </columns>
+  </row>
+
+
+  <spacer size="16"></spacer>
+
+  <row class="collapsed footer">
+    <columns>
+      <hr class="hr-brand">
+      <row>
+        <columns small="4">
+          <spacer size="8"></spacer>
+          <center>
+            <%= image_tag( attachments['logo_uke.jpg'].url, alt: "LOGO UKE" ) %>
+          </center>
+        </columns>
+        <columns small="8">
+          <spacer size="8"></spacer>
+          <h6 class="text-right h6-small"><%= mail_to "wml@uke.gov.pl" %></h6>
+          <h6 class="text-right h6-small"><%= mail_to "ske.gdynia@uke.gov.pl" %></h6>
+          <h6 class="text-right h6-small"><%= mail_to "serwis.egzaminy@uke.gov.pl" %></h6>
+        </columns>
+      </row>
+      <row>
+        <columns small="12>
+          <h6 class="text-left h6-small"><small></small></h6>
+          <h6 class="text-left h6-small"><small>&copy; 2019 UKE-BI,  Wysłano z programu <%= Rails.application.secrets.domain_name %></small></h6>
+        </columns>
+      </row>
+    </columns>
+  </row>
+
+</container>
+<spacer size="16"></spacer>

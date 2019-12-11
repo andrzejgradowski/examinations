@@ -18,8 +18,22 @@ class Proposal < ApplicationRecord
   PROPOSAL_STATUS_NOT_APPROVED = 3
   PROPOSAL_STATUS_CLOSED = 4
   PROPOSAL_STATUS_ANNULLED = 5
+  PROPOSAL_STATUS_EXAMINATION_RESULT_B = 6  # "Negatywny bez prawa do poprawki" 
+  PROPOSAL_STATUS_EXAMINATION_RESULT_N = 7  # "Negatywny z prawem do poprawki" 
+  PROPOSAL_STATUS_EXAMINATION_RESULT_O = 8  # "Nieobecny" 
+  PROPOSAL_STATUS_EXAMINATION_RESULT_P = 9  # "Pozytywny" 
+  PROPOSAL_STATUS_EXAMINATION_RESULT_Z = 10 # "Zmiana terminu" 
 
-  PROPOSAL_STATUSES = [PROPOSAL_STATUS_CREATED, PROPOSAL_STATUS_APPROVED, PROPOSAL_STATUS_NOT_APPROVED, PROPOSAL_STATUS_CLOSED, PROPOSAL_STATUS_ANNULLED]
+  PROPOSAL_STATUSES = [ PROPOSAL_STATUS_CREATED, 
+                        PROPOSAL_STATUS_APPROVED, 
+                        PROPOSAL_STATUS_NOT_APPROVED, 
+                        PROPOSAL_STATUS_CLOSED, 
+                        PROPOSAL_STATUS_ANNULLED,
+                        PROPOSAL_STATUS_EXAMINATION_RESULT_B,
+                        PROPOSAL_STATUS_EXAMINATION_RESULT_N,
+                        PROPOSAL_STATUS_EXAMINATION_RESULT_O,
+                        PROPOSAL_STATUS_EXAMINATION_RESULT_P,
+                        PROPOSAL_STATUS_EXAMINATION_RESULT_Z ]
 
   CATEGORY_NAME_M = "Świadectwo służby morskiej i żeglugi śródlądowej"
   CATEGORY_NAME_R = "Świadectwo służby radioamatorskiej"
@@ -276,6 +290,16 @@ class Proposal < ApplicationRecord
         ProposalMailer.closed(self).deliver_later      
       when PROPOSAL_STATUS_ANNULLED
         ProposalMailer.annulled(self).deliver_later      
+      when PROPOSAL_STATUS_EXAMINATION_RESULT_B
+        ProposalMailer.examination_result_b(self).deliver_later      
+      when PROPOSAL_STATUS_EXAMINATION_RESULT_N
+        ProposalMailer.examination_result_n(self).deliver_later      
+      when PROPOSAL_STATUS_EXAMINATION_RESULT_O
+        ProposalMailer.examination_result_o(self).deliver_later      
+      when PROPOSAL_STATUS_EXAMINATION_RESULT_P
+        ProposalMailer.examination_result_p(self).deliver_later      
+      when PROPOSAL_STATUS_EXAMINATION_RESULT_Z
+        ProposalMailer.examination_result_z(self).deliver_later      
       end
     else
       puts '------------------------------------------------------------------------------'

@@ -23,6 +23,11 @@ pl:
     status_id_3_name: 'Zgłoszenie odrzucone'
     status_id_4_name: 'Zgłoszenie zamknięte'
     status_id_5_name: 'Zgłoszenie anulowane'
+    status_id_6_name: 'Zgłoszenie zamknięte - Wynik egzaminu: Negatywny bez prawa do poprawki'
+    status_id_7_name: 'Zgłoszenie zamknięte - Wynik egzaminu: Negatywny z prawem do poprawki'
+    status_id_8_name: 'Zgłoszenie zamknięte - Wynik egzaminu: Nieobecny'
+    status_id_9_name: 'Zgłoszenie zamknięte - Wynik egzaminu: Pozytywny'
+    status_id_10_name: 'Zgłoszenie zamknięte - Z powodu wniosku o zmianę terminu egzaminu'
     new:
       title: 'Kreator Zgłoszenia'
     index:
