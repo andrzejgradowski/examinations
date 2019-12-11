@@ -18,9 +18,21 @@ en:
     home:
       title: 'UKE Examinations'
   proposals:
+    status_id_1_name: 'Proposal created'
+    status_id_2_name: 'Proposal approved'
+    status_id_3_name: 'Proposal rejected'
+    status_id_4_name: 'Proposal closed'
+    status_id_5_name: 'Proposal annuled'
+    status_id_6_name: 'Proposal closed - Wynik egzaminu: Negatywny bez prawa do poprawki'
+    status_id_7_name: 'Proposal closed - Wynik egzaminu: Negatywny z prawem do poprawki'
+    status_id_8_name: 'Proposal closed - Wynik egzaminu: Nieobecny'
+    status_id_9_name: 'Proposal closed - Wynik egzaminu: Pozytywny'
+    status_id_10_name: 'Proposal closed - Z powodu wniosku o zmianę terminu egzaminu'
+    new:
+      title: 'Proposal wizard'
     index:
       title: 'Proposals'
-      no_data: 'Brak danych'
+      no_data: 'No data'
     proposal:
       rec_info: 'Proposal %{data}'
     show:
