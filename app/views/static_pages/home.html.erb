@@ -12,16 +12,24 @@
   <div class="row">
     <div class="col-sm-12">
       <%= render 'info', cached: true %>
-      <% unless user_signed_in? %>
-        <br>
+      <br>
 
-      <div class="center">
-        <%= link_to new_user_session_path, class: "btn btn-primary btn-lg" do %>
-          <span class="glyphicon glyphicon-log-in"></span>&nbsp;
-          <%=t "devise.link_to.sign_in" %>
-        <% end %>
-      </div>
-
+      <% if user_signed_in? %>
+        <div class="center">
+          <% if policy(:proposal).index? || policy(:proposal).index_self? %> 
+            <%= link_to proposals_path, class: "btn btn-primary btn-lg" do %>
+              <span class="fa fa-file-invoice"></span>&nbsp;
+              <%=t "proposals.index.navbar" %>
+            <% end %>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="center">
+          <%= link_to new_user_session_path, class: "btn btn-primary btn-lg" do %>
+            <span class="glyphicon glyphicon-log-in"></span>&nbsp;
+            <%=t "devise.link_to.sign_in" %>
+          <% end %>
+        </div>
       <% end %>
 
     </div> <!-- /.col-sm-12 -->
