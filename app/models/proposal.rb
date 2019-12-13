@@ -354,8 +354,8 @@ class Proposal < ApplicationRecord
           errors.add(:bank_pdf, ' - nieprawidłowy typ pliku (plik content_type ["application/pdf"])')
           analyze_value = false
         else
-          unless self.creator.bank_pdf.blob.byte_size < 300000
-            errors.add(:bank_pdf, ' - plik jest za duży (max 300kB)')
+          unless self.creator.bank_pdf.blob.byte_size < 600000
+            errors.add(:bank_pdf, ' - plik jest za duży (max 600kB)')
             analyze_value = false
           else
            analyze_value = true
