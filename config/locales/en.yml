@@ -3,6 +3,7 @@ en:
   logo_link: "http://www.uke.gov.pl/en/"
   title: "Examinations"
   description: "UKE Examinations"
+  browser_not_supported: 'Internet Explorer is not supported! Run the program in a different browser.'
   layouts:
     footer:
       brand: 'Office of Electronic Communications'

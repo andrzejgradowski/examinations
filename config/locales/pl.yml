@@ -3,6 +3,7 @@ pl:
   logo_link: "http://www.uke.gov.pl"
   title: "Egzaminy"
   description: "UKE Egzaminy"
+  browser_not_supported: 'Przeglądarka Internet Explorer nie jest wspierana! Uruchom program w innej przeglądarce.'
   layouts:
     footer:
       brand: 'Urząd Komunikacji Elektronicznej'

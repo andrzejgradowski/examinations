@@ -24,7 +24,8 @@ Rails.application.routes.draw do
     end
 
 
-	  get 'static_pages/home'
+    get 'static_pages/home'
+    get 'static_pages/home_alert'
 
     root to: 'static_pages#home'
 	end

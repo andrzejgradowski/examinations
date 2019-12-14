@@ -5,4 +5,7 @@ class StaticPagesController < ApplicationController
   def home
   end
 
+  def home_alert
+  end
+
 end
