@@ -1,5 +1,5 @@
 $bgDefault      : white;
-$bgHighlight    : #ccc;  //<hr> separator
+$bgHighlight    : lighten(#BECC25, 40%) !default;  // #ccc //<hr> separator
 $colDefault     : #555;
 $colHighlight   : #1B3C8F; //hover
 $dropDown       : true;
