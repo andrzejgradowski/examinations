@@ -98,8 +98,9 @@ en:
         division_min_years_old: 'Minimum years old'
         exam_fee_id: 'Required fee'
         exam_fee_price: 'Required fee'
-        face_image: 'Photo'
         bank_pdf: 'Bank confirmation of the transfer'
+        face_image: 'Photo'
+        consent_pdf: 'Parent consent'
         confirm_that_the_data_is_correct: 'The above data is true, which I confirm'
         not_approved_comment: 'Reason for rejecting the application'
     errors:

@@ -1,55 +1,55 @@
 <fieldset class="my-fieldset">
+<!--
   <legend class="my-fieldset"><%= t('proposals.form_step1.fieldset_title') %></legend>
+-->
+  <legend class="my-fieldset"><%= t('.fieldset_title') %></legend>
 
   <div class="row">
     <div class="form-group required col-sm-4">
-<!--
-      <p><strong><%#= partial_data.class.human_attribute_name(:email) %></strong></p>
--->      
       <p><strong><%= Proposal.human_attribute_name(:email) %></strong></p>
-      <%= partial_data.try(:email) %>
+      <%= partial_data.email %>
     </div>
     <div class="form-group required col-sm-4">
       <p><strong><%= Proposal.human_attribute_name(:name) %></strong></p>
-      <%= partial_data.try(:name) %>
+      <%= partial_data.name %>
     </div>
     <div class="form-group required col-sm-4">
       <p><strong><%= Proposal.human_attribute_name(:given_names) %></strong></p>
-      <%= partial_data.try(:given_names) %>
+      <%= partial_data.given_names %>
     </div>
   </div> <!--/row -->
 
   <div class="row">
     <div class="form-group required col-sm-4">
       <p><strong><%= Proposal.human_attribute_name(:pesel) %></strong></p>
-      <%= partial_data.try(:pesel) %>
+      <%= partial_data.pesel %>
     </div>
     <div class="form-group required col-sm-5">
       <p><strong><%= Proposal.human_attribute_name(:citizenship_code) %></strong></p>
       <%= ISO3166::Country[partial_data.citizenship_code].translations[params[:locale]] %> (<%= partial_data.citizenship_code%>)
-      <%#= partial_data.try(:citizenship_code) %>
+      <%#= partial_data.citizenship_code) %>
     </div>
   </div> <!--/row -->
 
   <div class="row">
     <div class="form-group required col-sm-4">
       <p><strong><%= Proposal.human_attribute_name(:birth_place) %></strong></p>
-      <%= partial_data.try(:birth_place) %>
+      <%= partial_data.birth_place %>
     </div>
     <div class="form-group required col-sm-4">
       <p><strong><%= Proposal.human_attribute_name(:birth_date) %></strong></p>
-      <%= partial_data.try(:birth_date) %>
+      <%= partial_data.birth_date %>
     </div>
     <div class="form-group required col-sm-4">
       <p><strong><%= Proposal.human_attribute_name(:family_name) %></strong></p>
-      <%= partial_data.try(:family_name) %>
+      <%= partial_data.family_name %>
     </div>
   </div> <!--/row -->
 
   <div class="row">
     <div class="form-group col-sm-4">
       <p><strong><%= Proposal.human_attribute_name(:phone) %></strong></p>
-      <%= partial_data.try(:phone) %>
+      <%= partial_data.phone %>
     </div>
   </div> <!--/row -->
   

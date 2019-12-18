@@ -29,15 +29,17 @@
   <%# end %>
 <% end %>
 
+<!-- 
 
+<%# unless "#{locale}" == "en" %>
+  <li>
+    <%#= link_to image_tag('en.png', alt: 'EN', class: "img img-thumbnail", width: 28), { locale: :en } %>
+  </li>
+<%# end %>
+<%# unless "#{locale}" == "pl" %>
+  <li>
+    <%#= link_to image_tag('pl.png', alt: 'PL', class: "img img-thumbnail", width: 28), { locale: :pl } %>
+  </li>
+<%# end %>
 
-<% unless "#{locale}" == "en" %>
-  <li>
-    <%= link_to image_tag('en.png', alt: 'EN', class: "img img-thumbnail", width: 28), { locale: :en } %>
-  </li>
-<% end %>
-<% unless "#{locale}" == "pl" %>
-  <li>
-    <%= link_to image_tag('pl.png', alt: 'PL', class: "img img-thumbnail", width: 28), { locale: :pl } %>
-  </li>
-<% end %>
+-->

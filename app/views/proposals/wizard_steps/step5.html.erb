@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h3 class="center">
+        <span class="fa fa-file-invoice glyp-index-title" aria-hidden="true"></span>
+        <span class="index-title"><%= t '.title' %></span>
+      </h3>
+    </div> <!--/col-sm-12 -->
+  </div> <!--/row -->
+
+  <%= form_for @proposal, method: :put, url: wizard_path do |f| %>
+
+  	<%= form_errors_for f.object %>
+
+    <%= render "form_#{step}", f: f %>
+
+    <div class="row">
+      <div class="col-sm-12">
+
+        <%= link_to wizard_path('step1'), class: "btn btn-info hidden-xs hidden-sm" do %>
+          <span><%= fa_icon("chevron-left", :text => t("proposals.wizard_steps.step2.submit_back")) %></span>
+        <% end %>
+
+        <%= link_to wizard_path('step2'), class: "btn btn-info hidden-xs hidden-sm" do %>
+          <span><%= fa_icon("chevron-left", :text => t("proposals.wizard_steps.step3.submit_back")) %></span>
+        <% end %>
+
+        <%= link_to wizard_path('step3'), class: "btn btn-info hidden-xs hidden-sm" do %>
+          <span><%= fa_icon("chevron-left", :text => t("proposals.wizard_steps.step4.submit_back")) %></span>
+        <% end %>
+
+        <%= link_to previous_wizard_path, class: "btn btn-info" do %>
+          <span><%= fa_icon("chevron-left", :text => t(".submit_back")) %></span>
+        <% end %>
+
+        <%= f.button(:class => "btn btn-success", disabled: true, :id => "wizard_btn_submit") do %>
+          <span><%= fa_icon("check", :text => t(".submit"), right: true) %></span>
+        <% end %>
+
+        <%= link_to proposals_path, 
+                            data: { confirm: t('helpers.links.confirm_cancel_wizard') }, 
+                            class: "btn btn-danger pull-right hidden-xs hidden-sm" do %>
+          <span><%= fa_icon("times", :text => t("helpers.links.cancel_wizard")) %></span>
+        <% end %>
+
+      </div> <!--/col-sm-12 -->
+    </div> <!--/row -->
+
+	<% end %>
+
+</div> <!--/container -->

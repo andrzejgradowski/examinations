@@ -7,7 +7,7 @@
     <%= render partial: "proposals/show_step4", locals: {partial_data: @proposal} %>
 
     <div class="row">
-      <div class="form-group col-sm-4">
+      <div class="form-group col-sm-12">
         <%= f.check_box :confirm_that_the_data_is_correct, onclick: "status_all_is_ok(this.checked)" %>&nbsp;&nbsp;
         <%= f.label :confirm_that_the_data_is_correct, class: 'control-label' %>
       </div>

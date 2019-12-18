@@ -50,9 +50,9 @@ class ProposalPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if user_activities.include? 'proposal:index'
-        scope.all
+        scope.where(confirm_that_the_data_is_correct: true).all
       elsif user_activities.include? 'proposal:index_self'
-        scope.where(creator_id: @user.id)
+        scope.where(creator_id: @user.id, confirm_that_the_data_is_correct: true)
       else
         scope.where(id: -1)
       end

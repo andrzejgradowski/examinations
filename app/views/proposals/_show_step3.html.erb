@@ -1,5 +1,5 @@
 <fieldset class="my-fieldset">
-  <legend class="my-fieldset"><%= t('proposals.form_step3.fieldset_title') %></legend>
+  <legend class="my-fieldset"><%= t('.fieldset_title') %></legend>
 
   <div class="row">
     <div class="form-group col-sm-8">
@@ -10,17 +10,17 @@
   <div class="row">
     <div class="form-group col-sm-8">
       <p><strong><%= Proposal.human_attribute_name(:division_fullname) %></strong></p>
-      <%= partial_data.try(:division_fullname) %>
+      <%= partial_data.division_fullname %>
     </div>
   </div> <!--/row -->
   <div class="row">
     <div class="form-group col-sm-8">
       <p><strong><%= Proposal.human_attribute_name(:exam_fullname) %></strong></p>
-      <%= partial_data.try(:exam_fullname) %>
+      <%= partial_data.exam_fullname %>
     </div>
     <div class="form-group col-sm-4">
       <p><strong><%= Proposal.human_attribute_name(:exam_date_exam) %></strong></p>
-      <%= partial_data.try(:exam_date_exam).strftime("%Y-%m-%d") %>
+      <%= partial_data.exam_date_exam.strftime("%Y-%m-%d") if partial_data.exam_date_exam.present? %>
     </div>
   </div> <!--/row -->
 

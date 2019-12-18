@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 2019_08_04_150412) do
   create_table "proposals", force: :cascade do |t|
     t.uuid "multi_app_identifier", null: false
     t.integer "proposal_status_id", null: false
-    t.string "category", limit: 1, null: false
+    t.string "category", limit: 1, default: "", null: false
     t.bigint "creator_id"
     t.string "name", limit: 160, default: "", null: false
     t.string "given_names", limit: 50, default: "", null: false
@@ -77,7 +77,9 @@ ActiveRecord::Schema.define(version: 2019_08_04_150412) do
     t.boolean "confirm_that_the_data_is_correct", default: false
     t.text "bank_pdf_blob_path"
     t.text "face_image_blob_path"
+    t.text "consent_pdf_blob_path"
     t.text "not_approved_comment", default: ""
+    t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category"], name: "index_proposals_on_category"

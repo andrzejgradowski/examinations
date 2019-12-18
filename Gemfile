@@ -90,3 +90,4 @@ gem 'image_processing', '~> 1.2'
 
 gem 'country_select', '~> 4.0'
 gem 'browser'
+gem 'wicked'

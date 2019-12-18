@@ -29,32 +29,52 @@ pl:
     status_id_8_name: 'Zgłoszenie zamknięte - Wynik egzaminu: Nieobecny'
     status_id_9_name: 'Zgłoszenie zamknięte - Wynik egzaminu: Pozytywny'
     status_id_10_name: 'Zgłoszenie zamknięte - Z powodu wniosku o zmianę terminu egzaminu'
-    new:
+    show_step1:
+      fieldset_title: 'Dane podstawowe'
+    show_step2:
+      fieldset_title: 'Adres korepondencyjny'
+    show_step3:
+      fieldset_title: 'Służba, rodzaj i sesja'
+    show_step4:
+      fieldset_title: 'Załączniki'
+    show_step5:
+      fieldset_title: 'Podsumowanie'
+    wizard_steps:
       title: 'Kreator Zgłoszenia'
+      step1:
+        title: 'Kreator Zgłoszenia'
+        submit: 'Adres'
+      step2:
+        title: 'Kreator Zgłoszenia'
+        submit_back: 'Dane podstawowe'
+        submit: 'Służba, rodzaj i sesja'
+      step3:
+        title: 'Kreator Zgłoszenia'
+        submit_back: 'Adres korespondencyjny'
+        submit: 'Załączniki'
+      step4:
+        title: 'Kreator Zgłoszenia'
+        submit_back: 'Służba, rodzaj i sesja'
+        submit: 'Podsumowanie'
+      step5:
+        title: 'Kreator Zgłoszenia'
+        submit_back: 'Załączniki'
+        submit: 'Zapisz i wyślij zgłoszenie!'
+      form_step1:
+        fieldset_title: 'Dane podstawowe'
+      form_step2:
+        fieldset_title: 'Adres korepondencyjny'
+      form_step3:
+        fieldset_title: 'Służba, rodzaj i sesja'
+      form_step4:
+        fieldset_title: 'Załączniki'
+      form_step5:
+        fieldset_title: 'Podsumowanie'
     index:
       title: 'Zgłoszenia'
       navbar: 'Zgłoszenia'
       no_data: 'Brak zgłoszeń'
       no_data_comment: 'Aktualnie nie masz zarejestowanych żadnych zgłoszeń. Wybierz przycisk "Utwórz Zgłoszenie" aby utworzyć i wysłać elektroniczne zgłoszenie na egzamin.'
-    form_step1:
-      fieldset_title: 'Dane podstawowe'
-      submit: 'Adres'
-    form_step2:
-      fieldset_title: 'Adres korepondencyjny'
-      submit_back: 'Dane podstawowe'
-      submit: 'Służba, rodzaj i sesja'
-    form_step3:
-      fieldset_title: 'Służba, rodzaj i sesja'
-      submit_back: 'Adres korespondencyjny'
-      submit: 'Załączniki'
-    form_step4:
-      fieldset_title: 'Załączniki'
-      submit_back: 'Służba, rodzaj i sesja'
-      submit: 'Podsumowanie'
-    form_step5:
-      fieldset_title: 'Podsumowanie'
-      submit_back: 'Załączniki'
-      submit: 'Zapisz i wyślij zgłoszenie!'
     proposal:
       rec_info: 'Zgłoszenie %{data}'
       navbar: 'Zgłoszenie'
@@ -98,8 +118,9 @@ pl:
         division_min_years_old: 'Minimalny wiek'
         exam_fee_id: 'Opłata'
         exam_fee_price: 'Wymagana opłata'
-        face_image: 'Zdjęcie'
         bank_pdf: 'Bankowe potwierdzenie wykonania przelewu'
+        face_image: 'Zdjęcie'
+        consent_pdf: 'Zgoda prawnego opiekuna'
         confirm_that_the_data_is_correct: 'Dane powyższe są zgodne z prawdą, co potwierdzam'
         not_approved_comment: 'Powód odrzucenia zgłoszenia'
     errors:
@@ -328,11 +349,13 @@ pl:
       edit: 'Edycja'
       back: 'Powrót'
       cancel: 'Wróć'
+      cancel_wizard: 'Rezygnuję'
       confirm: "Czy na pewno?"
       confirm_destroy: 'Na pewno chcesz usunąć wpis: "%{data}"?'
       destroy: "Usuń"
       destroy_account: "Usuń moje konto"
       confirm_annulled: 'Na pewno chcesz anulować "%{data}"?'
+      confirm_cancel_wizard: 'Na pewno chcesz zrezygnować ?'
       annulled: "Anuluj zgłoszenie"
       send_email: "Wyślij email"
       download: "Pobierz"

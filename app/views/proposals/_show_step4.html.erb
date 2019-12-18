@@ -1,7 +1,5 @@
-<% source_data = (controller.action_name == 'create') ? current_user : partial_data %>
-
 <fieldset class="my-fieldset">
-  <legend class="my-fieldset"><%= t('proposals.form_step4.fieldset_title') %></legend>
+  <legend class="my-fieldset"><%= t('.fieldset_title') %></legend>
 
   <div class="row">
 
@@ -12,28 +10,43 @@
 
     <div class="form-group col-sm-6">
       <p><strong><%= Proposal.human_attribute_name(:bank_pdf) %></strong></p>
-      <% if source_data.bank_pdf.attached? %>
-        <p><%= source_data.bank_pdf.blob.filename %>, <%= number_to_human_size(source_data.bank_pdf.blob.byte_size) %></p>
+      <% if partial_data.bank_pdf.attached? %>
+        <p><%= partial_data.bank_pdf.blob.filename %>, <%= number_to_human_size(partial_data.bank_pdf.blob.byte_size) %></p>
         <%= link_to(  image_tag(
-                        source_data.bank_pdf.preview(resize: '500x500'), 
+                        partial_data.bank_pdf.preview(resize: '500x500'), 
                         style: 'border: 1px solid #CCC;'),  
-                      url_for(source_data.bank_pdf),
+                      url_for(partial_data.bank_pdf),
                       target: "_blank"  
                     ) %>
       <% end %>
     </div>
     
-    <% if partial_data.division_face_image_required? %>
+    <% if partial_data.face_image_required? %>
       <div class="form-group col-sm-6">
         <p><strong><%= Proposal.human_attribute_name(:face_image) %></strong></p>
-       	<% if source_data.face_image.attached? %>
-          <p><%= source_data.face_image.blob.filename %>, <%= number_to_human_size(source_data.face_image.blob.byte_size) %></p>
+       	<% if partial_data.face_image.attached? %>
+          <p><%= partial_data.face_image.blob.filename %>, <%= number_to_human_size(partial_data.face_image.blob.byte_size) %></p>
   				<%= link_to( 	image_tag(
-  												source_data.face_image.representation(resize: '500x500'), 
+  												partial_data.face_image.representation(resize: '500x500'), 
   												style: 'border: 1px solid #CCC;'),  
-  				 							url_for(source_data.face_image),
+  				 							url_for(partial_data.face_image),
   				 							target: "_blank"	
   				 						)  %>
+       <% end %>
+      </div>
+    <% end %>
+
+    <% if partial_data.consent_pdf_required? %>
+      <div class="form-group col-sm-6">
+        <p><strong><%= Proposal.human_attribute_name(:consent_pdf) %></strong></p>
+        <% if partial_data.consent_pdf.attached? %>
+          <p><%= partial_data.consent_pdf.blob.filename %>, <%= number_to_human_size(partial_data.consent_pdf.blob.byte_size) %></p>
+          <%= link_to(  image_tag(
+                          partial_data.consent_pdf.representation(resize: '500x500'), 
+                          style: 'border: 1px solid #CCC;'),  
+                        url_for(partial_data.consent_pdf),
+                        target: "_blank"  
+                      )  %>
        <% end %>
       </div>
     <% end %>

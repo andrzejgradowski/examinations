@@ -3,7 +3,7 @@ class CreateProposals < ActiveRecord::Migration[5.2]
     create_table :proposals do |t|
       t.uuid :multi_app_identifier,         null: false, index: true
       t.integer :proposal_status_id,        null: false, index: true
-      t.string :category,                   limit: 1, null: false, index: true
+      t.string :category,                   limit: 1, null: false, default: "", index: true
       #add_reference :orders, :creator, foreign_key: { to_table: :users }
       t.references :creator, foreign_key: { to_table: :users }
       # customer
@@ -64,7 +64,10 @@ class CreateProposals < ActiveRecord::Migration[5.2]
 
       t.text :bank_pdf_blob_path
       t.text :face_image_blob_path
+      t.text :consent_pdf_blob_path
       t.text :not_approved_comment, default: ""
+      t.boolean :confirm_that_the_data_is_correct, default: false
+      t.string :status
 
       t.timestamps
     end
