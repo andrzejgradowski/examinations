@@ -51,7 +51,6 @@ class Proposal < ApplicationRecord
   has_one_attached :consent_pdf
 
   # validates
-
   validates :creator, presence: true
   validates :proposal_status_id, presence: true, inclusion: { in: PROPOSAL_STATUSES }
   validates :esod_category, presence: true
@@ -99,9 +98,9 @@ class Proposal < ApplicationRecord
   # callbacks
   after_initialize :set_initial_status_and_multi_app_identifier
   before_validation :put_exam_fee_values, if: -> { required_for_step?(:step3) && status != 'saved_in_netpar' }
-  before_validation :purge_unrequred_links, if: -> { required_for_step?(:step3) && status != 'saved_in_netpar' }
-  before_validation :put_attachments_links, if: -> { required_for_step?(:step4) && status != 'saved_in_netpar' } 
-  after_validation :after_validation_saved_api, if: -> { confirm_that_the_data_is_correct == true && status == 'required_push_to_netpar' }
+  before_validation :purge_unrequired_files, if: -> { required_for_step?(:step3) && status != 'saved_in_netpar' }
+  before_validation :update_link_for_attached_files, if: -> { required_for_step?(:step4) && status != 'saved_in_netpar' } 
+  after_validation :after_validation_saved_in_netpar, if: -> { confirm_that_the_data_is_correct == true && status == 'required_push_to_netpar' }
   after_commit :send_notification, if: -> { confirm_that_the_data_is_correct == true && status == 'saved_in_netpar' }
 
   def required_for_step?(step)
@@ -110,7 +109,7 @@ class Proposal < ApplicationRecord
   end
 
   def save_rec_and_push(action)
-    return false if invalid?
+    # return false if invalid?
     ApplicationRecord.transaction do
       if action == 'create'
         # Insert data to Netpar2015
@@ -209,9 +208,9 @@ class Proposal < ApplicationRecord
       case response
       when Net::HTTPNoContent
         #with_transaction_returning_status { super }
-        self.bank_pdf.purge
-        self.face_image.purge
-        self.consent_pdf.purge
+        self.bank_pdf.purge_later
+        self.face_image.purge_later
+        self.consent_pdf.purge_later
         #super
         destroy!
         true   # success response
@@ -268,7 +267,7 @@ class Proposal < ApplicationRecord
   end
 
   def send_notification
-    if saved_change_to_proposal_status_id?
+    if (saved_change_to_proposal_status_id? || saved_change_confirm_that_the_data_is_correct?) && status == 'saved_in_netpar'
       case proposal_status_id
       when PROPOSAL_STATUS_CREATED
         ProposalMailer.created(self).deliver_later
@@ -291,15 +290,8 @@ class Proposal < ApplicationRecord
       when PROPOSAL_STATUS_EXAMINATION_RESULT_Z
         ProposalMailer.examination_result_z(self).deliver_later      
       end
-    else
-      puts '------------------------------------------------------------------------------'
-      puts ' edycja bez zmiany proposal_status_id !!! ???'
-      puts ' saved_change_to_proposal_status_id? = false'
-      puts '------------------------------------------------------------------------------'
     end
   end
-
-
 
   private
   
@@ -316,11 +308,7 @@ class Proposal < ApplicationRecord
       self.exam_fee_price = exam_fee_obj.price
     end
 
-    def purge_unrequred_links
-      puts '------------------------------------------------------------------------------'
-      puts ' Proposal::'
-      puts ' before_validation :purge_unrequred_links'
-      puts '------------------------------------------------------------------------------'
+    def purge_unrequired_files
       unless self.face_image_required?
         self.face_image.purge_later if self.face_image.attached?
         self.face_image_blob_path = nil
@@ -332,12 +320,7 @@ class Proposal < ApplicationRecord
       end
     end
 
-
-    def put_attachments_links
-      puts '------------------------------------------------------------------------------'
-      puts ' Proposal::'
-      puts ' before_validation :save_attachments_links'
-      puts '------------------------------------------------------------------------------'
+    def update_link_for_attached_files
       self.bank_pdf_blob_path     = Rails.application.routes.url_helpers.rails_blob_path(self.bank_pdf) if self.bank_pdf.attached?
       self.face_image_blob_path   = Rails.application.routes.url_helpers.rails_blob_path(self.face_image) if self.face_image.attached?
       self.consent_pdf_blob_path  = Rails.application.routes.url_helpers.rails_blob_path(self.consent_pdf) if self.consent_pdf.attached?
@@ -352,13 +335,6 @@ class Proposal < ApplicationRecord
     end
 
     def unique_division_for_creator
-      puts '------------------------------------------------------------------------------'
-      puts ' Proposal::'
-      puts ' validate :unique_division_for_creator, if: -> { division_id.present? && required_for_step?(:step3) }'
-      puts "  division_id: #{division_id}"
-      puts "  creator_id: #{creator_id}"
-      puts "  proposal_status_id: #{proposal_status_id}"
-      puts '------------------------------------------------------------------------------'
       if Proposal.where(division_id: division_id, creator_id: creator_id, proposal_status_id: [PROPOSAL_STATUS_CREATED, PROPOSAL_STATUS_APPROVED], confirm_that_the_data_is_correct: true).where.not(id: self.id).any? 
         errors.add(:division_id, " - Jest aktualnie procedowane Twoje zgłoszenie dla tego typu świadectwa")
         false
@@ -422,11 +398,7 @@ class Proposal < ApplicationRecord
       errors.add(:confirm_that_the_data_is_correct, " - Musisz potwierdzić poprawność danych") unless confirm_that_the_data_is_correct == true
     end
 
-    def after_validation_saved_api
-      puts '------------------------------------------------------------------------------'
-      puts ' Proposal::'
-      puts ' after_validation :after_validation_saved_api, if: -> { (confirm_that_the_data_is_correct == true) && (status == form_steps.last.to_s) }'
-      puts '------------------------------------------------------------------------------'
+    def after_validation_saved_in_netpar
       self.status = 'saved_in_netpar'
       self.save_rec_and_push('create')
     end  

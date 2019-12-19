@@ -2,13 +2,13 @@
 <container>
 
   <row class="collapsed">
-    <columns small="3">
+    <columns small="2">
       <spacer size="16"></spacer>
       <center>
         <%=link_to( image_tag( attachments['logo_app.jpg'].url, alt: "LOGO" ), root_url(locale), target: "_blank" ) %>
       </center>
     </columns>
-    <columns small="9">
+    <columns small="10">
       <spacer size="16"></spacer>
         <h5 class="h5-small text-right"><%= "#{@proposal.try(:email)}" %></h5>
         <h5 class="h5-small text-right"><%= "#{@proposal.try(:given_names)} #{@proposal.try(:name)}" %></h5>

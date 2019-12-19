@@ -6,21 +6,12 @@ class Proposals::WizardStepsController < ApplicationController
   steps *Proposal.form_steps
 
   def show
-    puts '------------------------------------------------------'
-    puts 'Proposals::StepsController -> show'
-    puts params
-    puts '------------------------------------------------------'
     @proposal = Proposal.find_by(multi_app_identifier: params[:proposal_multi_app_identifier])
     render_wizard
   end
 
   def update
-    puts '------------------------------------------------------'
-    puts 'Proposals::StepsController -> update'
-    puts params
-    puts '------------------------------------------------------'
     @proposal = Proposal.find_by(multi_app_identifier: params[:proposal_multi_app_identifier])
-
 
     unless step == steps.last
       params[:proposal][:status] = step.to_s
