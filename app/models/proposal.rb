@@ -38,6 +38,9 @@ class Proposal < ApplicationRecord
   CATEGORY_NAME_M = "Świadectwo służby morskiej i żeglugi śródlądowej"
   CATEGORY_NAME_R = "Świadectwo służby radioamatorskiej"
 
+  SAVED_IN_NETPAR = 'saved_in_netpar'
+  REQUIRED_PUSH_TO_NETPAR = 'required_push_to_netpar'
+
   cattr_accessor :form_steps do
     %w(step1 step2 step3 step4 step5)
   end
@@ -57,51 +60,51 @@ class Proposal < ApplicationRecord
 
   # step 1
   # validates :email, presence: true, format: { with: /@/ }, if: -> { current_step == 'step1' }
-  validates :email, presence: true, format: { with: /@/ }, if: -> { required_for_step?(:step1) && status != 'saved_in_netpar' }
-  validates :name, presence: true, length: { in: 1..160 }, if: -> { required_for_step?(:step1) && status != 'saved_in_netpar' }
-  validates :given_names, presence: true, length: { in: 1..50 }, if: -> { required_for_step?(:step1) && status != 'saved_in_netpar' }
-  validates :citizenship_code, presence: true, length: { in: 1..50 }, if: -> { required_for_step?(:step1) && status != 'saved_in_netpar' }
-  validates :birth_place, presence: true, length: { in: 1..50 }, if: -> { required_for_step?(:step1) && status != 'saved_in_netpar' }
-  validates :birth_date, presence: true, if: -> { required_for_step?(:step1) && status != 'saved_in_netpar' }
-  validates :family_name, presence: true, length: { in: 1..50 }, if: -> { required_for_step?(:step1) && status != 'saved_in_netpar' }
-  validate :check_pesel, if: -> { pesel.present? && required_for_step?(:step1) && status != 'saved_in_netpar' }
-  validate :check_birth_date, if: -> { pesel.present? && required_for_step?(:step1) && status != 'saved_in_netpar' }
+  validates :email, presence: true, format: { with: /@/ }, if: -> { required_for_step?(:step1) && status != SAVED_IN_NETPAR }
+  validates :name, presence: true, length: { in: 1..160 }, if: -> { required_for_step?(:step1) && status != SAVED_IN_NETPAR }
+  validates :given_names, presence: true, length: { in: 1..50 }, if: -> { required_for_step?(:step1) && status != SAVED_IN_NETPAR }
+  validates :citizenship_code, presence: true, length: { in: 1..50 }, if: -> { required_for_step?(:step1) && status != SAVED_IN_NETPAR }
+  validates :birth_place, presence: true, length: { in: 1..50 }, if: -> { required_for_step?(:step1) && status != SAVED_IN_NETPAR }
+  validates :birth_date, presence: true, if: -> { required_for_step?(:step1) && status != SAVED_IN_NETPAR }
+  validates :family_name, presence: true, length: { in: 1..50 }, if: -> { required_for_step?(:step1) && status != SAVED_IN_NETPAR }
+  validate :check_pesel, if: -> { pesel.present? && required_for_step?(:step1) && status != SAVED_IN_NETPAR }
+  validate :check_birth_date, if: -> { pesel.present? && required_for_step?(:step1) && status != SAVED_IN_NETPAR }
 
   # step2
-  validates :c_address_city, presence: true, length: { in: 1..50 }, if: -> { required_for_step?(:step2) && status != 'saved_in_netpar' }
-  validates :c_address_house, presence: true, length: { in: 1..10 }, if: -> { required_for_step?(:step2) && status != 'saved_in_netpar' }
-  validates :c_address_postal_code, presence: true, length: { in: 6..10 }, if: -> { required_for_step?(:step2) && status != 'saved_in_netpar' }
+  validates :c_address_city, presence: true, length: { in: 1..50 }, if: -> { required_for_step?(:step2) && status != SAVED_IN_NETPAR }
+  validates :c_address_house, presence: true, length: { in: 1..10 }, if: -> { required_for_step?(:step2) && status != SAVED_IN_NETPAR }
+  validates :c_address_postal_code, presence: true, length: { in: 6..10 }, if: -> { required_for_step?(:step2) && status != SAVED_IN_NETPAR }
 
   # step3
-  validates :category, presence: true, inclusion: { in: %w(M R) }, if: -> { required_for_step?(:step3) && status != 'saved_in_netpar' }
+  validates :category, presence: true, inclusion: { in: %w(M R) }, if: -> { required_for_step?(:step3) && status != SAVED_IN_NETPAR }
   validates :exam_id, presence: true, if: -> { required_for_step?(:step3) }
   validates :division_id, presence: true, if: -> { required_for_step?(:step3) }
-  validate :unique_division_for_creator, if: -> { division_id.present? && required_for_step?(:step3) && status != 'saved_in_netpar' }
-  validate :check_min_years_old, if: -> { division_min_years_old.present? && required_for_step?(:step3) && status != 'saved_in_netpar' }
+  validate :unique_division_for_creator, if: -> { division_id.present? && required_for_step?(:step3) && status != SAVED_IN_NETPAR }
+  validate :check_min_years_old, if: -> { division_min_years_old.present? && required_for_step?(:step3) && status != SAVED_IN_NETPAR }
 
-  validates :exam_fee_id, presence: true, if: -> { esod_category.present? && division_id.present? && required_for_step?(:step3) && status != 'saved_in_netpar' }
-  validates :exam_fee_price, presence: true, if: -> { esod_category.present? && division_id.present? && required_for_step?(:step3) && status != 'saved_in_netpar' }
+  validates :exam_fee_id, presence: true, if: -> { esod_category.present? && division_id.present? && required_for_step?(:step3) && status != SAVED_IN_NETPAR }
+  validates :exam_fee_price, presence: true, if: -> { esod_category.present? && division_id.present? && required_for_step?(:step3) && status != SAVED_IN_NETPAR }
 
   # step4
-  validate :check_required_bank_pdf, if: -> { required_for_step?(:step4) && status != 'saved_in_netpar' }
-  validate :check_attached_bank_pdf, if: -> { required_for_step?(:step4) && status != 'saved_in_netpar' }
-  validate :check_required_face_image, if: -> { required_for_step?(:step4) && status != 'saved_in_netpar' }
-  validate :check_attached_face_image, if: -> { required_for_step?(:step4) && status != 'saved_in_netpar' }
-  validate :check_required_consent_pdf, if: -> { required_for_step?(:step4) && status != 'saved_in_netpar' }
-  validate :check_attached_consent_pdf, if: -> { required_for_step?(:step4) && status != 'saved_in_netpar' }
+  validate :check_required_bank_pdf, if: -> { required_for_step?(:step4) && status != SAVED_IN_NETPAR }
+  validate :check_attached_bank_pdf, if: -> { required_for_step?(:step4) && status != SAVED_IN_NETPAR }
+  validate :check_required_face_image, if: -> { required_for_step?(:step4) && status != SAVED_IN_NETPAR }
+  validate :check_attached_face_image, if: -> { required_for_step?(:step4) && status != SAVED_IN_NETPAR }
+  validate :check_required_consent_pdf, if: -> { required_for_step?(:step4) && status != SAVED_IN_NETPAR }
+  validate :check_attached_consent_pdf, if: -> { required_for_step?(:step4) && status != SAVED_IN_NETPAR }
 
   # step5
-  validate :check_confirm_that_the_data_is_correct, if: -> { required_for_step?(form_steps.last) && status != 'saved_in_netpar' }
+  validate :check_confirm_that_the_data_is_correct, if: -> { required_for_step?(form_steps.last) && status != SAVED_IN_NETPAR }
   #validate :validate_saved_api, if: -> { (confirm_that_the_data_is_correct == true) && (status == form_steps.last.to_s) }
 
 
   # callbacks
   after_initialize :set_initial_status_and_multi_app_identifier
-  before_validation :put_exam_fee_values, if: -> { required_for_step?(:step3) && status != 'saved_in_netpar' }
-  before_validation :purge_unrequired_files, if: -> { required_for_step?(:step3) && status != 'saved_in_netpar' }
-  before_validation :update_link_for_attached_files, if: -> { required_for_step?(:step4) && status != 'saved_in_netpar' } 
-  after_validation :after_validation_saved_in_netpar, if: -> { confirm_that_the_data_is_correct == true && status == 'required_push_to_netpar' }
-  after_commit :send_notification, if: -> { confirm_that_the_data_is_correct == true && status == 'saved_in_netpar' }
+  before_validation :put_exam_fee_values, if: -> { required_for_step?(:step3) && status != SAVED_IN_NETPAR }
+  before_validation :purge_unrequired_files, if: -> { required_for_step?(:step3) && status != SAVED_IN_NETPAR }
+  before_validation :update_link_for_attached_files, if: -> { required_for_step?(:step4) && status != SAVED_IN_NETPAR } 
+  after_validation :after_validation_saved_in_netpar, if: -> { confirm_that_the_data_is_correct == true && status == REQUIRED_PUSH_TO_NETPAR }
+  after_save :send_notification, if: -> { status == SAVED_IN_NETPAR }
 
   def required_for_step?(step)
     return true if form_step.nil?
@@ -267,7 +270,7 @@ class Proposal < ApplicationRecord
   end
 
   def send_notification
-    if (saved_change_to_proposal_status_id? || saved_change_confirm_that_the_data_is_correct?) && status == 'saved_in_netpar'
+    if (saved_change_to_proposal_status_id? || saved_change_to_status?)
       case proposal_status_id
       when PROPOSAL_STATUS_CREATED
         ProposalMailer.created(self).deliver_later
@@ -399,7 +402,7 @@ class Proposal < ApplicationRecord
     end
 
     def after_validation_saved_in_netpar
-      self.status = 'saved_in_netpar'
+      self.status = SAVED_IN_NETPAR
       self.save_rec_and_push('create')
     end  
 

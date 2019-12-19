@@ -17,7 +17,7 @@ class Proposals::WizardStepsController < ApplicationController
       params[:proposal][:status] = step.to_s
       @proposal.update(proposal_params(step))
     else
-      @proposal.status = 'required_push_to_netpar'
+      @proposal.status = Proposal::REQUIRED_PUSH_TO_NETPAR
       @proposal.confirm_that_the_data_is_correct = params[:proposal][:confirm_that_the_data_is_correct]     
       #@proposal.update(proposal_params(step))
     end
