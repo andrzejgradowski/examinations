@@ -29,6 +29,10 @@
           <span><%= fa_icon("chevron-right", :text => t(".submit"), right: true) %></span>
         <% end %>
 
+        <%= link_to root_path, class: "btn btn-default disabled hidden-xs hidden-sm" do %>
+          <span><%= fa_icon("chevron-right", :text => t("proposals.wizard_steps.form_step5.fieldset_title"), right: true) %></span>
+        <% end %>
+
         <%= link_to proposals_path, 
                             data: { confirm: t('helpers.links.confirm_cancel_wizard') }, 
                             class: "btn btn-danger pull-right hidden-xs hidden-sm" do %>

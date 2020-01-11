@@ -254,7 +254,7 @@ class Proposal < ApplicationRecord
   end
   
   def can_annulled?
-    [PROPOSAL_STATUS_CREATED, PROPOSAL_STATUS_APPROVED].include?(proposal_status_id) 
+    (exam_date_exam - 1.days > Time.zone.today) && [PROPOSAL_STATUS_CREATED, PROPOSAL_STATUS_APPROVED].include?(proposal_status_id) 
   end
 
   def bank_pdf_required?
@@ -266,7 +266,7 @@ class Proposal < ApplicationRecord
   end
 
   def consent_pdf_required?
-    birth_date > Time.zone.now - 18.years
+    birth_date >= Time.zone.today - 18.years
   end
 
   def send_notification

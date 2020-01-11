@@ -17,7 +17,7 @@
             <div class="form-group col-sm-12">
               <%= f.label :category, class: 'control-label' %>
               <%= f.select :category, 
-                    options_for_select([[Proposal::CATEGORY_NAME_M, 'M'], [Proposal::CATEGORY_NAME_R, 'R']], selected: @proposal.category), 
+                    options_for_select([[Proposal::CATEGORY_NAME_M, 'M'], [Proposal::CATEGORY_NAME_R, 'R']], selected: @proposal.category, disabled: ['M']), 
                     { include_blank: true}, 
                     { onchange: "change_category_select(this.options[this.selectedIndex].value);", autofocus: true, class: 'form-control input-sm', disabled: false } %>
             </div>

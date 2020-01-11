@@ -43,7 +43,7 @@ pl:
       title: 'Kreator Zgłoszenia'
       step1:
         title: 'Kreator Zgłoszenia'
-        submit: 'Adres'
+        submit: 'Adres korespondencyjny'
       step2:
         title: 'Kreator Zgłoszenia'
         submit_back: 'Dane podstawowe'
@@ -132,7 +132,6 @@ pl:
         created: "Wystąpił błąd w czasie dodawania nowego wpisu."
         updated: 'Wystąpił błąd w czasie aktualizowania wpisu "%{data}".'
         destroyed: 'Wystąpił błąd w czasie usuwania wpisu "%{data}".'
-        attach_file: 'Wystąpił błąd w czasie dodawania załącznika "%{child}" do "%{parent}". Pamiętaj, że rozmiar pliku nie może być większy niż 10 MB'
         account_off: 'Wystąpił błąd w czasie wyłączania konta "%{data}".'
         account_on: 'Wystąpił błąd w czasie włączania konta "%{data}".'
         required: 'nie może być puste'
