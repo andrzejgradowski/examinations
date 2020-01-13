@@ -1,8 +1,8 @@
 pl:
   logo_file: "logo_uke_pl_do_lewej.png"
   logo_link: "http://www.uke.gov.pl"
-  title: "Egzaminy"
-  description: "UKE Egzaminy"
+  title: "UKE Egzaminy"
+  description: 'Program „UKE Egzaminy” umożliwia zapisanie się na egzamin na świadectwo operatora urządzeń radiowych w służbach: amatorskiej oraz morskiej i żeglugi śródlądowej (LRC, SRC, IWC, VHF).'
   browser_not_supported: 'Przeglądarka Internet Explorer nie jest wspierana! Uruchom program w innej przeglądarce.'
   layouts:
     footer:

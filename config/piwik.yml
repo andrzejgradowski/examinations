@@ -12,7 +12,7 @@
 
 development:
   piwik:
-    id_site: 20
+    id_site: 21
     url: stats.uke.gov.pl
     disabled: true
     use_async: false
@@ -20,7 +20,7 @@ development:
 
 test:
   piwik:
-    id_site: 20
+    id_site: 21
     url: localhost
     disabled: true
     use_async: false
@@ -28,7 +28,7 @@ test:
 
 production:
   piwik:
-    id_site: 20
+    id_site: 21
     url: stats.uke.gov.pl
     use_async: true
     disabled: false

@@ -1,7 +1,7 @@
 en:
   logo_file: "logo_uke_en_do_lewej.png"
   logo_link: "http://www.uke.gov.pl/en/"
-  title: "Examinations"
+  title: "UKE Examinations"
   description: "UKE Examinations"
   browser_not_supported: 'Internet Explorer is not supported! Run the program in a different browser.'
   layouts:
