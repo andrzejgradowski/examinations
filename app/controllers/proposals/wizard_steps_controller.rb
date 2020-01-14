@@ -1,17 +1,24 @@
 class Proposals::WizardStepsController < ApplicationController
   include ProposalsHelper
-
   include Wicked::Wizard
 
-  steps *Proposal.form_steps
+  before_action :authenticate_user!
+  #after_action :verify_authorized
 
+  respond_to :html
+
+  steps *Proposal.form_steps
+  
   def show
     @proposal = Proposal.find_by(multi_app_identifier: params[:proposal_multi_app_identifier])
+    authorize @proposal, :show_self?, policy_class: ProposalPolicy if @proposal.present?
     render_wizard
   end
 
   def update
     @proposal = Proposal.find_by(multi_app_identifier: params[:proposal_multi_app_identifier])
+
+    authorize @proposal, :create_self?, policy_class: ProposalPolicy if @proposal.present?
 
     unless step == steps.last
       params[:proposal][:status] = step.to_s
