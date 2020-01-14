@@ -60,8 +60,8 @@ Rails.application.configure do
     driver: :hiredis, 
     url: Rails.application.secrets.redis_url,     
     connect_timeout: 30,  # Defaults to 20 seconds
-    read_timeout:    1.2, # Defaults to 1 second
-    write_timeout:   1.2, # Defaults to 1 second
+    read_timeout:    1.0, # Defaults to 1 second
+    write_timeout:   1.0, # Defaults to 1 second
    
     error_handler: -> (method:, returning:, exception:) {
       # Report errors to Sentry as warnings
