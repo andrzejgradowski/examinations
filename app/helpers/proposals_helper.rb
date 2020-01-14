@@ -24,12 +24,10 @@ module ProposalsHelper
     # data.html_safe
 
     data =
-    '<div>
-      <fieldset class="my-fieldset">
+    '<fieldset class="my-fieldset">
         <legend class="my-fieldset">' + t(".no_data") + '</legend>
         <p class="center">' + t(".no_data_comment") + '</p>
-      </fieldset>
-    </div>'
+     </fieldset>'
 
     data.html_safe
   end

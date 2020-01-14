@@ -23,9 +23,9 @@
       <% end %>
 
     </div> <!--/col-sm-12 -->
+  </div> <!--/row -->
 
-    <br>
-
+  <div class="row">
     <div class="col-sm-12">
 
       <%= render(@proposals.order(created_at: :desc)) || proposal_no_data %>
