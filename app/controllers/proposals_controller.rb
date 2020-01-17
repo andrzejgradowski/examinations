@@ -66,15 +66,5 @@ class ProposalsController < ApplicationController
       # @proposal = Proposal.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def proposal_params
-      params.require(:proposal).permit(:creator_id,
-        :email, :name, :given_names, :pesel, :citizenship_code, :birth_date, :birth_place, :family_name, :phone, 
-        :c_address_city, :c_address_street, :c_address_house, :c_address_number, :c_address_postal_code,
-        :category, :esod_category, :exam_id, :exam_fullname, :exam_date_exam, 
-        :division_id, :division_fullname, :division_short_name, :division_min_years_old, 
-        :exam_fee_id, :exam_fee_price, :bank_pdf, :face_image, :consent_pdf, :confirm_that_the_data_is_correct, :status)
-    end
-
 end
 

@@ -1,33 +1,63 @@
 <fieldset class="my-fieldset">
   <legend class="my-fieldset"><%= t('.fieldset_title') %></legend>
 
+  <% if partial_data.lives_in_poland %>
     <div class="row">
-      <div class="form-group required col-sm-2">
-        <p><strong><%= Proposal.human_attribute_name(:c_address_postal_code) %></strong></p>
-        <%= partial_data.c_address_postal_code %>
+      <div class="form-group col-sm-12">
+        <p><strong>Mieszkam w Polsce</strong><br>
+        <%= t(partial_data.lives_in_poland) %></p>
       </div>
+    </div> <!--/row -->
+    <div class="row">
       <div class="form-group required col-sm-4">
-        <p><strong><%= Proposal.human_attribute_name(:c_address_city) %></strong></p>
-        <%= partial_data.c_address_city %>
+        <p><strong><%= Proposal.human_attribute_name(:province_name) %></strong><br>
+        <%= partial_data.province_name %></p>
       </div>
-    </div> <!--/row -->
-
-    <div class="row">
       <div class="form-group col-sm-4">
-        <p><strong><%= Proposal.human_attribute_name(:c_address_street) %></strong></p>
-        <%= partial_data.c_address_street %>
+        <p><strong><%= Proposal.human_attribute_name(:district_name) %></strong><br>
+        <%= partial_data.district_name %></p>
       </div>
-
-      <div class="form-group required col-sm-2">
-        <p><strong><%= Proposal.human_attribute_name(:c_address_house) %></strong></p>
-        <%= partial_data.c_address_house %>
-      </div>
-
-      <div class="form-group col-sm-2">
-        <p><strong><%= Proposal.human_attribute_name(:c_address_number) %></strong></p>
-        <%= partial_data.c_address_number %>
+      <div class="form-group col-sm-4">
+        <p><strong><%= Proposal.human_attribute_name(:commune_name) %></strong><br>
+        <%= partial_data.commune_name %></p>
       </div>
     </div> <!--/row -->
+  <% else %>
+    <div class="row">
+      <div class="form-group col-sm-12">
+        <p><strong>Mieszkam w Polsce</strong><br>
+        <%= t(partial_data.lives_in_poland) %></p>
+      </div>
+    </div> <!--/row -->
+  <% end %>
+
+  <div class="row">
+    <div class="form-group required col-sm-4">
+      <p><strong><%= Proposal.human_attribute_name(:city_name) %></strong><br>
+      <%= partial_data.city_name %></p>
+    </div>
+    <div class="form-group required col-sm-4">
+      <p><strong><%= Proposal.human_attribute_name(:street_name) %></strong><br>
+      <%= partial_data.street_attribute unless partial_data.street_attribute.blank? %>&nbsp<%= partial_data.street_name %></p>
+    </div>
+  </div> <!--/row -->
+
+  <div class="row">
+    <div class="form-group required col-sm-2">
+      <p><strong><%= Proposal.human_attribute_name(:c_address_house) %></strong><br>
+      <%= partial_data.c_address_house %></p>
+    </div>
+
+    <div class="form-group col-sm-2">
+      <p><strong><%= Proposal.human_attribute_name(:c_address_number) %></strong><br>
+      <%= partial_data.c_address_number %></p>
+    </div>
+
+    <div class="form-group required col-sm-2">
+      <p><strong><%= Proposal.human_attribute_name(:c_address_postal_code) %></strong><br>
+      <%= partial_data.c_address_postal_code %></p>
+    </div>
+  </div> <!--/row -->
 
 </fieldset>
 

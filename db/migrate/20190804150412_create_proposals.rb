@@ -34,8 +34,23 @@ class CreateProposals < ActiveRecord::Migration[5.2]
       #t.string :address_pobox,                    limit: 10, default: ""
       #t.integer "address_teryt_pna_code_id"
       #t.boolean :c_address_in_poland,       null: false
-      t.string :c_address_city,             limit: 50, default: ""
-      t.string :c_address_street,           limit: 50, default: "" 
+      t.boolean :lives_in_poland,           default: true
+      t.integer :address_id                   
+      t.string :province_code,              limit: 20, default: ""
+      t.string :province_name,              limit: 50, default: ""
+      t.string :district_code,              limit: 20, default: "" 
+      t.string :district_name,              limit: 50, default: "" 
+      t.string :commune_code,               limit: 20, default: ""
+      t.string :commune_name,               limit: 50, default: ""
+      t.string :city_code,                  limit: 20, default: ""
+      t.string :city_name,                  limit: 50, default: ""
+      t.string :street_code,                limit: 20, default: ""
+      t.string :street_name,                limit: 50, default: ""
+      t.string :street_attribute,           limit: 20, default: ""
+      t.string :teryt_code,                 limit: 20, default: ""            
+      #
+      #t.string :c_address_city,             limit: 50, default: ""
+      #t.string :c_address_street,           limit: 50, default: "" 
       t.string :c_address_house,            limit: 10, default: ""
       t.string :c_address_number,           limit: 10, default: "" 
       t.string :c_address_postal_code,      limit: 10, default: ""

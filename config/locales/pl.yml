@@ -1,4 +1,6 @@
 pl:
+  "true": "Tak"
+  "false": "Nie"
   logo_file: "egzaminy_pl.png"
   logo_link: "http://www.uke.gov.pl"
   title: "UKE Egzaminy"
@@ -98,6 +100,19 @@ pl:
         birth_place: "Miejsce urodzenia"
         family_name: "Nazwisko rodowe"
         phone: 'Telefon'
+        lives_in_poland: 'Mieszkam w Polsce'
+        address_id: 'Adres'
+        province_code: 'Województwo (Id)'
+        province_name: 'Województwo'
+        district_code: 'Powiat (Id)'
+        district_name: 'Powiat'
+        commune_code: 'Gmina (Id)'
+        commune_name: 'Gmina'
+        city_code: 'Miejscowość (Id)'
+        city_name: 'Miejscowość'
+        street_code: 'Ulica (Id)'
+        street_name: 'Ulica'
+        street_attribute: 'Atrybut'
         address_city: 'Miejscowość'
         address_street: 'Ulica'
         address_house: 'Dom'
@@ -288,6 +303,8 @@ pl:
       month: Miesiąc
       second: Sekundy
       year: Rok
+  help_block_text:
+    select2_item: 'Wprowadź nazwę miejscowości i ewentualnie ulicy. Możesz ograniczyć listę podając nazwę gminy i/lub powiatu i/lub województwa. Wyrazy oddzielaj spacją. Np. osielsko grzybo kujaw'
   errors:
     format: "%{attribute} %{message}"
     messages:

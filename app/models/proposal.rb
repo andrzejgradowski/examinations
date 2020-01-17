@@ -71,7 +71,8 @@ class Proposal < ApplicationRecord
   validate :check_birth_date, if: -> { pesel.present? && required_for_step?(:step1) && status != SAVED_IN_NETPAR }
 
   # step2
-  validates :c_address_city, presence: true, length: { in: 1..50 }, if: -> { required_for_step?(:step2) && status != SAVED_IN_NETPAR }
+  validates :address_id, presence: true, if: -> { lives_in_poland == true && required_for_step?(:step2) && status != SAVED_IN_NETPAR }
+  validates :city_name, presence: true, length: { in: 1..50 }, if: -> { lives_in_poland == false && required_for_step?(:step2) && status != SAVED_IN_NETPAR }
   validates :c_address_house, presence: true, length: { in: 1..10 }, if: -> { required_for_step?(:step2) && status != SAVED_IN_NETPAR }
   validates :c_address_postal_code, presence: true, length: { in: 6..10 }, if: -> { required_for_step?(:step2) && status != SAVED_IN_NETPAR }
 
@@ -100,6 +101,8 @@ class Proposal < ApplicationRecord
 
   # callbacks
   after_initialize :set_initial_status_and_multi_app_identifier
+  before_validation :put_address_values, if: -> { lives_in_poland == true && required_for_step?(:step2) && status != SAVED_IN_NETPAR }
+  before_validation :clear_address_values, if: -> { lives_in_poland == false && required_for_step?(:step2) && status != SAVED_IN_NETPAR }
   before_validation :put_exam_fee_values, if: -> { required_for_step?(:step3) && status != SAVED_IN_NETPAR }
   before_validation :purge_unrequired_files, if: -> { required_for_step?(:step3) && status != SAVED_IN_NETPAR }
   before_validation :update_link_for_attached_files, if: -> { required_for_step?(:step4) && status != SAVED_IN_NETPAR } 
@@ -301,6 +304,62 @@ class Proposal < ApplicationRecord
     def set_initial_status_and_multi_app_identifier
       self.proposal_status_id = PROPOSAL_STATUS_CREATED unless self.proposal_status_id.present?
       self.multi_app_identifier = SecureRandom.uuid unless self.multi_app_identifier.present?
+    end
+
+    def put_address_values
+      if self.address_id.present?
+        item_obj = PitTerytItem.new(id: self.address_id)
+        item_obj.run_request_for_one_row
+
+        item_values = JSON.parse(item_obj.response.body)
+
+        self.province_code = item_values["proviceCode"] # poprawic na provinceCode
+        self.province_name = item_values["provinceName"]
+        self.district_code = item_values["districtCode"]
+        self.district_name = item_values["districtName"]
+        self.commune_code = item_values["communeCode"]
+        self.commune_name = item_values["communeName"]
+        self.city_code = item_values["cityCode"]
+        self.city_name = item_values["cityName"]
+        self.street_code = item_values["streetCode"] if item_values["streetCode"].present?
+        self.street_name = item_values["streetName"] if item_values["streetName"].present?
+        self.street_attribute = item_values["streetAttribute"] if item_values["streetAttribute"].present?
+        self.teryt_code = item_values["terytId"]
+
+        # puts '----- item_obj ----------------------------------------------------------------------'     
+        # puts JSON.parse(item_obj.response.body)
+        #   { "id"=>287454, 
+        #     "proviceCode"=>"04", 
+        #     "provinceName"=>"KUJAWSKO-POMORSKIE", 
+        #     "districtCode"=>"13", 
+        #     "districtName"=>"sępoleński", 
+        #     "communeCode"=>"04", 
+        #     "communeName"=>"Więcbork", 
+        #     "cityCode"=>"0099872", 
+        #     "cityName"=>"Runowo Krajeńskie", 
+        #     "streetCode"=>nil, 
+        #     "streetName"=>nil, 
+        #     "streetAttribute"=>nil, 
+        #     "terytId"=>"0413040099872", 
+        #     "terytCity"=>nil  }
+        # puts '-------------------------------------------------------------------------------------'     
+      end
+    end
+
+    def clear_address_values
+      self.address_id = nil
+      self.province_code = ""
+      self.province_name = ""
+      self.district_code = ""
+      self.district_name = ""
+      self.commune_code = ""
+      self.commune_name = ""
+      self.city_code = ""
+      #self.city_name = item_values["cityName"]
+      self.street_code = ""
+      #self.street_name = item_values["streetName"] if item_values["streetName"].present?
+      self.street_attribute = ""
+      self.teryt_code = ""
     end
 
     def put_exam_fee_values

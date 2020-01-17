@@ -64,6 +64,7 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.14.30'
 gem 'jquery-rails'
 gem 'font_awesome5_rails'
 gem 'select2-rails', '3.5.9.3'
+gem 'kaminari'
 
 gem 'redis-rails'
 gem "hiredis"

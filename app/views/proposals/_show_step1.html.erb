@@ -6,50 +6,50 @@
 
   <div class="row">
     <div class="form-group required col-sm-4">
-      <p><strong><%= Proposal.human_attribute_name(:email) %></strong></p>
-      <%= partial_data.email %>
+      <p><strong><%= Proposal.human_attribute_name(:email) %></strong><br>
+      <%= partial_data.email %></p>
     </div>
     <div class="form-group required col-sm-4">
-      <p><strong><%= Proposal.human_attribute_name(:name) %></strong></p>
-      <%= partial_data.name %>
+      <p><strong><%= Proposal.human_attribute_name(:name) %></strong><br>
+      <%= partial_data.name %></p>
     </div>
     <div class="form-group required col-sm-4">
-      <p><strong><%= Proposal.human_attribute_name(:given_names) %></strong></p>
-      <%= partial_data.given_names %>
+      <p><strong><%= Proposal.human_attribute_name(:given_names) %></strong><br>
+      <%= partial_data.given_names %></p>
     </div>
   </div> <!--/row -->
 
   <div class="row">
     <div class="form-group required col-sm-4">
-      <p><strong><%= Proposal.human_attribute_name(:pesel) %></strong></p>
-      <%= partial_data.pesel %>
+      <p><strong><%= Proposal.human_attribute_name(:pesel) %></strong><br>
+      <%= partial_data.pesel %></p>
     </div>
     <div class="form-group required col-sm-5">
-      <p><strong><%= Proposal.human_attribute_name(:citizenship_code) %></strong></p>
-      <%= ISO3166::Country[partial_data.citizenship_code].translations[params[:locale]] %> (<%= partial_data.citizenship_code%>)
+      <p><strong><%= Proposal.human_attribute_name(:citizenship_code) %></strong><br>
+      <%= ISO3166::Country[partial_data.citizenship_code].translations[params[:locale]] %> (<%= partial_data.citizenship_code%>)</p>
       <%#= partial_data.citizenship_code) %>
     </div>
   </div> <!--/row -->
 
   <div class="row">
     <div class="form-group required col-sm-4">
-      <p><strong><%= Proposal.human_attribute_name(:birth_place) %></strong></p>
-      <%= partial_data.birth_place %>
+      <p><strong><%= Proposal.human_attribute_name(:birth_place) %></strong><br>
+      <%= partial_data.birth_place %></p>
     </div>
     <div class="form-group required col-sm-4">
-      <p><strong><%= Proposal.human_attribute_name(:birth_date) %></strong></p>
-      <%= partial_data.birth_date %>
+      <p><strong><%= Proposal.human_attribute_name(:birth_date) %></strong><br>
+      <%= partial_data.birth_date %></p>
     </div>
     <div class="form-group required col-sm-4">
-      <p><strong><%= Proposal.human_attribute_name(:family_name) %></strong></p>
-      <%= partial_data.family_name %>
+      <p><strong><%= Proposal.human_attribute_name(:family_name) %></strong><br>
+      <%= partial_data.family_name %></p>
     </div>
   </div> <!--/row -->
 
   <div class="row">
     <div class="form-group col-sm-4">
-      <p><strong><%= Proposal.human_attribute_name(:phone) %></strong></p>
-      <%= partial_data.phone %>
+      <p><strong><%= Proposal.human_attribute_name(:phone) %></strong><br>
+      <%= partial_data.phone %></p>
     </div>
   </div> <!--/row -->
   

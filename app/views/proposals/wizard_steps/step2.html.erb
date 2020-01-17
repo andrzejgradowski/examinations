@@ -17,11 +17,17 @@
     <div class="row">
       <div class="col-sm-12">
 
-        <%= link_to previous_wizard_path, class: "btn btn-info" do %>
+        <%= link_to previous_wizard_path, class: "btn btn-default" do %>
           <span><%= fa_icon("chevron-left", :text => t(".submit_back")) %></span>
         <% end %>
 
-        <%= f.button(:class => "btn btn-primary", disabled: false, :id => "wizard_btn_submit") do %>
+
+        <%= link_to root_path, class: "btn btn-success disabled hidden-xs hidden-sm" do %>
+          <span><%= t("proposals.wizard_steps.form_step2.fieldset_title") %></span>
+        <% end %>
+
+
+        <%= f.button(:class => "btn btn-default", disabled: false, :id => "wizard_btn_submit") do %>
           <span><%= fa_icon("chevron-right", :text => t(".submit"), right: true) %></span>
         <% end %>
 

@@ -1,0 +1,58 @@
+function displayInPolandFields() {
+  var list = document.getElementsByClassName("show_if_lives_in_poland");
+  for (var i = 0; i < list.length; i++) {
+    $(list[i]).show();
+  };
+  var list = document.getElementsByClassName("show_unless_lives_in_poland");
+  for (var i = 0; i < list.length; i++) {
+    $(list[i]).hide();
+  };
+
+};
+
+function displayNoInPolandFields() {
+  var list = document.getElementsByClassName("show_if_lives_in_poland");
+  for (var i = 0; i < list.length; i++) {
+    $(list[i]).hide();
+  };
+  var list = document.getElementsByClassName("show_unless_lives_in_poland");
+  for (var i = 0; i < list.length; i++) {
+    $(list[i]).show();
+  };
+};
+
+
+function terytIsRequired(status_checkbox) {
+
+  if (status_checkbox) {
+
+    //disabled and clear value
+    document.getElementById("proposal_city_name").disabled = true;
+    document.getElementById("proposal_street_name").disabled = true;
+    document.getElementById("proposal_city_name").value = ""; 
+    document.getElementById("proposal_street_name").value = "";
+
+    //enabled
+    document.getElementById("address_id_select").disabled = false;
+
+    //show and hide fields
+    displayInPolandFields()
+
+  } else {
+
+    //disabled and clear value
+    document.getElementById("address_id_select").disabled = true;
+    //$("#city_id_select").select2("readonly", true);
+    $("#address_id_select").select2("val", "")
+
+    //enabled
+    document.getElementById("proposal_city_name").disabled = false;
+    document.getElementById("proposal_street_name").disabled = false;
+
+    //show and hide fields
+    displayNoInPolandFields();
+
+  };
+
+};
+
