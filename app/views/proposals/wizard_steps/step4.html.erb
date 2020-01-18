@@ -17,25 +17,25 @@
     <div class="row">
       <div class="col-sm-12">
 
-        <%= link_to wizard_path('step1'), class: "btn btn-default hidden-xs hidden-sm" do %>
+        <%= link_to wizard_path('step1'), class: "btn btn-sm btn-default hidden-xs hidden-sm" do %>
           <span><%= fa_icon("chevron-left", :text => t("proposals.wizard_steps.step2.submit_back")) %></span>
         <% end %>
 
-        <%= link_to wizard_path('step2'), class: "btn btn-default hidden-xs hidden-sm" do %>
+        <%= link_to wizard_path('step2'), class: "btn btn-sm btn-default hidden-xs hidden-sm" do %>
           <span><%= fa_icon("chevron-left", :text => t("proposals.wizard_steps.step3.submit_back")) %></span>
         <% end %>
 
-        <%= link_to previous_wizard_path, class: "btn btn-default" do %>
+        <%= link_to previous_wizard_path, class: "btn btn-sm btn-default" do %>
           <span><%= fa_icon("chevron-left", :text => t(".submit_back")) %></span>
         <% end %>
 
 
-        <%= link_to root_path, class: "btn btn-success disabled hidden-xs hidden-sm" do %>
+        <%= link_to root_path, class: "btn btn-sm btn-success disabled hidden-xs hidden-sm" do %>
           <span><%= t("proposals.wizard_steps.form_step4.fieldset_title") %></span>
         <% end %>
 
 
-        <%= f.button(:class => "btn btn-default", disabled: false, :id => "wizard_btn_submit") do %>
+        <%= f.button(class: "btn btn-sm btn-default", disabled: false, :id => "wizard_btn_submit") do %>
           <span><%= fa_icon("chevron-right", :text => t(".submit"), right: true) %></span>
         <% end %>
 
@@ -43,7 +43,7 @@
           <%= link_to proposal_path(multi_app_identifier: @proposal.multi_app_identifier),
                               method: :delete,
                               data: { confirm: t('helpers.links.confirm_cancel_wizard') }, 
-                              class: "btn btn-danger pull-right hidden-xs hidden-sm" do %>
+                              class: "btn btn-sm btn-danger pull-right hidden-xs hidden-sm" do %>
             <span><%= fa_icon("times", :text => t("helpers.links.cancel_wizard")) %></span>
           <% end %>
         <% end %>
