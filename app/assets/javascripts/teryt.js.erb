@@ -513,10 +513,10 @@ $(document).ready(function() {
     formatSelection: itemFormatSelection, // omitted for brevity, see the source of this page
     dropdownCssClass: "bigdrop", // apply css that makes the dropdown taller
     escapeMarkup: function (m) { return m; } // we do not want to escape markup since we are displaying html in results
+  })
+  .on("select2-selecting", function(e) {
+    document.getElementById("proposal_c_address_postal_code").value = e.choice.data_obj.postCode;
   });
-  // .on("select2-selecting", function(e) {
-  //   document.getElementById("id_submit_button").disabled = false; 
-  // })
 
 
 });

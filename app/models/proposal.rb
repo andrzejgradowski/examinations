@@ -313,7 +313,7 @@ class Proposal < ApplicationRecord
 
         item_values = JSON.parse(item_obj.response.body)
 
-        self.province_code = item_values["proviceCode"] # poprawic na provinceCode
+        self.province_code = item_values["provinceCode"]
         self.province_name = item_values["provinceName"]
         self.district_code = item_values["districtCode"]
         self.district_name = item_values["districtName"]
@@ -329,7 +329,7 @@ class Proposal < ApplicationRecord
         # puts '----- item_obj ----------------------------------------------------------------------'     
         # puts JSON.parse(item_obj.response.body)
         #   { "id"=>287454, 
-        #     "proviceCode"=>"04", 
+        #     "provinceCode"=>"04", 
         #     "provinceName"=>"KUJAWSKO-POMORSKIE", 
         #     "districtCode"=>"13", 
         #     "districtName"=>"sępoleński", 
