@@ -37,10 +37,13 @@
           <span><%= fa_icon("check", :text => t(".submit"), right: true) %></span>
         <% end %>
 
-        <%= link_to proposals_path, 
-                            data: { confirm: t('helpers.links.confirm_cancel_wizard') }, 
-                            class: "btn btn-danger pull-right hidden-xs hidden-sm" do %>
-          <span><%= fa_icon("times", :text => t("helpers.links.cancel_wizard")) %></span>
+        <% if policy(@proposal).destroy_self? %>
+          <%= link_to proposal_path(multi_app_identifier: @proposal.multi_app_identifier),
+                              method: :delete,
+                              data: { confirm: t('helpers.links.confirm_cancel_wizard') }, 
+                              class: "btn btn-danger pull-right hidden-xs hidden-sm" do %>
+            <span><%= fa_icon("times", :text => t("helpers.links.cancel_wizard")) %></span>
+          <% end %>
         <% end %>
 
       </div> <!--/col-sm-12 -->
