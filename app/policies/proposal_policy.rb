@@ -43,6 +43,10 @@ class ProposalPolicy < ApplicationPolicy
     (@model.creator_id == @user.id) && @model.can_annulled? && (user_activities.include? 'proposal:update_self')
   end
 
+  def destroy_self?
+    user_activities.include? 'proposal:delete_self'
+  end
+
   # def work?
   #   user_activities.include? 'proposal:work'
   # end

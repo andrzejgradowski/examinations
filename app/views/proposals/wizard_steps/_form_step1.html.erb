@@ -32,6 +32,10 @@
           <%= f.label :citizenship_code, class: 'control-label' %>
           <%= f.country_select :citizenship_code, priority_countries = ["pl"], options = {}, autofocus: current_user.pesel.present?, :class => "form-control input-sm" %>
         </div>
+        <div class="form-group col-sm-3">
+          <%= f.label :phone, class: 'control-label' %>
+          <%= f.text_field :phone, class: 'form-control input-sm', disabled: false %>
+        </div>
       </div> <!--/row -->
 
       <div class="row">
@@ -49,12 +53,6 @@
         </div>
       </div> <!--/row -->
 
-      <div class="row">
-        <div class="form-group col-sm-4">
-          <%= f.label :phone, class: 'control-label' %>
-          <%= f.text_field :phone, class: 'form-control input-sm', disabled: false %>
-        </div>
-      </div> <!--/row -->
 
     </fieldset>
 

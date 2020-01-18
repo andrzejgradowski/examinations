@@ -60,7 +60,7 @@ class PitTerytItem
     # /SSL
     @response = Net::HTTP.get_response(uri)
   rescue StandardError => e
-    puts '================= API ERROR "/Commune/:commune_id/Cities" ==================='
+    puts '================= API ERROR "/Street/:id ===================================='
     puts e.to_s
     puts '============================================================================='
   end

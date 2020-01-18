@@ -2,7 +2,7 @@ class ProposalsController < ApplicationController
   include ProposalsHelper
   
   before_action :authenticate_user!
-  before_action :set_proposal, only: [:show, :update_annulled]
+  before_action :set_proposal, only: [:show, :update_annulled, :destroy]
 
   after_action :verify_authorized, except: :index
   after_action :verify_policy_scoped, only: :index
@@ -40,6 +40,14 @@ class ProposalsController < ApplicationController
     else
       @proposal.proposal_status_id_was
       render :show
+    end
+  end
+
+  def destroy
+    authorize @proposal, :destroy_self?
+    @proposal.destroy()
+    respond_to do |format|
+      format.html { redirect_to proposals_url }
     end
   end
 
