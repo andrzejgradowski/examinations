@@ -6,54 +6,69 @@
 
 
       <div class="row">
-        <div class="form-group col-sm-12">
-          <%= f.check_box :lives_in_poland, autofocus: true, onclick: "terytIsRequired(this.checked)" %>&nbsp;&nbsp; 
-          <%= f.label :lives_in_poland, class: 'control-label' %>
-        </div>
-      </div> <!--/row -->
+        <div class="form-group col-sm-8">
 
-      <div class="row">
-        <div class="form-group required col-sm-12 show_if_lives_in_poland">
-          <%= f.label :address_id, class: "control-label" %> 
-          <%= f.hidden_field :address_id, 
-                            class: "form-control input-sm select2teryt_items", 
-                            placeholder: "Wyszukaj adres",
-                            style: "width:100%",
-                            disabled: !@proposal.lives_in_poland,
-                            id: "address_id_select",
-                            autofocus: false %>
+          <div class="row">
+            <div class="form-group col-sm-12">
+              <%= f.check_box :lives_in_poland, autofocus: true, onclick: "terytIsRequired(this.checked)" %>&nbsp;&nbsp; 
+              <%= f.label :lives_in_poland, class: 'control-label' %>
+            </div>
+          </div> <!--/row -->
 
-          <small class="help-block"><%= t('help_block_text.select2_item') %></small>
-        </div>
-      </div> <!--/row -->
+          <div class="row">
+            <div class="form-group required col-sm-12 show_if_lives_in_poland">
+              <%= f.label :address_id, class: "control-label" %> 
+              <%= f.hidden_field :address_id, 
+                                class: "form-control input-sm select2teryt_items", 
+                                placeholder: "Wyszukaj adres",
+                                style: "width:100%",
+                                disabled: !@proposal.lives_in_poland,
+                                id: "address_id_select",
+                                autofocus: false %>
+            </div>
+          </div> <!--/row -->
 
-      <div class="row">
-        <div class="form-group required col-sm-4 show_unless_lives_in_poland" style="display-none;">
-          <%= f.label :city_name, class: 'control-label' %>
-          <%= f.text_field :city_name, class: 'form-control input-sm', disabled: @proposal.lives_in_poland %>
-        </div>
-        <div class="form-group col-sm-4 show_unless_lives_in_poland">
-          <%= f.label :street_name, class: 'control-label' %>
-          <%= f.text_field :street_name, class: 'form-control input-sm', disabled: @proposal.lives_in_poland %>
-        </div>
-      </div> <!--/row -->
+          <div class="row">
+            <div class="form-group required col-sm-6 show_unless_lives_in_poland" style="display-none;">
+              <%= f.label :city_name, class: 'control-label' %>
+              <%= f.text_field :city_name, class: 'form-control input-sm', disabled: @proposal.lives_in_poland %>
+            </div>
+            <div class="form-group col-sm-6 show_unless_lives_in_poland">
+              <%= f.label :street_name, class: 'control-label' %>
+              <%= f.text_field :street_name, class: 'form-control input-sm', disabled: @proposal.lives_in_poland %>
+            </div>
+          </div> <!--/row -->
 
-      <div class="row">
-        <div class="form-group required col-sm-2">
-          <%= f.label :c_address_house, class: 'control-label' %>
-          <%= f.text_field :c_address_house, class: 'form-control input-sm', disabled: false %>
-        </div>
+          <div class="row">
+            <div class="form-group required col-sm-3">
+              <%= f.label :c_address_house, class: 'control-label' %>
+              <%= f.text_field :c_address_house, class: 'form-control input-sm', disabled: false %>
+            </div>
 
-        <div class="form-group col-sm-2">
-          <%= f.label :c_address_number, class: 'control-label' %>
-          <%= f.text_field :c_address_number, class: 'form-control input-sm', disabled: false %>
+            <div class="form-group col-sm-3">
+              <%= f.label :c_address_number, class: 'control-label' %>
+              <%= f.text_field :c_address_number, class: 'form-control input-sm', disabled: false %>
+            </div>
+            <div class="form-group required col-sm-3">
+              <%= f.label :c_address_postal_code, class: 'control-label' %>
+              <%= f.text_field :c_address_postal_code, autofocus: true, class: 'form-control input-sm', disabled: false %>
+            </div>
+          </div> <!--/row -->
+
+
+        </div>  
+
+        <div class="form-group col-sm-4">
+          <div class="row">
+            <div class="col-sm-12 show_if_lives_in_poland">
+              <blockquote>
+                <p>Wyszukaj po nazwie miejscowości i ewentualnie ulicy. Listę możesz ograniczyć podając nazwę gminy i/lub powiatu i/lub województwa.</p> 
+                <p>Wyrazy oddzielaj spacją. Np. osielsko grzybowa</p>
+              </blockquote>
+            </div> <!-- /.col-sm-5 -->
+          </div> <!--/row -->
         </div>
-        <div class="form-group required col-sm-2">
-          <%= f.label :c_address_postal_code, class: 'control-label' %>
-          <%= f.text_field :c_address_postal_code, autofocus: true, class: 'form-control input-sm', disabled: false %>
-        </div>
-      </div> <!--/row -->
-      
+      </div> <!--/row -->      
 
     </fieldset>
 
