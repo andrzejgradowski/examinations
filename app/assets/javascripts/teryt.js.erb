@@ -27,12 +27,19 @@ $(document).ready(function() {
   };
 
   function markMatch (text, term) {
+    // var separatWords = term.split(" ");
+    // var allMatchedStr = text;
+    // var x;
+    // for (x of separatWords) {
+    //   allMatchedStr = markMatchOneWord (allMatchedStr, x);
+    // }; 
+    // return allMatchedStr
     var separatWords = term.split(" ");
     var allMatchedStr = text;
     var x;
-    for (x of separatWords) {
-      allMatchedStr = markMatchOneWord (allMatchedStr, x);
-    }; 
+    separatWords.forEach (function(e) {
+      allMatchedStr = markMatchOneWord (allMatchedStr, e);
+    }); 
     return allMatchedStr
   };
 
