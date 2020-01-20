@@ -1,25 +1,60 @@
 //document.addEventListener('turbolinks:load', function() {
 $(document).ready(function() {
 
-  function itemFormatResult(item) {
-    if (isEmpty(item.id)) {
-      return "";
-    } else {
-      if (item.data_obj.streetName) {
-        return  '<div>' + item.data_obj.cityName + ',&nbsp&nbsp' + item.data_obj.streetAttribute + '&nbsp' + item.data_obj.streetName + 
-                                          '<span class="pull-right"><small>[&nbsp' + item.data_obj.provinceName + '&nbsp]</small></span><br>' +
-                '<span><small>&nbsp&nbsp&nbsp&nbsp&nbsp[&nbsp' + item.data_obj.cityType + '&nbsp]</small></span>' +
-                                          '<span class="pull-right"><small>[&nbsp' + item.data_obj.districtName + '&nbsp]</small></span><br>' +
-                '<span><small>&nbsp&nbsp&nbsp&nbsp&nbsp[&nbsp' + item.data_obj.postCode + '&nbsp]</small></span>' +
-                                          '<span class="pull-right"><small>[&nbsp' + item.data_obj.communeName + '&nbsp]</small></span></div><br>';
+  function markMatchOneWord (text, term) {
+    if (text) {
+      // Find where the match is
+      var match = text.toUpperCase().indexOf(term.toUpperCase());
+
+      // If there is no match, move on
+      if (match < 0) {
+        return text;
       } else {
-        return  '<div>' + item.data_obj.cityName + 
-                                          '<span class="pull-right"><small>[&nbsp' + item.data_obj.provinceName + '&nbsp]</small></span><br>' +
+        // text is before the match
+        var leftStr = text.substring(0, match);
+
+        // matched text
+        var matchStr = '<span class="select2-rendered__match">' + text.substring(match, match + term.length) + '</span>';
+
+        // text after the match
+        rightStr = text.substring(match + term.length);
+
+        return leftStr + matchStr + rightStr;
+      }
+    } else {
+      return "";
+    }
+  };
+
+  function markMatch (text, term) {
+    var separatWords = term.split(" ");
+    var allMatchedStr = text;
+    var x;
+    for (x of separatWords) {
+      allMatchedStr = markMatchOneWord (allMatchedStr, x);
+    }; 
+    return allMatchedStr
+  };
+
+  function itemFormatResult(item, container, query, escapeMarkup) {
+    if (item.id) {
+      if (item.data_obj.streetName) {
+        return  '<div>' + markMatch(item.data_obj.cityName, query.term) + ',&nbsp&nbsp' + item.data_obj.streetAttribute + '&nbsp' + markMatch(item.data_obj.streetName, query.term) + 
+                                '<span class="pull-right"><small>[&nbsp' + markMatch(item.data_obj.provinceName, query.term) + '&nbsp]</small></span><br>' +
                 '<span><small>&nbsp&nbsp&nbsp&nbsp&nbsp[&nbsp' + item.data_obj.cityType + '&nbsp]</small></span>' +
-                                          '<span class="pull-right"><small>[&nbsp' + item.data_obj.districtName + '&nbsp]</small></span><br>' +
-                '<span><small>&nbsp&nbsp&nbsp&nbsp&nbsp[&nbsp' + item.data_obj.postCode + '&nbsp]</small></span>' +
-                                          '<span class="pull-right"><small>[&nbsp' + item.data_obj.communeName + '&nbsp]</small></span></div><br>';
+                                '<span class="pull-right"><small>[&nbsp' + markMatch(item.data_obj.districtName, query.term) + '&nbsp]</small></span><br>' +
+                '<span><small>&nbsp&nbsp&nbsp&nbsp&nbsp[&nbsp' + markMatch(item.data_obj.postCode, query.term) + '&nbsp]</small></span>' +
+                                '<span class="pull-right"><small>[&nbsp' + markMatch(item.data_obj.communeName, query.term) + '&nbsp]</small></span></div>';
+      } else {
+        return  '<div>' + markMatch(item.data_obj.cityName, query.term) + 
+                                '<span class="pull-right"><small>[&nbsp' + markMatch(item.data_obj.provinceName, query.term) + '&nbsp]</small></span><br>' +
+                '<span><small>&nbsp&nbsp&nbsp&nbsp&nbsp[&nbsp' + item.data_obj.cityType + '&nbsp]</small></span>' +
+                                '<span class="pull-right"><small>[&nbsp' + markMatch(item.data_obj.districtName, query.term) + '&nbsp]</small></span><br>' +
+                '<span><small>&nbsp&nbsp&nbsp&nbsp&nbsp[&nbsp' + markMatch(item.data_obj.postCode, query.term) + '&nbsp]</small></span>' +
+                                '<span class="pull-right"><small>[&nbsp' + markMatch(item.data_obj.communeName, query.term) + '&nbsp]</small></span></div>';
       } 
+    } else {
+      return "";
     }
   };
 
@@ -61,6 +96,7 @@ $(document).ready(function() {
         var more = (page * 10) < data.meta.totalCount;
         var items = $.map(data.items, function(item, i) {
           return { data_obj: item, id: item.id, text: item.cityName };
+          //return { data_obj: item };
         });
         return { results: items, more: more };
       }
@@ -79,8 +115,8 @@ $(document).ready(function() {
       if (id!=="") {
         $.get("/pit_teryt/items/"+id+".json", function(data_from_json) {
           if(data_from_json)
-            console.log(data_from_json);
-            callback({ data_obj: data_from_json, id: data_from_json.id, text: 'data_from_json.cityName' });
+            //callback({ data_obj: data_from_json, id: data_from_json.id, text: 'data_from_json.cityName' });
+            callback({ data_obj: data_from_json });
         });
       }
     },
