@@ -16,22 +16,6 @@ Rails.application.routes.draw do
   get '/netpar/divisions_select2_index'
   get '/netpar/divisions/:id', to: 'netpar#division_show'
 
-
-  get '/pit_teryt/provinces',                                 to: 'pit_teryt#provinces'
-  get '/pit_teryt/provinces/:id',                             to: 'pit_teryt#province_show'
-
-  get '/pit_teryt/provinces/:province_id/districts',          to: 'pit_teryt#province_districts'
-  get '/pit_teryt/provinces/:province_id/districts/:id',      to: 'pit_teryt#province_district_show'
-
-  get '/pit_teryt/districts/:district_id/communes',           to: 'pit_teryt#district_communes'
-  get '/pit_teryt/districts/:district_id/communes/:id',       to: 'pit_teryt#district_commune_show'
-
-  get '/pit_teryt/communes/:commune_id/cities',               to: 'pit_teryt#commune_cities'
-  get '/pit_teryt/communes/:commune_id/cities/:id',           to: 'pit_teryt#commune_city_show'
-
-  get '/pit_teryt/cities/:city_id/streets',                   to: 'pit_teryt#city_streets'
-  get '/pit_teryt/cities/:city_id/streets/:id',               to: 'pit_teryt#city_street_show'
-
   get '/pit_teryt/items',                                     to: 'pit_teryt#items'
   get '/pit_teryt/items/:id',                                 to: 'pit_teryt#item_show'
 
