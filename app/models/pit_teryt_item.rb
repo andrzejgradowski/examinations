@@ -32,7 +32,7 @@ class PitTerytItem
   #   puts '============================================================================='
   # end
 
-  def run_request_for_collection
+  def request_for_collection
     uri = URI("#{Rails.application.secrets[:teryt_api_url]}/Street/Filter")
     http = Net::HTTP.new(uri.host, uri.port)
     # SSL
@@ -51,7 +51,7 @@ class PitTerytItem
   end
 
 
-  def run_request_for_one_row
+  def request_for_one_row
     uri = URI("#{Rails.application.secrets[:teryt_api_url]}/Street/#{@id}")
     http = Net::HTTP.new(uri.host, uri.port)
     # SSL

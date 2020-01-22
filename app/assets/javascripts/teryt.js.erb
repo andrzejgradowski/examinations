@@ -6,7 +6,7 @@ $(document).ready(function() {
       // Find where the match is
       var match = text.toUpperCase().indexOf(term.toUpperCase());
 
-      // If there is no match, move on
+      // If there is no match
       if (match < 0) {
         return text;
       } else {
@@ -27,17 +27,9 @@ $(document).ready(function() {
   };
 
   function markMatch (text, term) {
-    // var separatWords = term.split(" ");
-    // var allMatchedStr = text;
-    // var x;
-    // for (x of separatWords) {
-    //   allMatchedStr = markMatchOneWord (allMatchedStr, x);
-    // }; 
-    // return allMatchedStr
-    var separatWords = term.split(" ");
+    var separateWords = term.split(" ");
     var allMatchedStr = text;
-    var x;
-    separatWords.forEach (function(e) {
+    separateWords.forEach (function(e) {
       allMatchedStr = markMatchOneWord (allMatchedStr, e);
     }); 
     return allMatchedStr
@@ -46,19 +38,19 @@ $(document).ready(function() {
   function itemFormatResult(item, container, query, escapeMarkup) {
     if (item.id) {
       if (item.data_obj.streetName) {
-        return  '<div>' + markMatch(item.data_obj.cityName, query.term) + ',&nbsp&nbsp' + item.data_obj.streetAttribute + '&nbsp' + markMatch(item.data_obj.streetName, query.term) + 
-                                '<span class="pull-right"><small>[&nbsp' + markMatch(item.data_obj.provinceName, query.term) + '&nbsp]</small></span><br>' +
-                '<span><small>&nbsp&nbsp&nbsp&nbsp&nbsp[&nbsp' + item.data_obj.cityType + '&nbsp]</small></span>' +
-                                '<span class="pull-right"><small>[&nbsp' + markMatch(item.data_obj.districtName, query.term) + '&nbsp]</small></span><br>' +
-                '<span><small>&nbsp&nbsp&nbsp&nbsp&nbsp[&nbsp' + markMatch(item.data_obj.postCode, query.term) + '&nbsp]</small></span>' +
-                                '<span class="pull-right"><small>[&nbsp' + markMatch(item.data_obj.communeName, query.term) + '&nbsp]</small></span></div>';
+        return  '<div>' + markMatch(item.data_obj.cityName, query.term) + ',&nbsp<small>' + item.data_obj.streetAttribute + '</small>&nbsp' + markMatch(item.data_obj.streetName, query.term) +
+                '<small>'     + '<span class="pull-right">[&nbsp' + markMatch(item.data_obj.provinceName, query.term) + '&nbsp]</span><br>' +
+                '<span>&nbsp&nbsp&nbsp&nbsp&nbsp[&nbsp' + item.data_obj.cityType + '&nbsp]</span>' +
+                                '<span class="pull-right">[&nbsp' + markMatch(item.data_obj.districtName, query.term) + '&nbsp]</span><br>' +
+                '<span>&nbsp&nbsp&nbsp&nbsp&nbsp[&nbsp' + markMatch(item.data_obj.postCode, query.term) + '&nbsp]</span>' +
+                                '<span class="pull-right">[&nbsp' + markMatch(item.data_obj.communeName, query.term) + '&nbsp]</span>' + '</small></div>';
       } else {
         return  '<div>' + markMatch(item.data_obj.cityName, query.term) + 
-                                '<span class="pull-right"><small>[&nbsp' + markMatch(item.data_obj.provinceName, query.term) + '&nbsp]</small></span><br>' +
-                '<span><small>&nbsp&nbsp&nbsp&nbsp&nbsp[&nbsp' + item.data_obj.cityType + '&nbsp]</small></span>' +
-                                '<span class="pull-right"><small>[&nbsp' + markMatch(item.data_obj.districtName, query.term) + '&nbsp]</small></span><br>' +
-                '<span><small>&nbsp&nbsp&nbsp&nbsp&nbsp[&nbsp' + markMatch(item.data_obj.postCode, query.term) + '&nbsp]</small></span>' +
-                                '<span class="pull-right"><small>[&nbsp' + markMatch(item.data_obj.communeName, query.term) + '&nbsp]</small></span></div>';
+                '<small>'     + '<span class="pull-right">[&nbsp' + markMatch(item.data_obj.provinceName, query.term) + '&nbsp]</span><br>' +
+                '<span>&nbsp&nbsp&nbsp&nbsp&nbsp[&nbsp' + item.data_obj.cityType + '&nbsp]</span>' +
+                                '<span class="pull-right">[&nbsp' + markMatch(item.data_obj.districtName, query.term) + '&nbsp]</span><br>' +
+                '<span>&nbsp&nbsp&nbsp&nbsp&nbsp[&nbsp' + markMatch(item.data_obj.postCode, query.term) + '&nbsp]</span>' +
+                                '<span class="pull-right">[&nbsp' + markMatch(item.data_obj.communeName, query.term) + '&nbsp]</span>' + '</small></div>';
       } 
     } else {
       return "";
@@ -66,11 +58,9 @@ $(document).ready(function() {
   };
 
   function itemFormatSelection(item) {
-    if (isEmpty(item.id)) {
-      return "";
-    } else {
+    if (item.id) {
       if (item.data_obj.streetName) {
-        return  '<div>' + item.data_obj.cityName + ',&nbsp&nbsp' + item.data_obj.streetAttribute + '&nbsp' + item.data_obj.streetName + 
+        return  '<div>' + item.data_obj.cityName + ',&nbsp<small>' + item.data_obj.streetAttribute + '</small>&nbsp' + item.data_obj.streetName + 
                                           '<span class="small pull-right">' + item.data_obj.cityType + '&nbsp[&nbsp' + item.data_obj.provinceName + 
                                           ',&nbsp' + item.data_obj.districtName + 
                                           ',&nbsp' + item.data_obj.communeName + '&nbsp]</span></div>';
@@ -80,6 +70,8 @@ $(document).ready(function() {
                                           ',&nbsp' + item.data_obj.districtName + 
                                           ',&nbsp' + item.data_obj.communeName + '&nbsp]</span></div>';
       } 
+    } else {
+      return "";
     }
   };
 
@@ -102,8 +94,8 @@ $(document).ready(function() {
       results: function(data, page) {
         var more = (page * 10) < data.meta.totalCount;
         var items = $.map(data.items, function(item, i) {
-          return { data_obj: item, id: item.id, text: item.cityName };
-          //return { data_obj: item };
+          //return { data_obj: item, id: item.id, text: item.cityName };
+          return { data_obj: item, id: item.id };
         });
         return { results: items, more: more };
       }
@@ -123,7 +115,7 @@ $(document).ready(function() {
         $.get("/pit_teryt/items/"+id+".json", function(data_from_json) {
           if(data_from_json)
             //callback({ data_obj: data_from_json, id: data_from_json.id, text: 'data_from_json.cityName' });
-            callback({ data_obj: data_from_json });
+            callback({ data_obj: data_from_json, id: data_from_json.id });
         });
       }
     },

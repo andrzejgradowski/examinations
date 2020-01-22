@@ -257,7 +257,7 @@ class Proposal < ApplicationRecord
   end
   
   def can_annulled?
-    (exam_date_exam - 1.days > Time.zone.today) && [PROPOSAL_STATUS_CREATED, PROPOSAL_STATUS_APPROVED].include?(proposal_status_id) 
+    (exam_date_exam - 5.days > Time.zone.today) && [PROPOSAL_STATUS_CREATED, PROPOSAL_STATUS_APPROVED].include?(proposal_status_id) 
   end
 
   def bank_pdf_required?
@@ -309,7 +309,7 @@ class Proposal < ApplicationRecord
     def put_address_values
       if self.address_id.present?
         item_obj = PitTerytItem.new(id: self.address_id)
-        item_obj.run_request_for_one_row
+        item_obj.request_for_one_row
 
         item_values = JSON.parse(item_obj.response.body)
 

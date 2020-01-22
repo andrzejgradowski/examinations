@@ -38,8 +38,8 @@ class CreateProposals < ActiveRecord::Migration[5.2]
       t.integer :address_id                   
       t.string :province_code,              limit: 20, default: ""
       t.string :province_name,              limit: 50, default: ""
-      t.string :district_code,              limit: 20, default: "" 
-      t.string :district_name,              limit: 50, default: "" 
+      t.string :district_code,              limit: 20, default: ""
+      t.string :district_name,              limit: 50, default: ""
       t.string :commune_code,               limit: 20, default: ""
       t.string :commune_name,               limit: 50, default: ""
       t.string :city_code,                  limit: 20, default: ""
@@ -47,7 +47,7 @@ class CreateProposals < ActiveRecord::Migration[5.2]
       t.string :street_code,                limit: 20, default: ""
       t.string :street_name,                limit: 50, default: ""
       t.string :street_attribute,           limit: 20, default: ""
-      t.string :teryt_code,                 limit: 20, default: ""            
+      t.string :teryt_code,                 limit: 20, default: ""
       #
       #t.string :c_address_city,             limit: 50, default: ""
       #t.string :c_address_street,           limit: 50, default: "" 
