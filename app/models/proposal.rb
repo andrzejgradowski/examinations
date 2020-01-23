@@ -309,40 +309,48 @@ class Proposal < ApplicationRecord
     def put_address_values
       if self.address_id.present?
         item_obj = PitTerytItem.new(id: self.address_id)
-        item_obj.request_for_one_row
+        if item_obj.request_for_one_row
+          item_values = JSON.parse(item_obj.response.body)
 
-        item_values = JSON.parse(item_obj.response.body)
+          self.province_code = item_values["provinceCode"]
+          self.province_name = item_values["provinceName"]
+          self.district_code = item_values["districtCode"]
+          self.district_name = item_values["districtName"]
+          self.commune_code = item_values["communeCode"]
+          self.commune_name = item_values["communeName"]
+          self.city_code = item_values["cityCode"]
+          self.city_name = item_values["cityName"]
+          self.street_code = item_values["streetCode"] if item_values["streetCode"].present?
+          self.street_name = item_values["streetName"] if item_values["streetName"].present?
+          self.street_attribute = item_values["streetAttribute"] if item_values["streetAttribute"].present?
+          self.teryt_code = item_values["terytId"]
 
-        self.province_code = item_values["provinceCode"]
-        self.province_name = item_values["provinceName"]
-        self.district_code = item_values["districtCode"]
-        self.district_name = item_values["districtName"]
-        self.commune_code = item_values["communeCode"]
-        self.commune_name = item_values["communeName"]
-        self.city_code = item_values["cityCode"]
-        self.city_name = item_values["cityName"]
-        self.street_code = item_values["streetCode"] if item_values["streetCode"].present?
-        self.street_name = item_values["streetName"] if item_values["streetName"].present?
-        self.street_attribute = item_values["streetAttribute"] if item_values["streetAttribute"].present?
-        self.teryt_code = item_values["terytId"]
+          # puts '----- item_obj ----------------------------------------------------------------------'     
+          # puts JSON.parse(item_obj.response.body)
+          #   { "id"=>287454, 
+          #     "provinceCode"=>"04", 
+          #     "provinceName"=>"KUJAWSKO-POMORSKIE", 
+          #     "districtCode"=>"13", 
+          #     "districtName"=>"sępoleński", 
+          #     "communeCode"=>"04", 
+          #     "communeName"=>"Więcbork", 
+          #     "cityCode"=>"0099872", 
+          #     "cityName"=>"Runowo Krajeńskie", 
+          #     "streetCode"=>nil, 
+          #     "streetName"=>nil, 
+          #     "streetAttribute"=>nil, 
+          #     "terytId"=>"0413040099872", 
+          #     "terytCity"=>nil  }
+          # puts '-------------------------------------------------------------------------------------'
+        else
+          #self.errors.add(:base, item_obj.errors.messages.first)
+          #self.errors.add(:base, item_obj.errors.full_messages)
 
-        # puts '----- item_obj ----------------------------------------------------------------------'     
-        # puts JSON.parse(item_obj.response.body)
-        #   { "id"=>287454, 
-        #     "provinceCode"=>"04", 
-        #     "provinceName"=>"KUJAWSKO-POMORSKIE", 
-        #     "districtCode"=>"13", 
-        #     "districtName"=>"sępoleński", 
-        #     "communeCode"=>"04", 
-        #     "communeName"=>"Więcbork", 
-        #     "cityCode"=>"0099872", 
-        #     "cityName"=>"Runowo Krajeńskie", 
-        #     "streetCode"=>nil, 
-        #     "streetName"=>nil, 
-        #     "streetAttribute"=>nil, 
-        #     "terytId"=>"0413040099872", 
-        #     "terytCity"=>nil  }
-        # puts '-------------------------------------------------------------------------------------'     
+          item_obj.errors.full_messages.each do |msg|
+            self.errors.add(:base, msg.force_encoding("UTF-8"))
+          end
+
+        end
       end
     end
 

@@ -1,10 +1,18 @@
-# frozen_string_literal: true
-
 require 'net/http'
 
 class PitTerytItem
   include ActiveModel::Model
-  # include ERB::Util #for url_encode
+
+  HTTP_ERRORS = [
+    EOFError,
+    Errno::ECONNRESET,
+    Errno::EINVAL,
+    Net::HTTPBadResponse,
+    Net::HTTPHeaderSyntaxError,
+    Net::ProtocolError,
+    Timeout::Error,
+    Errno::ECONNREFUSED
+  ]
 
   attr_accessor :response, :q, :page, :page_limit, :array_items, :row_data, :id
 
@@ -15,39 +23,48 @@ class PitTerytItem
     @page_limit = params.fetch(:page_limit, 10)
   end
 
-  # def run_request_for_collection
-  #   uri = URI("#{Rails.application.secrets[:teryt_api_url]}/Street/Filter?terytEntryFilterByQuery.query=#{url_encode(@q)}&terytEntryFilterByQuery.limit=#{@page_limit}&terytEntryFilterByQuery.offset=#{@page}")
-  #   http = Net::HTTP.new(uri.host, uri.port)
-  #   # SSL
-  #   http.use_ssl = true
-  #   http.verify_mode = OpenSSL::SSL::VERIFY_NONE # Sets the HTTPS verify mode
-  #   # /SSL
-  #   @response = Net::HTTP.get_response(uri)
-
-  #   # @array_items = JSON.parse(@response.body)
-  #   # @response
-  # rescue StandardError => e
-  #   puts '================ API ERROR "/Province/:province_id/Districts" ==============='
-  #   puts e.to_s
-  #   puts '============================================================================='
-  # end
-
   def request_for_collection
     uri = URI("#{Rails.application.secrets[:teryt_api_url]}/Street/Filter")
     http = Net::HTTP.new(uri.host, uri.port)
     # SSL
-    http.use_ssl = true
-    http.verify_mode = OpenSSL::SSL::VERIFY_NONE # Sets the HTTPS verify mode
+    http.use_ssl = true if uri.scheme == "https"
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE if uri.scheme == "https" # Sets the HTTPS verify mode
     # /SSL
-
     params = {:"terytEntryFilterByQuery.query" => "#{@q}", :"terytEntryFilterByQuery.offset" => "#{@page}", :"terytEntryFilterByQuery.limit" => "#{@page_limit}"}
     uri.query = URI.encode_www_form(params)
 
     @response = Net::HTTP.get_response(uri)
+
+  rescue *HTTP_ERRORS => e
+    Rails.logger.error('======== API ERROR "models/pit_teryt_item .request_for_collection"(1) =======')
+    Rails.logger.error("#{e}")
+    Rails.logger.error('=============================================================================')
+    errors.add(:base, "API ERROR 'models/pit_teryt_item .request_for_collection(1) #{Time.zone.now}")
+    errors.add(:base, "#{e}")
+    false    # non-success response
+    #"#{e}"
   rescue StandardError => e
-    puts '================= API ERROR "/Streets" ======================================'
-    puts e.to_s
-    puts '============================================================================='
+    Rails.logger.error('======== API ERROR "models/pit_teryt_item .request_for_collection"(2) =======')
+    Rails.logger.error("#{e}")
+    Rails.logger.error('=============================================================================')
+    errors.add(:base, "API ERROR 'models/pit_teryt_item .request_for_collection(2) #{Time.zone.now}")
+    errors.add(:base, "#{e}")
+    false    # non-success response
+    #"#{e}"
+  else
+    case response
+    when Net::HTTPOK
+      true   # success response
+      #response
+    when Net::HTTPClientError, Net::HTTPInternalServerError
+      Rails.logger.error('======== API ERROR "models/pit_teryt_item .request_for_collection"(3) =======')
+      Rails.logger.error("code: #{response.code}, message: #{response.message}, body: #{response.body}")
+      Rails.logger.error('=============================================================================')
+      errors.add(:base, "API ERROR 'models/pit_teryt_item .request_for_collection(3) #{Time.zone.now}")
+      errors.add(:base, "code: #{response.code}, message: #{response.message}, body: #{response.body}")
+      false  # non-success response
+      #response
+    end
   end
 
 
@@ -55,15 +72,41 @@ class PitTerytItem
     uri = URI("#{Rails.application.secrets[:teryt_api_url]}/Street/#{@id}")
     http = Net::HTTP.new(uri.host, uri.port)
     # SSL
-    http.use_ssl = true
-    http.verify_mode = OpenSSL::SSL::VERIFY_NONE # Sets the HTTPS verify mode
+    http.use_ssl = true if uri.scheme == "https"
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE if uri.scheme == "https" # Sets the HTTPS verify mode
     # /SSL
     @response = Net::HTTP.get_response(uri)
-  rescue StandardError => e
-    puts '================= API ERROR "/Street/:id ===================================='
-    puts e.to_s
-    puts '============================================================================='
-  end
 
+  rescue *HTTP_ERRORS => e
+    Rails.logger.error('======== API ERROR "models/pit_teryt_item .request_for_one_row"(1) ==========')
+    Rails.logger.error("#{e}")
+    Rails.logger.error('=============================================================================')
+    errors.add(:base, "API ERROR 'models/pit_teryt_item .request_for_one_row'(1) #{Time.zone.now}")
+    errors.add(:base, "#{e}")
+    false    # non-success response
+    #"#{e}"
+  rescue StandardError => e
+    Rails.logger.error('======== API ERROR "models/pit_teryt_item .request_for_one_row"(2) ==========')
+    Rails.logger.error("#{e}")
+    Rails.logger.error('=============================================================================')
+    errors.add(:base, "API ERROR 'models/pit_teryt_item .request_for_one_row' (2) #{Time.zone.now}")
+    errors.add(:base, "#{e}")
+    false    # non-success response
+    #"#{e}"
+  else
+    case response
+    when Net::HTTPOK
+      true   # success response
+      #response
+    when Net::HTTPClientError, Net::HTTPInternalServerError
+      Rails.logger.error('======== API ERROR "models/pit_teryt_item .request_for_one_row"(3) ==========')
+      Rails.logger.error("code: #{response.code}, message: #{response.message}, body: #{response.body}")
+      Rails.logger.error('=============================================================================')
+      errors.add(:base, "API ERROR 'models/pit_teryt_item .request_for_one_row'(3) #{Time.zone.now}")
+      errors.add(:base, "code: #{response.code}, message: #{response.message}, body: #{response.body}")
+      false  # non-success response
+      #response
+    end
+  end
 
 end
