@@ -89,7 +89,7 @@ class PitTerytItem
     Rails.logger.error('======== API ERROR "models/pit_teryt_item .request_for_one_row"(2) ==========')
     Rails.logger.error("#{e}")
     Rails.logger.error('=============================================================================')
-    errors.add(:base, "API ERROR 'models/pit_teryt_item .request_for_one_row' (2) #{Time.zone.now}")
+    errors.add(:base, "API ERROR 'models/pit_teryt_item .request_for_one_row'(2) #{Time.zone.now}")
     errors.add(:base, "#{e}")
     false    # non-success response
     #"#{e}"
