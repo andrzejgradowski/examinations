@@ -12,42 +12,58 @@
 
   	<%= form_errors_for f.object %>
 
-    <% if policy(@proposal).destroy_self? %>
-      <%= link_to proposal_path(multi_app_identifier: @proposal.multi_app_identifier),
-                          method: :delete,
-                          data: { confirm: t('helpers.links.confirm_cancel_wizard') }, 
-                          class: "btn btn-sm btn-danger pull-right hidden-xs hidden-sm" do %>
-        <span><%= fa_icon("times", :text => t("helpers.links.cancel_wizard")) %></span>
-      <% end %>
-    <% end %>
-
     <%= render "form_#{step}", f: f %>
 
     <div class="row">
       <div class="col-sm-12">
+        <div class="row multistep">
 
-        <%= link_to wizard_path('step1'), class: "btn btn-sm btn-default hidden-xs hidden-sm" do %>
-          <span><%= fa_icon("chevron-left", :text => t("proposals.wizard_steps.step2.submit_back")) %></span>
-        <% end %>
+          <div class="col-xs-2 multistep-step complete">
+            <div class="text-center multistep-stepname hidden-xs hidden-sm"><%= t("proposals.show_step1.fieldset_title") %></div>
+            <div class="text-center multistep-stepname visible-xs visible-sm">1</div>
+            <div class="progress"><div class="progress-bar"></div></div>
+            <a href="<%= wizard_path('step1') %>" class="multistep-dot"></a>
+          </div>
 
+          <div class="col-xs-2 multistep-step complete">
+            <div class="text-center multistep-stepname hidden-xs hidden-sm"><%= t("proposals.show_step2.fieldset_title") %></div>
+            <div class="text-center multistep-stepname visible-xs visible-sm">2</div>
+            <div class="progress"><div class="progress-bar"></div></div>
+            <a href="<%= wizard_path('step2') %>" class="multistep-dot"></a>
+          </div>
+
+          <div class="col-xs-4 multistep-step current">
+            <div class="text-center multistep-stepname hidden-xs hidden-sm"><%= t("proposals.show_step3.fieldset_title") %></div>
+            <div class="text-center multistep-stepname visible-xs visible-sm">3</div>
+            <div class="progress"><div class="progress-bar"></div></div>
+            <a href="#" class="multistep-dot"></a>
+          </div>
+
+          <div class="col-xs-2 multistep-step disabled">
+            <div class="text-center multistep-stepname">4</div>
+            <div class="progress"><div class="progress-bar"></div></div>
+            <a href="#" class="multistep-dot"></a>
+          </div>
+
+          <div class="col-xs-2 multistep-step disabled">
+            <div class="text-center multistep-stepname">5</div>
+            <div class="progress"><div class="progress-bar"></div></div>
+            <a href="#" class="multistep-dot"></a>
+          </div>
+
+        </div>
+        <br>
+        <br>
+      </div> <!--/col-sm-12 -->
+
+      <div class="col-sm-12">
         <%= link_to previous_wizard_path, class: "btn btn-sm btn-default" do %>
-          <span><%= fa_icon("chevron-left", :text => t(".submit_back")) %></span>
+          <span><%= fa_icon("chevron-left", text: t("proposals.wizard_steps.previous_step")) %></span>
         <% end %>
-
-
-        <%= link_to root_path, class: "btn btn-sm btn-success disabled hidden-xs hidden-sm" do %>
-          <span><%= t("proposals.wizard_steps.form_step3.fieldset_title") %></span>
+        
+        <%= f.button(:class => "btn btn-sm btn-primary pull-right", disabled: false, :id => "wizard_btn_submit") do %>
+          <span><%= fa_icon("chevron-right", text: t("proposals.wizard_steps.next_step"), right: true) %></span>
         <% end %>
-
-
-        <%= f.button(:class => "btn btn-sm btn-default", disabled: false, :id => "wizard_btn_submit") do %>
-          <span><%= fa_icon("chevron-right", :text => t(".submit"), right: true) %></span>
-        <% end %>
-
-        <%= link_to root_path, class: "btn btn-sm btn-default disabled hidden-xs hidden-sm" do %>
-          <span><%= fa_icon("chevron-right", :text => t("proposals.wizard_steps.form_step5.fieldset_title"), right: true) %></span>
-        <% end %>
-
       </div> <!--/col-sm-12 -->
     </div> <!--/row -->
 

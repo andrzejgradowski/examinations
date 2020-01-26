@@ -64,6 +64,7 @@ class Proposal < ApplicationRecord
   validates :name, presence: true, length: { in: 1..160 }, if: -> { required_for_step?(:step1) && status != SAVED_IN_NETPAR }
   validates :given_names, presence: true, length: { in: 1..50 }, if: -> { required_for_step?(:step1) && status != SAVED_IN_NETPAR }
   validates :citizenship_code, presence: true, length: { in: 1..50 }, if: -> { required_for_step?(:step1) && status != SAVED_IN_NETPAR }
+  validates :phone, length: { maximum: 50 }, if: -> { required_for_step?(:step1) && status != SAVED_IN_NETPAR }
   validates :birth_place, presence: true, length: { in: 1..50 }, if: -> { required_for_step?(:step1) && status != SAVED_IN_NETPAR }
   validates :birth_date, presence: true, if: -> { required_for_step?(:step1) && status != SAVED_IN_NETPAR }
   validates :family_name, presence: true, length: { in: 1..50 }, if: -> { required_for_step?(:step1) && status != SAVED_IN_NETPAR }
@@ -74,7 +75,7 @@ class Proposal < ApplicationRecord
   validates :address_id, presence: true, if: -> { lives_in_poland == true && required_for_step?(:step2) && status != SAVED_IN_NETPAR }
   validates :city_name, presence: true, length: { in: 1..50 }, if: -> { lives_in_poland == false && required_for_step?(:step2) && status != SAVED_IN_NETPAR }
   validates :c_address_house, presence: true, length: { in: 1..10 }, if: -> { required_for_step?(:step2) && status != SAVED_IN_NETPAR }
-  validates :c_address_number, length: { max: 10 }, if: -> { required_for_step?(:step2) && status != SAVED_IN_NETPAR }
+  validates :c_address_number, length: { maximum: 10 }, if: -> { required_for_step?(:step2) && status != SAVED_IN_NETPAR }
   validates :c_address_postal_code, presence: true, length: { in: 6..10 }, if: -> { required_for_step?(:step2) && status != SAVED_IN_NETPAR }
 
   # step3

@@ -43,6 +43,8 @@ pl:
       fieldset_title: 'Podsumowanie'
     wizard_steps:
       title: 'Kreator Zgłoszenia'
+      next_step: 'Dalej'
+      previous_step: 'Wstecz'
       step1:
         title: 'Kreator Zgłoszenia'
         submit: 'Adres korespondencyjny'
