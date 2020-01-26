@@ -37,20 +37,26 @@ $(document).ready(function() {
 
   function itemFormatResult(item, container, query, escapeMarkup) {
     if (item.id) {
+      if (item.data_obj.postCodeNumbers) {
+        var postNumbers = "<span>&nbsp&nbsp[&nbspnumery:&nbsp" + item.data_obj.postCodeNumbers + "&nbsp]</span>"
+      } else {
+        var postNumbers = ""
+      };
+
       if (item.data_obj.streetName) {
         return  '<div>' + markMatch(item.data_obj.cityName, query.term) + ',&nbsp<small>' + item.data_obj.streetAttribute + '</small>&nbsp' + markMatch(item.data_obj.streetName, query.term) +
-                '<small>'     + '<span class="pull-right">[&nbsp' + markMatch(item.data_obj.provinceName, query.term) + '&nbsp]</span><br>' +
+                '<small>'     + '<span class="pull-right">' + markMatch(item.data_obj.provinceName, query.term) + '</span><br>' +
                 '<span>&nbsp&nbsp&nbsp&nbsp&nbsp[&nbsp' + item.data_obj.cityType + '&nbsp]</span>' +
-                                '<span class="pull-right">[&nbsp' + markMatch(item.data_obj.districtName, query.term) + '&nbsp]</span><br>' +
-                '<span>&nbsp&nbsp&nbsp&nbsp&nbsp[&nbsp' + markMatch(item.data_obj.postCode, query.term) + '&nbsp]</span>' +
-                                '<span class="pull-right">[&nbsp' + markMatch(item.data_obj.communeName, query.term) + '&nbsp]</span>' + '</small></div>';
+                                '<span class="pull-right">' + markMatch(item.data_obj.districtName, query.term) + '</span><br>' +
+                '<span>&nbsp&nbsp&nbsp&nbsp&nbsp' + markMatch(item.data_obj.postCode, query.term) + '</span>' + postNumbers +
+                                '<span class="pull-right">' + markMatch(item.data_obj.communeName, query.term) + '</span>' + '</small></div>';
       } else {
         return  '<div>' + markMatch(item.data_obj.cityName, query.term) + 
-                '<small>'     + '<span class="pull-right">[&nbsp' + markMatch(item.data_obj.provinceName, query.term) + '&nbsp]</span><br>' +
+                '<small>'     + '<span class="pull-right">' + markMatch(item.data_obj.provinceName, query.term) + '</span><br>' +
                 '<span>&nbsp&nbsp&nbsp&nbsp&nbsp[&nbsp' + item.data_obj.cityType + '&nbsp]</span>' +
-                                '<span class="pull-right">[&nbsp' + markMatch(item.data_obj.districtName, query.term) + '&nbsp]</span><br>' +
-                '<span>&nbsp&nbsp&nbsp&nbsp&nbsp[&nbsp' + markMatch(item.data_obj.postCode, query.term) + '&nbsp]</span>' +
-                                '<span class="pull-right">[&nbsp' + markMatch(item.data_obj.communeName, query.term) + '&nbsp]</span>' + '</small></div>';
+                                '<span class="pull-right">' + markMatch(item.data_obj.districtName, query.term) + '</span><br>' +
+                '<span>&nbsp&nbsp&nbsp&nbsp&nbsp' + markMatch(item.data_obj.postCode, query.term) + '</span>' + postNumbers +
+                                '<span class="pull-right">' + markMatch(item.data_obj.communeName, query.term) + '</span>' + '</small></div>';
       } 
     } else {
       return "";
