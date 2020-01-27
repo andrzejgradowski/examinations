@@ -69,6 +69,8 @@ ActiveRecord::Schema.define(version: 2019_08_04_150412) do
     t.string "commune_name", limit: 50, default: ""
     t.string "city_code", limit: 20, default: ""
     t.string "city_name", limit: 50, default: ""
+    t.string "city_parent_code", limit: 20, default: ""
+    t.string "city_parent_name", limit: 50, default: ""
     t.string "street_code", limit: 20, default: ""
     t.string "street_name", limit: 50, default: ""
     t.string "street_attribute", limit: 20, default: ""

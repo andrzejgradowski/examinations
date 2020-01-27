@@ -53,6 +53,15 @@ class ProposalsController < ApplicationController
 
   private
 
+
+    def decode_birth_date_from_pesel(nr_pesel)
+      unless Activepesel::Pesel.new(nr_pesel).valid?
+        nil
+      else
+        Activepesel::Pesel.new(nr_pesel).date_of_birth
+      end
+    end
+
     def create_new_and_set_user_profile_attributes
       @proposal = Proposal.new.tap do |pro|
         pro.esod_category = 41
@@ -61,7 +70,7 @@ class ProposalsController < ApplicationController
         pro.name          = current_user.last_name
         pro.given_names   = current_user.first_name
         pro.pesel         = current_user.pesel
-        pro.birth_date    = current_user.birth_date
+        pro.birth_date    = current_user.birth_date.present? ? current_user.birth_date : decode_birth_date_from_pesel(current_user.pesel)
         pro.birth_place   = current_user.birth_city
         pro.family_name   = current_user.family_name
         pro.phone         = current_user.phone

@@ -322,6 +322,8 @@ class Proposal < ApplicationRecord
           self.commune_name = item_values["communeName"]
           self.city_code = item_values["cityCode"]
           self.city_name = item_values["cityName"]
+          self.city_parent_code = item_values["cityParentCode"] if item_values["cityParentCode"].present?
+          self.city_parent_name = item_values["cityParentName"] if item_values["cityParentName"].present?
           self.street_code = item_values["streetCode"] if item_values["streetCode"].present?
           self.street_name = item_values["streetName"] if item_values["streetName"].present?
           self.street_attribute = item_values["streetAttribute"] if item_values["streetAttribute"].present?
