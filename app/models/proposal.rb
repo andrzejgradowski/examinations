@@ -74,6 +74,7 @@ class Proposal < ApplicationRecord
   # step2
   validates :address_id, presence: true, if: -> { lives_in_poland == true && required_for_step?(:step2) && status != SAVED_IN_NETPAR }
   validates :city_name, presence: true, length: { in: 1..50 }, if: -> { lives_in_poland == false && required_for_step?(:step2) && status != SAVED_IN_NETPAR }
+  validates :street_name, length: { maximum: 50 }, if: -> { lives_in_poland == false && required_for_step?(:step2) && status != SAVED_IN_NETPAR }
   validates :c_address_house, presence: true, length: { in: 1..10 }, if: -> { required_for_step?(:step2) && status != SAVED_IN_NETPAR }
   validates :c_address_number, length: { maximum: 10 }, if: -> { required_for_step?(:step2) && status != SAVED_IN_NETPAR }
   validates :c_address_postal_code, presence: true, length: { in: 6..10 }, if: -> { required_for_step?(:step2) && status != SAVED_IN_NETPAR }
