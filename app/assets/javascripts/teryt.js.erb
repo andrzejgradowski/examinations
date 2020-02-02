@@ -51,11 +51,11 @@ $(document).ready(function() {
       };
 
       return  '<div>' + cityName + streetName +
-              '<small>'     + '<span class="pull-right">' + markMatch(item.data_obj.provinceName, query.term) + '</span><br>' +
+              '<small>'     + '<span class="pull-right">&nbsp' + markMatch(item.data_obj.provinceName, query.term) + '</span><br>' +
               '<span>&nbsp&nbsp&nbsp&nbsp&nbsp[&nbsp' + item.data_obj.cityType + '&nbsp]</span>' +
-                              '<span class="pull-right">' + markMatch(item.data_obj.districtName, query.term) + '</span><br>' +
+                              '<span class="pull-right">&nbsp' + markMatch(item.data_obj.districtName, query.term) + '</span><br>' +
               '<span>&nbsp&nbsp&nbsp&nbsp&nbsp' + markMatch(item.data_obj.postCode, query.term) + '</span>' + postNumbers +
-                              '<span class="pull-right">' + markMatch(item.data_obj.communeName, query.term) + '</span>' + '</small></div>';
+                              '<span class="pull-right">&nbsp' + markMatch(item.data_obj.communeName, query.term) + '</span>' + '</small></div>';
     } else {
       return "";
     }
