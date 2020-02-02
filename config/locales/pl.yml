@@ -97,7 +97,7 @@ pl:
         name: 'Nazwisko'
         given_names: 'Imię'
         pesel: 'Pesel'
-        citizenship_code: "Obywatelstwo"
+        citizenship_code: "Obywatelstwo (kraj)"
         birth_date: "Data urodzenia"
         birth_place: "Miejsce urodzenia"
         family_name: "Nazwisko rodowe"
