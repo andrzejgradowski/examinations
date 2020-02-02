@@ -36,6 +36,18 @@ module ProposalsHelper
     t('proposals.proposal.rec_info', data: "#{data.created_at.strftime('%Y-%m-%d %H:%M:%S')} [#{category_name(data)}][#{data.division_short_name}]")
   end
 
+  def proposal_rec_info_short(data)
+    "#{data.created_at.strftime('%Y-%m-%d %H:%M:%S')} [#{category_name(data)}][#{data.division_short_name}]"
+  end
+
+  def proposal_rec_info_short_xs_1(data)
+    "#{data.created_at.strftime('%Y-%m-%d %H:%M:%S')}"
+  end
+
+  def proposal_rec_info_short_xs_2(data)
+    "[#{category_name(data)}][#{data.division_short_name}]"
+  end
+
   def proposal_rec_status_name(data)
     t("proposals.status_id_#{data.proposal_status_id}_name")
   end

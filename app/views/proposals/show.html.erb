@@ -8,14 +8,14 @@
     </div> <!--/col-sm-12 -->
   </div> <!--/row -->
 
-  <br>
 
   <%= form_errors_for @proposal %>
 
   <div class="row">
     <div class="col-sm-12">
 
-      <h3 class="center"><%= proposal_rec_info(@proposal) %></h3>
+      <h4 class="center hidden-xs"><strong><%= proposal_rec_info_short(@proposal) %></strong></h4>
+      <h5 class="center visible-xs"><strong><%= proposal_rec_info_short_xs_1(@proposal) %><br><%= proposal_rec_info_short_xs_2(@proposal) %></strong></h5>
 
       <%= render partial: "show_step1", locals: {partial_data: @proposal} %>
       <%= render partial: "show_step2", locals: {partial_data: @proposal} %>
