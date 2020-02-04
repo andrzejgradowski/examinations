@@ -3,16 +3,16 @@
 
   <div class="row">
     <div class="form-group col-sm-7">
-      <p><strong><%= Proposal.human_attribute_name(:category_name) %></strong><br>
-      <%= category_name(partial_data) %></p>
-    </div>
-    <div class="form-group col-sm-5">
       <p><strong><%= Proposal.human_attribute_name(:esod_category) %></strong><br>
       <%= esod_category_name(partial_data) %></p>
     </div>
+    <div class="form-group col-sm-5">
+      <p><strong><%= Proposal.human_attribute_name(:category_name) %></strong><br>
+      <%= category_name(partial_data) %></p>
+    </div>
   </div> <!--/row -->
   <div class="row">
-    <div class="form-group col-sm-7">
+    <div class="form-group col-sm-12">
       <p><strong><%= Proposal.human_attribute_name(:division_fullname) %></strong><br>
       <%= partial_data.division_fullname %></p>
     </div>
