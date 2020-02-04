@@ -13,6 +13,19 @@ module ProposalsHelper
     end  
   end
 
+  def esod_category_name(data)
+    case data.esod_category
+    when 41
+      Proposal::ESOD_CATEGORY_EGZAMIN_NAME
+    when 42
+      Proposal::ESOD_CATEGORY_POPRAWKOWY_NAME
+    when ''
+      ''
+    else
+      nil
+    end  
+  end
+
   def proposal_no_data
     # data =
     # '<div class="col-sm-12" class="clearfix">

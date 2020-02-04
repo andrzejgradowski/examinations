@@ -38,6 +38,9 @@ class ProposalPolicy < ApplicationPolicy
     user_activities.include? 'proposal:create_self'
   end
 
+  def create_correction_exam_self?
+    (@model.creator_id == @user.id) && @model.can_correction_exam? && (user_activities.include? 'proposal:create_self')
+  end
 
   def annulled_self?
     (@model.creator_id == @user.id) && @model.can_annulled? && (user_activities.include? 'proposal:update_self')

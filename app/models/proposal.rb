@@ -2,6 +2,14 @@ require 'net/http'
 
 class Proposal < ApplicationRecord
 
+  ESOD_CATEGORY_EGZAMIN = 41
+  ESOD_CATEGORY_POPRAWKOWY = 42
+  ESOD_ODNOWIENIE_Z_EGZAMINEM = 44 
+  ESOD_ODNOWIENIE_Z_EGZAMINEM_POPRAWKOWY = 49
+
+  ESOD_CATEGORY_EGZAMIN_NAME = "Wniosek o przeprowadzenie egzaminu i wydanie świadectwa"
+  ESOD_CATEGORY_POPRAWKOWY_NAME = "Wniosek o przeprowadzenie egzaminu poprawkowego i wydanie świadectwa"
+
   HTTP_ERRORS = [
     EOFError,
     Errno::ECONNRESET,
@@ -81,8 +89,8 @@ class Proposal < ApplicationRecord
 
   # step3
   validates :category, presence: true, inclusion: { in: %w(M R) }, if: -> { required_for_step?(:step3) && status != SAVED_IN_NETPAR }
-  validates :exam_id, presence: true, if: -> { required_for_step?(:step3) }
   validates :division_id, presence: true, if: -> { required_for_step?(:step3) }
+  validates :exam_id, presence: true, if: -> { required_for_step?(:step3) }
   validate :unique_division_for_creator, if: -> { division_id.present? && required_for_step?(:step3) && status != SAVED_IN_NETPAR }
   validate :check_min_years_old, if: -> { division_min_years_old.present? && required_for_step?(:step3) && status != SAVED_IN_NETPAR }
 
@@ -263,6 +271,10 @@ class Proposal < ApplicationRecord
     (exam_date_exam - 5.days > Time.zone.today) && [PROPOSAL_STATUS_CREATED, PROPOSAL_STATUS_APPROVED].include?(proposal_status_id) 
   end
 
+  def can_correction_exam?
+    [PROPOSAL_STATUS_EXAMINATION_RESULT_N].include?(proposal_status_id)
+  end
+
   def bank_pdf_required?
     true
   end
@@ -341,6 +353,8 @@ class Proposal < ApplicationRecord
           #     "communeName"=>"Więcbork", 
           #     "cityCode"=>"0099872", 
           #     "cityName"=>"Runowo Krajeńskie", 
+          #     "cityParentCode"=>"0099872", 
+          #     "cityParentName"=>"Runowo Krajeńskie", 
           #     "streetCode"=>nil, 
           #     "streetName"=>nil, 
           #     "streetAttribute"=>nil, 
@@ -369,6 +383,8 @@ class Proposal < ApplicationRecord
       self.commune_name = ""
       self.city_code = ""
       #self.city_name = item_values["cityName"]
+      self.city_parent_code = ""
+      self.city_parent_name = ""
       self.street_code = ""
       #self.street_name = item_values["streetName"] if item_values["streetName"].present?
       self.street_attribute = ""
@@ -377,10 +393,15 @@ class Proposal < ApplicationRecord
 
     def put_exam_fee_values
       exam_fee_obj = NetparExamFee.new(division_id: self.division_id, esod_category: self.esod_category)
-      exam_fee_obj.request_find
-     
-      self.exam_fee_id = exam_fee_obj.id
-      self.exam_fee_price = exam_fee_obj.price
+      if exam_fee_obj.request_find # return true
+        response_hash = JSON.parse(exam_fee_obj.response.body)
+        self.exam_fee_id = response_hash['id']
+        self.exam_fee_price = response_hash['price']
+      else
+        exam_fee_obj.errors.full_messages.each do |msg|
+          self.errors.add(:base, msg.force_encoding("UTF-8"))
+        end        
+      end
     end
 
     def purge_unrequired_files

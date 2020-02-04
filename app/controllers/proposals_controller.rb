@@ -2,7 +2,7 @@ class ProposalsController < ApplicationController
   include ProposalsHelper
   
   before_action :authenticate_user!
-  before_action :set_proposal, only: [:show, :update_annulled, :destroy]
+  before_action :set_proposal, only: [:show, :update_annulled, :create_correction_exam, :destroy]
 
   after_action :verify_authorized, except: :index
   after_action :verify_policy_scoped, only: :index
@@ -28,6 +28,16 @@ class ProposalsController < ApplicationController
     @proposal.save(validate: false)
 
     redirect_to proposal_wizard_path(proposal_multi_app_identifier: @proposal.multi_app_identifier, id: Proposal.form_steps.first)  
+  end
+
+  def create_correction_exam
+    authorize @proposal, :create_correction_exam_self?
+
+    create_correction_exam_and_set_user_profile_attributes_and_old_proposal_attributes
+
+    @proposal_correction_exam.save(validate: false)
+
+    redirect_to proposal_wizard_path(proposal_multi_app_identifier: @proposal_correction_exam.multi_app_identifier, id: Proposal.form_steps.first)  
   end
 
   def update_annulled
@@ -63,17 +73,48 @@ class ProposalsController < ApplicationController
     end
 
     def create_new_and_set_user_profile_attributes
-      @proposal = Proposal.new.tap do |pro|
-        pro.esod_category = 41
-        pro.creator_id    = current_user.id
-        pro.email         = current_user.email
-        pro.name          = current_user.last_name
-        pro.given_names   = current_user.first_name
-        pro.pesel         = current_user.pesel
-        pro.birth_date    = current_user.birth_date.present? ? current_user.birth_date : decode_birth_date_from_pesel(current_user.pesel)
-        pro.birth_place   = current_user.birth_city
-        pro.family_name   = current_user.family_name
-        pro.phone         = current_user.phone
+      @proposal = Proposal.new.tap do |rec|
+        rec.esod_category = Proposal::ESOD_CATEGORY_EGZAMIN
+        rec.creator_id    = current_user.id
+        rec.email         = current_user.email
+        rec.name          = current_user.last_name
+        rec.given_names   = current_user.first_name
+        rec.pesel         = current_user.pesel
+        rec.birth_date    = current_user.birth_date.present? ? current_user.birth_date : decode_birth_date_from_pesel(current_user.pesel)
+        rec.birth_place   = current_user.birth_city
+        rec.family_name   = current_user.family_name
+        rec.phone         = current_user.phone
+      end
+    end
+
+
+    def create_correction_exam_and_set_user_profile_attributes_and_old_proposal_attributes
+      @proposal_correction_exam = Proposal.new.tap do |rec|
+        rec.esod_category = Proposal::ESOD_CATEGORY_POPRAWKOWY
+        rec.creator_id    = current_user.id
+        rec.email         = current_user.email
+        rec.name          = current_user.last_name
+        rec.given_names   = current_user.first_name
+        rec.pesel         = current_user.pesel
+        rec.birth_date    = current_user.birth_date.present? ? current_user.birth_date : decode_birth_date_from_pesel(current_user.pesel)
+        rec.birth_place   = current_user.birth_city
+        rec.family_name   = current_user.family_name
+        rec.phone         = current_user.phone
+        # old data - step2
+        rec.address_id            = @proposal.address_id
+        rec.city_name             = @proposal.city_name
+        rec.street_name           = @proposal.street_name
+        rec.c_address_house       = @proposal.c_address_house
+        rec.c_address_number      = @proposal.c_address_number
+        rec.c_address_postal_code = @proposal.c_address_postal_code
+        # old data - step3
+        rec.category                = @proposal.category
+        rec.division_id             = @proposal.division_id
+        rec.division_fullname       = @proposal.division_fullname
+        rec.division_short_name     = @proposal.division_short_name
+        rec.division_min_years_old  = @proposal.division_min_years_old
+        # rec.exam_fee_id             = @proposal.exam_fee_id
+        # rec.exam_fee_price          = @proposal.exam_fee_price
       end
     end
 

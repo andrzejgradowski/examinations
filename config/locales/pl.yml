@@ -125,6 +125,7 @@ pl:
         c_address_house: 'Dom'
         c_address_number: 'Lokal'
         c_address_postal_code: 'Kod pocztowy'
+        esod_category: 'Rodzaj wniosku'
         category: 'Służba'
         category_name: 'Służba'
         exam_id: 'Sesja egzaminacyjna'
@@ -373,8 +374,10 @@ pl:
       destroy: "Usuń"
       destroy_account: "Usuń moje konto"
       confirm_annulled: 'Na pewno chcesz anulować "%{data}"?'
+      confirm_create_correction_exam: 'Chcesz utorzyć Zgłoszenie na egzamin poprawkowy?'
       confirm_cancel_wizard: 'Na pewno chcesz zrezygnować ?'
       annulled: "Anuluj zgłoszenie"
+      create_correction_exam: Utwórz Zgłoszenie na egzamin poprawkowy
       send_email: "Wyślij email"
       download: "Pobierz"
       filter: "Filtruj dane"

@@ -52,6 +52,19 @@
             <% end %>
           <% end %>
 
+          <% if policy(@proposal).create_correction_exam_self? %> 
+
+            <%= link_to create_correction_exam_proposal_path(multi_app_identifier: @proposal.multi_app_identifier),
+                                method: :patch, 
+                                data: { confirm: t('helpers.links.confirm_create_correction_exam') }, 
+                                class: "btn btn-primary" do %>
+              <span class="fa fa-plus"></span>
+              <%= t("helpers.links.create_correction_exam") %>
+            <% end %>
+
+          <% end %>
+
+
         </div> <!-- /col-sm-12 -->
 
       </div> <!-- /row -->

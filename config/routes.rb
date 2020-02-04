@@ -26,6 +26,7 @@ Rails.application.routes.draw do
 
     resources :proposals, param: :multi_app_identifier, only: [:create, :index, :show, :destroy] do
       patch 'update_annulled', on: :member
+      patch 'create_correction_exam', on: :member
       resources :wizard, only: [:show, :update], controller: 'proposals/wizard_steps'
     end
 

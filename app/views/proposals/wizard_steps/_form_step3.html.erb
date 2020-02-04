@@ -15,11 +15,19 @@
 
           <div class="row">
             <div class="form-group col-sm-12">
+              <p><strong><%= Proposal.human_attribute_name(:esod_category) %></strong><br>
+              <%= esod_category_name(@proposal) %></p>
+            </div>
+          </div>  
+
+
+          <div class="row">
+            <div class="form-group col-sm-12">
               <%= f.label :category, class: 'control-label' %>
               <%= f.select :category, 
                     options_for_select([[Proposal::CATEGORY_NAME_M, 'M'], [Proposal::CATEGORY_NAME_R, 'R']], selected: @proposal.category, disabled: ['M']), 
                     { include_blank: true}, 
-                    { onchange: "change_category_select(this.options[this.selectedIndex].value);", autofocus: true, class: 'form-control input-sm', disabled: false } %>
+                    { onchange: "change_category_select(this.options[this.selectedIndex].value);", autofocus: true, class: 'form-control input-sm', disabled: @proposal.esod_category == Proposal::ESOD_CATEGORY_POPRAWKOWY  } %>
             </div>
           </div>  
 
@@ -29,7 +37,7 @@
               <%= f.hidden_field :division_id,
                                 class: "form-control input-sm division_select", 
                                 placeholder: "Wybierz Rodzaj",
-                                disabled: false,
+                                disabled: @proposal.esod_category == Proposal::ESOD_CATEGORY_POPRAWKOWY,
                                 style: "width:100%",
                                 id: "proposal_division_id", 
                                 readonly: @proposal.category.blank?,
@@ -57,7 +65,9 @@
             <div class="col-sm-12">
               <blockquote>
                 <p>Lista sesji zawiera tylko te sesje, które odbędą się nie wcześniej niż za tydzień i dla których dostępne są jeszcze wolne miejsca.</p> 
-                <p>Wyszukuj po nazwie miejscowości, województwa, dacie lub numerze. Warunki można łączyć oddzielając je spacją np. Bydgo 2019-10</p>
+                <p>Wyszukuj po nazwie miejscowości, województwa, dacie lub numerze. Warunki można łączyć oddzielając je spacją.</p>
+                <p>Np. Bydgo 2020-02<br>
+                   Np. kujawsko-pom 2020-02</p>
               </blockquote>
             </div> <!-- /.col-sm-5 -->
           </div> <!--/row -->

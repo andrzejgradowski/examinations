@@ -14,7 +14,7 @@ class NetparExamFee
     Errno::ECONNREFUSED
   ]
 
-  attr_accessor :id, :division_id, :esod_category, :price
+  attr_accessor :response, :id, :division_id, :esod_category
 
   def initialize(params = {})
     @id = params.fetch(:id, 0)
@@ -30,7 +30,7 @@ class NetparExamFee
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE if uri.scheme == "https" # Sets the HTTPS verify mode
     # /SSL 
     req = Net::HTTP::Get.new(uri.path, {'Content-Type' => 'application/json', 'Authorization' => "Token token=#{NetparUser.netparuser_token}"})
-    response = http.request(req)
+    @response = http.request(req)
 
   rescue *HTTP_ERRORS => e
     Rails.logger.error('======== API ERROR "models/netpar_exam_fee/request_with_id" (1) =============')
@@ -71,39 +71,37 @@ class NetparExamFee
     req = Net::HTTP::Get.new(uri.path, {'Content-Type' => 'application/json', 'Authorization' => "Token token=#{NetparUser.netparuser_token}"})
     params = {:division_id => "#{@division_id}", :esod_category => "#{@esod_category}"}
     req.body = params.to_json
-    response = http.request(req)
-    #JSON.parse(response.body)
-    body_parsed = JSON.parse(response.body)
-    @id = body_parsed["id"]
-    @price = body_parsed["price"]
-    response
+    @response = http.request(req)
 
   rescue *HTTP_ERRORS => e
     Rails.logger.error('======== API ERROR "models/netpar_exam_fee/find" (1) ========================')
     Rails.logger.error("#{e}")
-    errors.add(:base, "#{e}")
     Rails.logger.error('=============================================================================')
-    #false    # non-success response
-    "#{e}"
+    errors.add(:base, "API ERROR 'models/netpar_exam_fee .request_find(1) #{Time.zone.now}")
+    errors.add(:base, "#{e}")
+    false    # non-success response
+    #{}"#{e}"
   rescue StandardError => e
     Rails.logger.error('======== API ERROR "models/netpar_exam_fee/find" (2) ========================')
     Rails.logger.error("#{e}")
-    errors.add(:base, "#{e}")
     Rails.logger.error('=============================================================================')
-    #false    # non-success response
-    "#{e}"
+    errors.add(:base, "API ERROR 'models/netpar_exam_fee .request_find(2) #{Time.zone.now}")
+    errors.add(:base, "#{e}")
+    false    # non-success response
+    #{}"#{e}"
   else
     case response
     when Net::HTTPOK
-      #true   # success response
-      response
+      true   # success response
+      #response
     when Net::HTTPClientError, Net::HTTPInternalServerError
       Rails.logger.error('======== API ERROR "models/netpar_exam_fee/find" (3) ========================')
       Rails.logger.error("code: #{response.code}, message: #{response.message}, body: #{response.body}")
-      errors.add(:base, "code: #{response.code}, message: #{response.message}, body: #{response.body}")
       Rails.logger.error('=============================================================================')
-      #false  # non-success response
-      response
+      errors.add(:base, "API ERROR 'models/netpar_exam_fee .request_find(3) #{Time.zone.now}")
+      errors.add(:base, "code: #{response.code}, message: #{response.message}, body: #{response.body}")
+      false  # non-success response
+      #response
     end
   end
 
