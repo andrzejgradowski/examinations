@@ -14,7 +14,7 @@ class UkeRegulation
     Errno::ECONNREFUSED
   ]
 
-  attr_accessor :response, :user_name, :api_key, :api_secret_key, :accepted
+  attr_accessor :response, :user_name, :api_key, :api_secret_key
 
   def initialize(params = {})
     @user_name = params.fetch(:user_name, '')
@@ -39,38 +39,35 @@ class UkeRegulation
       http.request(request)
     end
 
-    @accepted = JSON.parse(@response.body)['accepted']
-
-    @response
-    # response.code
-    # response.body
-
   rescue *HTTP_ERRORS => e
-    Rails.logger.error('======== API ERROR "models/uke_regulation/check_acceptance" (1) =============')
+    Rails.logger.error('======== API ERROR "models/uke_regulation .check_acceptance"(1) =============')
     Rails.logger.error("#{e}")
-    errors.add(:base, "#{e}")
     Rails.logger.error('=============================================================================')
-    #false    # non-success response
-    "#{e}"
+    errors.add(:base, "API ERROR 'models/uke_regulation .check_acceptance(1) #{Time.zone.now}")
+    errors.add(:base, "#{e}")
+    false    # non-success response
+    #"#{e}"
   rescue StandardError => e
-    Rails.logger.error('======== API ERROR "models/uke_regulation/check_acceptance" (2) =============')
+    Rails.logger.error('======== API ERROR "models/uke_regulation .check_acceptance"(2) =============')
     Rails.logger.error("#{e}")
-    errors.add(:base, "#{e}")
     Rails.logger.error('=============================================================================')
-    #false    # non-success response
-    "#{e}"
+    errors.add(:base, "API ERROR 'models/uke_regulation .check_acceptance(2) #{Time.zone.now}")
+    errors.add(:base, "#{e}")
+    false    # non-success response
+    #"#{e}"
   else
     case response
     when Net::HTTPOK
-      #true   # success response
-      response
+      true   # success response
+      #response
     when Net::HTTPClientError, Net::HTTPInternalServerError
-      Rails.logger.error('======== API ERROR "models/uke_regulation/check_acceptance" (3) =============')
+      Rails.logger.error('======== API ERROR "models/uke_regulation .check_acceptance"(3) ============')
       Rails.logger.error("code: #{response.code}, message: #{response.message}, body: #{response.body}")
-      errors.add(:base, "code: #{response.code}, message: #{response.message}, body: #{response.body}")
       Rails.logger.error('=============================================================================')
-      #false  # non-success response
-      response
+      errors.add(:base, "API ERROR 'models/uke_regulation .check_acceptance(3) #{Time.zone.now}")
+      errors.add(:base, "code: #{response.code}, message: #{response.message}, body: #{response.body}")
+      false  # non-success response
+      #response
     end
   end
 

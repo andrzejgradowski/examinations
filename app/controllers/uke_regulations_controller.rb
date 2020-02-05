@@ -5,27 +5,28 @@ class UkeRegulationsController < ApplicationController
   # GET /uke_regulations
   # GET /uke_regulations.json
   def index
-    ur = UkeRegulation.new(user_name: current_user.email)
-    ur.check_acceptance
-
-    if ur.response.kind_of? Net::HTTPSuccess
-      if ur.accepted
-        #redirect_to proposals_path
-        redirect_to root_path
+    unless Rails.env.development?
+      uke_regulation_obj = UkeRegulation.new(user_name: current_user.email)
+      if uke_regulation_obj.check_acceptance
+        if JSON.parse(uke_regulation_obj.response.body)['accepted']
+          redirect_to root_path
+        else
+          sign_out if user_signed_in? 
+          url = uke_regulation_obj.generate_acceptance_url
+          redirect_to "#{url}"
+        end
       else
-        sign_out if user_signed_in? 
-        url = ur.generate_acceptance_url
-        redirect_to "#{url}"
+        sign_out if user_signed_in?     
+        uke_regulation_obj.errors.full_messages.each do |msg|
+          flash[:error] = msg.force_encoding("UTF-8")
+        end
+        redirect_to root_path
       end
     else
-      sign_out if user_signed_in?     
-      flash[:error] = "Errors:  #{ur.errors.full_messages}"
-      redirect_to root_path
+      flash[:warning] = "development mode, UkeRegulations is OFF"
+      # flash[:warning] = "Odblokuj UkeRegulations"
+      redirect_to root_path      
     end
-    
-    # jesli blokada, to:
-    # flash[:warning] = "Odblokuj UkeRegulations"
-    # redirect_to root_path
   end
 
 end
