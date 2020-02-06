@@ -14,7 +14,7 @@ class PitTerytItem
     Errno::ECONNREFUSED
   ]
 
-  attr_accessor :response, :q, :page, :page_limit, :array_items, :row_data, :id
+  attr_accessor :response, :q, :page, :page_limit, :id
 
   def initialize(params = {})
     @id = params.fetch(:id, '0').to_i

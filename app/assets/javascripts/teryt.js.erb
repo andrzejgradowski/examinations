@@ -43,7 +43,9 @@ $(document).ready(function() {
     if (item.id) {
       var cityName = markMatch(item.data_obj.cityName, query.term);
       if (item.data_obj.cityName !== item.data_obj.cityParentName) {
-        var cityName = cityName + "(" + markMatch(item.data_obj.cityParentName, query.term) + ")";
+        //nie wyszukuje po cityParentName, wiec nie zaznaczamy
+        //var cityName = cityName + "&nbsp(" + markMatch(item.data_obj.cityParentName, query.term) + ")";
+        var cityName = cityName + "&nbsp(" + item.data_obj.cityParentName + ")";
       };
 
       if (item.data_obj.postCodeNumbers) {
@@ -63,11 +65,11 @@ $(document).ready(function() {
         var streetName = "";
       };
 
-      return "<div>" + 
-                        cityName + streetName  +  "<div class='pull-right'>&nbsp" + provinceName + "</div><br>" + 
-                        postCode + postNumbers +  "<div class='pull-right'>&nbsp" + districtName + "</div><br>" +
-                        item.data_obj.cityType +  "<div class='pull-right'>&nbsp" + communeName + "</div>" +
-             "</div>";
+      return  "<div>" + 
+                              cityName + streetName  +         "<div class='pull-right'>&nbsp" + provinceName + "</div><br>" + 
+                              postCode + postNumbers +         "<div class='pull-right'>&nbsp" + districtName + "</div><br>" +
+                  "<small>" + item.data_obj.cityType + "</small><div class='pull-right'>&nbsp" + communeName + "</div>" +
+              "</div>";
 
     } else {
       return "";
