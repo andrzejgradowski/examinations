@@ -3,19 +3,27 @@ $(document).ready(function() {
 
   function markMatchOneWord (text, term) {
     if (text) {
+
+      // Find marked before, find class <span class='select2-rendered__match'>
+      var marker_before_index = text.indexOf( "select2-rendered__match" );
       // Find where the match is
-      var match = text.toUpperCase().indexOf(term.toUpperCase());
-      // If there is no match
-      if (match < 0) {
+      if (marker_before_index >= 0) {
         return text;
       } else {
-        // text is before the match
-        var leftStr = text.substring(0, match);
-        // matched text
-        var matchStr = '<span class="select2-rendered__match">' + text.substring(match, match + term.length) + '</span>';
-        // text after the match
-        rightStr = text.substring(match + term.length);
-        return leftStr + matchStr + rightStr;
+        // Find where the match is
+        var match = text.toUpperCase().indexOf(term.toUpperCase());
+        // If there is no match
+        if (match < 0) {
+          return text;
+        } else {
+          // text is before the match
+          var leftStr = text.substring(0, match);
+          // matched text
+          var matchStr = "<span class='select2-rendered__match'>" + text.substring(match, match + term.length) + "</span>";
+          // text after the match
+          rightStr = text.substring(match + term.length);
+          return leftStr + matchStr + rightStr;
+        }
       }
     } else {
       return "";
@@ -28,34 +36,39 @@ $(document).ready(function() {
     separateWords.forEach (function(e) {
       allMatchedStr = markMatchOneWord (allMatchedStr, e);
     }); 
-    return allMatchedStr
+    return allMatchedStr;
   };
 
   function itemFormatResult(item, container, query, escapeMarkup) {
     if (item.id) {
       var cityName = markMatch(item.data_obj.cityName, query.term);
       if (item.data_obj.cityName !== item.data_obj.cityParentName) {
-        var cityName = cityName + "&nbsp(" + markMatch(item.data_obj.cityParentName, query.term) + ")";
+        var cityName = cityName + "(" + markMatch(item.data_obj.cityParentName, query.term) + ")";
       };
 
       if (item.data_obj.postCodeNumbers) {
-        var postNumbers = "<span>&nbsp&nbsp[&nbspnumery:&nbsp" + item.data_obj.postCodeNumbers + "&nbsp]</span>";
+        var postNumbers = "&nbsp&nbsp<small>numery:&nbsp" + item.data_obj.postCodeNumbers + "</small>";
       } else {
         var postNumbers = "";
       };
 
+      var provinceName = markMatch(item.data_obj.provinceName, query.term);
+      var districtName = markMatch(item.data_obj.districtName, query.term);
+      var communeName = markMatch(item.data_obj.communeName, query.term);
+      var postCode = markMatch(item.data_obj.postCode, query.term);
+
       if (item.data_obj.streetName) {
-        var streetName =  ",&nbsp<small>" + item.data_obj.streetAttribute + "</small>&nbsp" + markMatch(item.data_obj.streetName, query.term);
+        var streetName =  ", <small>" + item.data_obj.streetAttribute + "</small> " + markMatch(item.data_obj.streetName, query.term);
       } else {
         var streetName = "";
       };
 
-      return  '<div>' + cityName + streetName +
-              '<small>'     + '<span class="pull-right">&nbsp' + markMatch(item.data_obj.provinceName, query.term) + '</span><br>' +
-              '<span>&nbsp&nbsp&nbsp&nbsp&nbsp[&nbsp' + item.data_obj.cityType + '&nbsp]</span>' +
-                              '<span class="pull-right">&nbsp' + markMatch(item.data_obj.districtName, query.term) + '</span><br>' +
-              '<span>&nbsp&nbsp&nbsp&nbsp&nbsp' + markMatch(item.data_obj.postCode, query.term) + '</span>' + postNumbers +
-                              '<span class="pull-right">&nbsp' + markMatch(item.data_obj.communeName, query.term) + '</span>' + '</small></div>';
+      return "<div>" + 
+                        cityName + streetName  +  "<div class='pull-right'>&nbsp" + provinceName + "</div><br>" + 
+                        postCode + postNumbers +  "<div class='pull-right'>&nbsp" + districtName + "</div><br>" +
+                        item.data_obj.cityType +  "<div class='pull-right'>&nbsp" + communeName + "</div>" +
+             "</div>";
+
     } else {
       return "";
     }
