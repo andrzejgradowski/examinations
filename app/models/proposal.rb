@@ -315,34 +315,37 @@ class Proposal < ApplicationRecord
   end
 
   def self.send_reminders
-    puts '----------------------------------------------------------------'
+    puts '--------------------------------------------------------------------------------'    
     puts 'RUN WHENEVER send_reminders...'
     start_run = Time.current
 
     proposals = Proposal.where(proposal_status_id: Proposal::PROPOSAL_STATUS_APPROVED, exam_date_exam: (Time.zone.today + 3.days)).order(:id).all
+    proposals_size = proposals.size
     proposals.each do |rec|
       ProposalMailer.reminder(rec).deliver
-      puts "#{rec.email}, #{rec.name} #{rec.given_names}"
+      puts "id: #{rec.id}    #{rec.email}, #{rec.name} #{rec.given_names}"
     end
 
-    puts "START: #{start_run}  END: #{Time.current}"
-    puts '----------------------------------------------------------------'    
+    puts "START: #{start_run.strftime('%Y-%m-%d %H:%M:%S')}  END: #{Time.current.strftime('%Y-%m-%d %H:%M:%S')}   SEND EMAILS: #{proposals_size}"
+    puts '--------------------------------------------------------------------------------'    
   end
 
   def self.clean_unsaved
-    puts '----------------------------------------------------------------'
+    puts '--------------------------------------------------------------------------------'    
     puts 'RUN WHENEVER clean_unsaved...'
     start_run = Time.current
 
-    proposals = Proposal.where.not(status: Proposal::SAVED_IN_NETPAR).order(:id).all # dodaj dodatkowe warunki!!!
+    check_date = Time.zone.today - 30.days
+    proposals = Proposal.where(proposal_status_id: Proposal::PROPOSAL_STATUS_CREATED, confirm_that_the_data_is_correct: false).where('updated_at <= :check_date', {check_date: check_date}).
+                        where.not(status: Proposal::SAVED_IN_NETPAR).order(:id).all
+    proposals_size = proposals.size
     proposals.each do |rec|
-      puts "status: #{rec.status} - #{rec.email}, #{rec.name} #{rec.given_names}"
-      # usuwaj rekordy 
-      # ...
+      puts "id: #{rec.id}    status: #{rec.status} - #{rec.email}, #{rec.name} #{rec.given_names}"
+      rec.destroy 
     end
 
-    puts "START: #{start_run}  END: #{Time.current}"
-    puts '----------------------------------------------------------------'    
+    puts "START: #{start_run.strftime('%Y-%m-%d %H:%M:%S')}  END: #{Time.current.strftime('%Y-%m-%d %H:%M:%S')}   DESTROYED: #{proposals_size}"
+    puts '--------------------------------------------------------------------------------'    
   end
 
   private
