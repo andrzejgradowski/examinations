@@ -315,10 +315,18 @@ class Proposal < ApplicationRecord
   end
 
   def self.send_reminders
+    puts '----------------------------------------------------------------'
+    puts 'RUN send_reminders_whenever...'
+    start_run = Time.current
+
     proposals = Proposal.where(proposal_status_id: Proposal::PROPOSAL_STATUS_APPROVED, exam_date_exam: Time.zone.today + 3.days)
     proposals.each do |rec|
+      puts rec.email
       ProposalMailer.reminder(rec).deliver_later      
     end
+
+    puts "START: #{start_run}  END: #{Time.current}"
+    puts '----------------------------------------------------------------'    
   end
 
   private

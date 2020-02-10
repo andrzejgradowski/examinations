@@ -8,6 +8,6 @@ set :bundle_command, "/home/deploy/.rbenv/shims/bundle exec"
 set :environment, :production
 set :output, "#{Rails.root}/log/cron_log.log"
 
-every '55 11 * * *' do
+every '15 12 * * *' do
   runner "Proposal.send_reminder"
 end
