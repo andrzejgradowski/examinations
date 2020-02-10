@@ -314,6 +314,13 @@ class Proposal < ApplicationRecord
     end
   end
 
+  def self.send_reminders
+    proposals = Proposal.where(proposal_status_id: Proposal::PROPOSAL_STATUS_APPROVED, exam_date_exam: Time.zone.today + 3.days)
+    proposals.each do |rec|
+      ProposalMailer.reminder(rec).deliver_later      
+    end
+  end
+
   private
   
     def set_initial_status_and_multi_app_identifier
@@ -341,34 +348,10 @@ class Proposal < ApplicationRecord
           self.street_name = item_values["streetName"] if item_values["streetName"].present?
           self.street_attribute = item_values["streetAttribute"] if item_values["streetAttribute"].present?
           self.teryt_code = item_values["terytId"]
-
-          # puts '----- item_obj ----------------------------------------------------------------------'     
-          # puts JSON.parse(item_obj.response.body)
-          #   { "id"=>287454, 
-          #     "provinceCode"=>"04", 
-          #     "provinceName"=>"KUJAWSKO-POMORSKIE", 
-          #     "districtCode"=>"13", 
-          #     "districtName"=>"sępoleński", 
-          #     "communeCode"=>"04", 
-          #     "communeName"=>"Więcbork", 
-          #     "cityCode"=>"0099872", 
-          #     "cityName"=>"Runowo Krajeńskie", 
-          #     "cityParentCode"=>"0099872", 
-          #     "cityParentName"=>"Runowo Krajeńskie", 
-          #     "streetCode"=>nil, 
-          #     "streetName"=>nil, 
-          #     "streetAttribute"=>nil, 
-          #     "terytId"=>"0413040099872", 
-          #     "terytCity"=>nil  }
-          # puts '-------------------------------------------------------------------------------------'
         else
-          #self.errors.add(:base, item_obj.errors.messages.first)
-          #self.errors.add(:base, item_obj.errors.full_messages)
-
           item_obj.errors.full_messages.each do |msg|
             self.errors.add(:base, msg.force_encoding("UTF-8"))
           end
-
         end
       end
     end

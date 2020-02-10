@@ -20,9 +20,10 @@
 
   <row>
     <columns>
-      <p>W programie <strong>UKE Egzaminy</strong> <%= link_to @proposal_fullname, @proposal_url_uuid, target: "_blank" %> otrzymało status <strong>ZAMKNIĘTE</strong>. Wynik egzaminu: "Negatywny z prawem do poprawki"</p> 
+      <p>W programie <strong>UKE Egzaminy</strong></p>
+      <p><%= link_to @proposal_fullname, @proposal_url_uuid, target: "_blank" %> otrzymało status <strong>ZAMKNIĘTE</strong>. Wynik egzaminu: "Negatywny z prawem do poprawki"</p> 
       <spacer size="16"></spacer>
-      <p>...Spróbuj raz jeszcze i ponownie zapisz się na egzamin!</p> 
+      <p>...Spróbuj raz jeszcze i zapisz się na egzamin poprawkowy!</p> 
     </columns>
   </row>
 

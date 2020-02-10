@@ -21,7 +21,8 @@
   <row>
     <columns>
       <h4>Gratulacje!</h4> 
-      <p>W programie <strong>UKE Egzaminy</strong> <%= link_to @proposal_fullname, @proposal_url_uuid, target: "_blank" %> otrzymało status <strong>ZAMKNIĘTE</strong>. Wynik egzaminu: "Pozytywny"</p>
+      <p>W programie <strong>UKE Egzaminy</strong></p>
+      <p><%= link_to @proposal_fullname, @proposal_url_uuid, target: "_blank" %> otrzymało status <strong>ZAMKNIĘTE</strong>. Wynik egzaminu: "Pozytywny"</p>
       <spacer size="16"></spacer>
       <p>...Czekaj na dokument potwierdzający Twoje uprawnienia.</p> 
     </columns>

@@ -114,6 +114,17 @@ class ProposalMailer < ApplicationMailer
     mail(to: @proposal.creator.email, subject: "#{t('title')} - #{@proposal_fullname}" )
   end
 
+  def reminder(proposal)
+    @proposal = proposal
+    @proposal_fullname = "#{proposal_rec_info(@proposal)}"
+    @proposal_url_uuid = Rails.application.routes.url_helpers.url_for(only_path: false, controller: 'proposals', action: 'show', multi_app_identifier: @proposal.multi_app_identifier, locale: locale)
+
+    attachments.inline['logo_app.jpg'] = File.read("app/assets/images/logo_application.png")
+    attachments.inline['logo_uke.jpg'] = File.read("app/assets/images/logo_uke_pl_do_lewej_small.png")
+
+    mail(to: @proposal.creator.email, subject: "#{t('title')} - #{@proposal_fullname}" )
+  end
+
 end
 
 # preview

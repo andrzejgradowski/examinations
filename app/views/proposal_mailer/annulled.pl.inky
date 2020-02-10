@@ -20,7 +20,8 @@
 
   <row>
     <columns>
-      <p>W programie <strong>UKE Egzaminy</strong> <%= link_to @proposal_fullname, @proposal_url_uuid, target: "_blank" %> zostało <strong>ANULOWANE</strong> i nie będzie dłużej procedowane.</p> 
+      <p>W programie <strong>UKE Egzaminy</strong></p> 
+      <p><%= link_to @proposal_fullname, @proposal_url_uuid, target: "_blank" %> zostało <strong>ANULOWANE</strong> i nie będzie dłużej procedowane.</p> 
       <spacer size="16"></spacer>
     </columns>
   </row>
