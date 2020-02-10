@@ -75,8 +75,10 @@ gem 'rack-attack'
 gem "actionpack-page_caching"
 gem "actionpack-action_caching"
 
+gem 'whenever', require: false
+
 gem 'mina'
-gem 'mina-whenever'
+gem 'mina-whenever', require: false
 
 gem 'piwik_analytics'
 
@@ -94,4 +96,3 @@ gem 'image_processing', '~> 1.2'
 gem 'country_select', '~> 4.0'
 gem 'browser'
 gem 'wicked'
-gem 'whenever', require: false
