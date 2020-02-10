@@ -316,13 +316,29 @@ class Proposal < ApplicationRecord
 
   def self.send_reminders
     puts '----------------------------------------------------------------'
-    puts 'RUN send_reminders_whenever...'
+    puts 'RUN WHENEVER send_reminders...'
     start_run = Time.current
 
-    proposals = Proposal.where(proposal_status_id: Proposal::PROPOSAL_STATUS_APPROVED, exam_date_exam: (Time.zone.today + 3.days)).all
+    proposals = Proposal.where(proposal_status_id: Proposal::PROPOSAL_STATUS_APPROVED, exam_date_exam: (Time.zone.today + 3.days)).order(:id).all
     proposals.each do |rec|
-      ProposalMailer.reminder(rec).deliver_later      
-      puts rec.email
+      ProposalMailer.reminder(rec).deliver
+      puts "#{rec.email}, #{rec.name} #{rec.given_names}"
+    end
+
+    puts "START: #{start_run}  END: #{Time.current}"
+    puts '----------------------------------------------------------------'    
+  end
+
+  def self.clean_unsaved
+    puts '----------------------------------------------------------------'
+    puts 'RUN WHENEVER clean_unsaved...'
+    start_run = Time.current
+
+    proposals = Proposal.where.not(status: Proposal::SAVED_IN_NETPAR).order(:id).all # dodaj dodatkowe warunki!!!
+    proposals.each do |rec|
+      puts "status: #{rec.status} - #{rec.email}, #{rec.name} #{rec.given_names}"
+      # usuwaj rekordy 
+      # ...
     end
 
     puts "START: #{start_run}  END: #{Time.current}"

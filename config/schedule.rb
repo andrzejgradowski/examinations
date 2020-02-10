@@ -12,8 +12,10 @@ set :output, "#{Rails.root}/log/cron_log.log"
 #   runner "Proposal.send_reminders"
 # end
 
-every '00 10 * * *' do
-  rake "cronjobs:proposal_reminders"
+every '00 6 * * *' do
+  rake "cronjobs:proposal_clean_unsaved"
 end
 
-
+every '00 10 * * *' do
+  rake "cronjobs:proposal_send_reminders"
+end

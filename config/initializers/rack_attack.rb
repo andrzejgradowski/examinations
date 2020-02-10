@@ -28,7 +28,7 @@ class Rack::Attack
     end
   end
 
-  throttle("limit logins per email", limit: 15, period: 30.seconds) do |req|
+  throttle("limit logins per email", limit: 30, period: 30.seconds) do |req|
     if req.path == "/users/sign_in" && req.post?
       if (req.params["user"].to_s.size > 0) and (req.params["user"]["email"].to_s.size > 0)
         req.params["user"]["email"]
@@ -36,7 +36,7 @@ class Rack::Attack
     end
   end
 
-  throttle("limit signups", limit: 15, period: 30.seconds) do |req|
+  throttle("limit signups", limit: 30, period: 30.seconds) do |req|
     req.remote_ip if req.path == "/users" && req.post?
   end
 
