@@ -1,0 +1,83 @@
+$(document).ready(function() {
+
+ function divisionFormatResult(division, container, query, escapeMarkup) {
+    if (division.id) {
+      return  markMatch(division.data_obj.name, query.term) + 
+              '<span class="pull-right">&nbsp[' + markMatch(division.data_obj.short_name, query.term) + '][ukończone ' + markMatch(division.data_obj.min_years_old.toString(), query.term) + ' lat]</span>';
+    } else {
+      return "";
+    }
+  };
+
+  function divisionFormatSelection(division) {
+    if (division.id) {
+      return  division.data_obj.fullname;
+    } else {
+      return "";
+    }
+  };
+
+  $('.division_select').select2({
+    minimumInputLength: 0,
+    allowClear: false,
+    ajax: {
+      url: '/netpar/divisions_select2_index.json',
+      dataType: 'json',
+      quietMillis: 250,
+      type: 'GET',
+      data: function(term, page) {
+        return {
+          category: $('#proposal_division_id').data('category'),
+          q: term,
+          page_limit: 10,
+          page: page
+        };
+      },
+      results: function(data, page) {
+        //var more = (page * 10) < data.total_count;
+        var more = (page * 10) < data.meta.total_count;
+        var divisions = $.map(data.divisions, function(division, i) {
+          //return { data_obj: division, id: division.id, text: division.fullname };
+          return { data_obj: division, id: division.id };
+        });
+        return { results: divisions, more: more };
+      }
+    },
+    formatAjaxError: function(jqXHR, textStatus, errorThrown) {
+      console.log(jqXHR);
+      if (jqXHR.status == 401) {
+        window.location.reload();
+      } else {
+        getErrorMessage(jqXHR, jqXHR.status);
+      }
+      return errorThrown + " " + jqXHR.responseText;
+    },
+    initSelection: function(element, callback) {
+      var id=$(element).val();
+      if (id!=="") {
+        $.get("/netpar/divisions/"+id+".json", function(data_from_json) {
+          if(data_from_json)
+            //callback({ id: data_from_json.id, text: data_from_json.fullname });
+            // or formatSelection: divisionFormatSelection and ... 
+            callback({ data_obj: data_from_json, id: data_from_json.id });
+        });
+      }
+    },
+    formatResult: divisionFormatResult, // omitted for brevity, see the source of this page
+    formatSelection: divisionFormatSelection, // omitted for brevity, see the source of this page
+    dropdownCssClass: "bigdrop", // apply css that makes the dropdown taller
+    //escapeMarkup: function (m) { return m; } // we do not want to escape markup since we are displaying html in results
+  })
+  .on("select2-selecting", function(e) {
+    if (e.val) {
+      $("#proposal_exam_id").select2("val", "");
+      $("#proposal_exam_id").select2("readonly", false);
+      document.getElementById("proposal_division_fullname").value = e.choice.data_obj.fullname;
+      document.getElementById("proposal_division_short_name").value = e.choice.data_obj.short_name;
+      document.getElementById("proposal_division_min_years_old").value = e.choice.data_obj.min_years_old;      
+    }
+  });
+
+
+});
+

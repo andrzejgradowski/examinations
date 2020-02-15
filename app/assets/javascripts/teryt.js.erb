@@ -1,43 +1,11 @@
 //document.addEventListener('turbolinks:load', function() {
 $(document).ready(function() {
 
-  function markMatchOneWord (text, term) {
-    if (text) {
-
-      // Find marked before, find class <span class='select2-rendered__match'>
-      var marker_before_index = text.indexOf( "select2-rendered__match" );
-      // Find where the match is
-      if (marker_before_index >= 0) {
-        return text;
-      } else {
-        // Find where the match is
-        var match = text.toUpperCase().indexOf(term.toUpperCase());
-        // If there is no match
-        if (match < 0) {
-          return text;
-        } else {
-          // text is before the match
-          var leftStr = text.substring(0, match);
-          // matched text
-          var matchStr = "<span class='select2-rendered__match'>" + text.substring(match, match + term.length) + "</span>";
-          // text after the match
-          rightStr = text.substring(match + term.length);
-          return leftStr + matchStr + rightStr;
-        }
-      }
-    } else {
-      return "";
-    }
-  };
-
-  function markMatch (text, term) {
-    var separateWords = term.split(" ");
-    var allMatchedStr = text;
-    separateWords.forEach (function(e) {
-      allMatchedStr = markMatchOneWord (allMatchedStr, e);
-    }); 
-    return allMatchedStr;
-  };
+        // formatResult: function(result, container, query, escapeMarkup) {
+        //     var markup=[];
+        //     markMatch(this.text(result), query.term, markup, escapeMarkup);
+        //     return markup.join("");
+        // },
 
   function itemFormatResult(item, container, query, escapeMarkup) {
     if (item.id) {
@@ -65,11 +33,9 @@ $(document).ready(function() {
         var streetName = "";
       };
 
-      return  "<div>" + 
-                              cityName + streetName  +         "<div class='pull-right'>&nbsp" + provinceName + "</div><br>" + 
+      return                  cityName + streetName  +         "<div class='pull-right'>&nbsp" + provinceName + "</div><br>" + 
                               postCode + postNumbers +         "<div class='pull-right'>&nbsp" + districtName + "</div><br>" +
-                  "<small>" + item.data_obj.cityType + "</small><div class='pull-right'>&nbsp" + communeName + "</div>" +
-              "</div>";
+                  "<small>" + item.data_obj.cityType + "</small><div class='pull-right'>&nbsp" + communeName + "</div>";
 
     } else {
       return "";
@@ -80,25 +46,26 @@ $(document).ready(function() {
     if (item.id) {
       var cityName = item.data_obj.cityName;
       if (item.data_obj.cityName !== item.data_obj.cityParentName) {
-        var cityName = cityName + "&nbsp(" + item.data_obj.cityParentName + ")";
+        var cityName = cityName + " (" + item.data_obj.cityParentName + ")";
       };
 
       if (item.data_obj.postCode) {
-        var postCode = ",&nbsp" + item.data_obj.postCode; 
+        var postCode = ", " + item.data_obj.postCode; 
       } else {
         var postCode = "";
       };
 
       if (item.data_obj.streetName) {
-        var streetName =  ",&nbsp<small>" + item.data_obj.streetAttribute + "</small>&nbsp" + item.data_obj.streetName;
+        var streetName =  ", " + item.data_obj.streetAttribute + " " + item.data_obj.streetName;
       } else {
         var streetName = "";
       };
 
-      return  '<div>' + cityName + streetName + postCode + 
-              '<span class="small pull-right">' + item.data_obj.cityType + '&nbsp[&nbsp' + item.data_obj.provinceName + 
-              ',&nbsp' + item.data_obj.districtName + 
-              ',&nbsp' + item.data_obj.communeName + '&nbsp]</span></div>';
+      return  cityName + streetName + postCode + 
+              ' [' + item.data_obj.provinceName + 
+              ', ' + item.data_obj.districtName + 
+              ', ' + item.data_obj.communeName + 
+              '] ' + item.data_obj.cityType;
     } else {
       return "";
     }

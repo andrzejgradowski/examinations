@@ -28,29 +28,29 @@ class Rack::Attack
     end
   end
 
-  throttle("limit logins per email", limit: 30, period: 30.seconds) do |req|
-    if req.path == "/users/sign_in" && req.post?
-      if (req.params["user"].to_s.size > 0) and (req.params["user"]["email"].to_s.size > 0)
-        req.params["user"]["email"]
-      end
-    end
-  end
+  # throttle("limit logins per email", limit: 30, period: 30.seconds) do |req|
+  #   if req.path == "/users/sign_in" && req.post?
+  #     if (req.params["user"].to_s.size > 0) and (req.params["user"]["email"].to_s.size > 0)
+  #       req.params["user"]["email"]
+  #     end
+  #   end
+  # end
 
-  throttle("limit signups", limit: 30, period: 30.seconds) do |req|
-    req.remote_ip if req.path == "/users" && req.post?
-  end
+  # throttle("limit signups", limit: 30, period: 30.seconds) do |req|
+  #   req.remote_ip if req.path == "/users" && req.post?
+  # end
 
-  # Exponential backoff for all requests to "/" path
-  #
-  # Allows 240 requests/IP in ~8 minutes
-  #        480 requests/IP in ~1 hour
-  #        960 requests/IP in ~8 hours (~2,880 requests/day)
-  (3..5).each do |level|
-    throttle("req/ip/#{level}",
-               limit: (30 * (2 ** level)),
-               period: (0.9 * (8 ** level)).to_i.seconds) do |req|
-      req.remote_ip # unless req.path.starts_with?('/assets')
-    end
-  end
+  # # Exponential backoff for all requests to "/" path
+  # #
+  # # Allows 240 requests/IP in ~8 minutes
+  # #        480 requests/IP in ~1 hour
+  # #        960 requests/IP in ~8 hours (~2,880 requests/day)
+  # (3..5).each do |level|
+  #   throttle("req/ip/#{level}",
+  #              limit: (30 * (2 ** level)),
+  #              period: (0.9 * (8 ** level)).to_i.seconds) do |req|
+  #     req.remote_ip # unless req.path.starts_with?('/assets')
+  #   end
+  # end
 end
 
