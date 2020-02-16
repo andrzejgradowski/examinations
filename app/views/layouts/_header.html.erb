@@ -9,10 +9,13 @@
         <span class="icon-bar"></span>
       </button>
 
-      <div class="navbar-brand hidden-xs" style="margin-top: 15px; max-width: 400px;display: inline-block;">
+      <div class="navbar-brand hidden-xs hidden-sm" style="margin-top: 15px; max-width: 400px;display: inline-block;">
         <%= link_to( image_tag( t('logo_file'), alt: 'Logo', :class => "img img-responsive" ), root_path ) %>
       </div>
-      <div class="navbar-brand visible-xs" style="max-width: 260px;display: inline-block;">
+      <div class="navbar-brand visible-sm" style="margin-top: 20px; max-width: 330px;display: inline-block;">
+        <%= link_to( image_tag( t('logo_file'), alt: 'Logo', :class => "img img-responsive" ), root_path ) %>
+      </div>
+      <div class="navbar-brand visible-xs" style="margin-top: 0px; max-width: 260px;display: inline-block;">
         <%= link_to( image_tag( t('logo_file'), alt: 'Logo', :class => "img img-responsive" ), root_path ) %>
       </div>
 
