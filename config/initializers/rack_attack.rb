@@ -18,15 +18,15 @@ class Rack::Attack
     req.allowed_ip?
   end
 
-  blocklist("fail2ban") do |req|
-    Rack::Attack::Fail2Ban.filter("fail2ban-#{req.remote_ip}", maxretry: 1, findtime: 1.day, bantime: 1.day) do
-      CGI.unescape(req.query_string) =~ %r{/etc/passwd} ||
-        req.path.include?("/etc/passwd") ||
-        req.path.include?("wp-admin") ||
-        req.path.include?("wp-login") ||
-        /\S+\.php/.match?(req.path)
-    end
-  end
+  # blocklist("fail2ban") do |req|
+  #   Rack::Attack::Fail2Ban.filter("fail2ban-#{req.remote_ip}", maxretry: 1, findtime: 1.day, bantime: 1.day) do
+  #     CGI.unescape(req.query_string) =~ %r{/etc/passwd} ||
+  #       req.path.include?("/etc/passwd") ||
+  #       req.path.include?("wp-admin") ||
+  #       req.path.include?("wp-login") ||
+  #       /\S+\.php/.match?(req.path)
+  #   end
+  # end
 
   # throttle("limit logins per email", limit: 30, period: 30.seconds) do |req|
   #   if req.path == "/users/sign_in" && req.post?
