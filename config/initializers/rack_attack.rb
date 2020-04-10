@@ -28,6 +28,7 @@ class Rack::Attack
   #   end
   # end
 
+
   # throttle("limit logins per email", limit: 30, period: 30.seconds) do |req|
   #   if req.path == "/users/sign_in" && req.post?
   #     if (req.params["user"].to_s.size > 0) and (req.params["user"]["email"].to_s.size > 0)
