@@ -57,7 +57,12 @@ main {
   @extend .container;
   width: 100%;
   padding-bottom: 15px;
-  margin-top: 93px; // accommodate the navbar 51, 52 if hover:border-bottom 
+  @media (max-width: 767px) {
+    margin-top: 52px; 
+  };
+  @media (min-width: 768px) {
+    margin-top: 93px;
+  };
   //margin-top: 2.0em; 
   a {
     text-decoration: none !important;

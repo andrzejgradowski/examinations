@@ -85,3 +85,40 @@ $dropDown       : true;
         color: $colHighlight;
         background-color: $bgHighlight; }}}
 }
+
+
+@media (max-width: 576px) {
+  .navbar-brand-logo {
+    display: block;
+    margin-top: 0px;
+    max-width: 265px;
+  }
+}
+@media (min-width: 576px) and (max-width: 767.99px) {
+  .navbar-brand-logo {
+    display: block;
+    margin-top: 0px;
+    max-width: 310px;
+  }
+}
+@media (min-width: 768px) and (max-width: 991.99px) {
+  .navbar-brand-logo {
+    display: block;
+    margin-top: 16px;
+    max-width: 350px;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199.99px) {
+  .navbar-brand-logo {
+    display: block;
+    margin-top: 17px;
+    max-width: 400px;
+  }
+}
+@media (min-width: 1200px) {
+  .navbar-brand-logo {
+    display: block;
+    margin-top: 17px;
+    max-width: 440px;
+  }
+}
