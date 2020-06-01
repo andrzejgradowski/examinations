@@ -20,6 +20,9 @@ pl:
   static_pages:
     home:
       title: 'UKE Egzaminy'
+      slide_0: '1. Zgłoś się na egzamin przez internet.'
+      slide_1: '2. Czekaj na potwierdzenie przyjęcia zgłoszenia'
+      slide_2: '3. Przyjdź na egzamin!'
   proposals:
     status_id_1_name: 'Zgłoszenie utworzone'
     status_id_2_name: 'Zgłoszenie zaakceptowane'

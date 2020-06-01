@@ -10,29 +10,82 @@
   <br>
 
   <div class="row">
-    <div class="col-sm-12">
-      <%= render 'info', cached: true %>
-      <br>
+    <div class="col-sm-7">
 
-      <% if user_signed_in? %>
-        <div class="center">
-          <% if policy(:proposal).index? || policy(:proposal).index_self? %> 
-            <%= link_to proposals_path, class: "btn btn-primary btn-lg" do %>
-              <span class="fa fa-file-invoice"></span>&nbsp;
-              <%=t "proposals.index.navbar" %>
-            <% end %>
-          <% end %>
-        </div>
-      <% else %>
-        <div class="center">
-          <%= link_to new_user_session_path, class: "btn btn-primary btn-lg" do %>
-            <span class="glyphicon glyphicon-log-in"></span>&nbsp;
-            <%=t "devise.link_to.sign_in" %>
-          <% end %>
-        </div>
-      <% end %>
 
-    </div> <!-- /.col-sm-12 -->
+      <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+          <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+          <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+          <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+
+          <div class="item active">
+            <%= image_tag("slide_0.jpg") %>
+            <div class="carousel-caption">
+              <h3><%= t(".slide_0") %></h3>
+            </div>
+          </div>
+
+          <div class="item">
+            <%= image_tag("slide_1.jpg") %>
+            <div class="carousel-caption">
+              <h3><%= t('.slide_1') %></h3>
+            </div>
+          </div>
+
+          <div class="item">
+            <%= image_tag("slide_2.jpg") %>
+            <div class="carousel-caption">
+              <h3><%= t('.slide_2') %></h3>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+          <span class="icon-prev" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+          <span class="icon-next" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </div> <!--/col-sm-7 -->
+
+    <div class="col-sm-5">
+      <div class="row">
+        <div class="col-sm-12">
+          <%= render 'info', cached: true %>
+          <br>
+
+          <% if user_signed_in? %>
+            <div class="center">
+              <% if policy(:proposal).index? || policy(:proposal).index_self? %> 
+                <%= link_to proposals_path, class: "btn btn-primary btn-lg" do %>
+                  <span class="fa fa-file-invoice"></span>&nbsp;
+                  <%=t "proposals.index.navbar" %>
+                <% end %>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="center">
+              <%= link_to new_user_session_path, class: "btn btn-primary btn-lg" do %>
+                <span class="glyphicon glyphicon-log-in"></span>&nbsp;
+                <%=t "devise.link_to.sign_in" %>
+              <% end %>
+            </div>
+          <% end %>
+
+        </div> <!-- /.col-sm-12 -->
+      </div> <!-- / class="row" -->    
+    </div> <!-- /.col-sm-5 -->
 
   </div> <!--/row -->
  

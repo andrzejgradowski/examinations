@@ -10,7 +10,7 @@ gem 'rails', '~> 5.2.4.2'
 gem 'pg'
 # Use Puma as the app server
 #gem 'puma', '~> 3.11'
-gem 'puma', '~> 4.3.3'
+gem 'puma', '~> 4.3.5'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -64,7 +64,7 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.14.30'
 gem 'jquery-rails'
 gem 'font_awesome5_rails'
 gem 'select2-rails', '3.5.9.3'
-gem 'kaminari'
+gem "kaminari", ">= 1.2.1"
 
 gem 'redis-rails'
 gem "hiredis"

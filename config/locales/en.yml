@@ -18,6 +18,9 @@ en:
   static_pages:
     home:
       title: 'UKE Examinations'
+      slide_0: 'Access to documents can be simple.'
+      slide_1: 'Just one click...'
+      slide_2: '...to see the whole world.'
   proposals:
     status_id_1_name: 'Proposal created'
     status_id_2_name: 'Proposal approved'
