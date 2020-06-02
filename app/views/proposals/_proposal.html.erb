@@ -11,7 +11,7 @@
   <div class="row">
     <div class="col-sm-12">
       <p><strong><%= proposal.class.human_attribute_name(:status_name) %>:</strong>&nbsp;<%= proposal_rec_status_name(proposal) %></p>
-      <%= render partial: "show_not_approved_comment", locals: {partial_data: proposal} if proposal.proposal_status_id == Proposal::PROPOSAL_STATUS_NOT_APPROVED %>
+      <%= render partial: "show_additional_comment", locals: {partial_data: proposal} if Proposal::PROPOSAL_STATUSES_WITH_COMMENT.include?(proposal.proposal_status_id) %>
       <%= render partial: "proposals/status_id_#{proposal.proposal_status_id}_comment" %>
     </div> <!-- /col-sm-6 -->
   </div> <!-- /row -->

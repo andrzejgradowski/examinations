@@ -43,6 +43,9 @@ class Proposal < ApplicationRecord
                         PROPOSAL_STATUS_EXAMINATION_RESULT_P,
                         PROPOSAL_STATUS_EXAMINATION_RESULT_Z ]
 
+  PROPOSAL_STATUSES_WITH_COMMENT = [ PROPOSAL_STATUS_NOT_APPROVED, 
+                                     PROPOSAL_STATUS_CLOSED ]
+
   CATEGORY_NAME_M = "Świadectwo służby morskiej i żeglugi śródlądowej"
   CATEGORY_NAME_R = "Świadectwo służby radioamatorskiej"
 
