@@ -25,6 +25,7 @@
       <p><%= @proposal.not_approved_comment.gsub(/\n/, '<br>').html_safe %></p> 
       <spacer size="16"></spacer>
       <p>...Spróbuj raz jeszcze i ponownie utwórz zgłoszenie!</p> 
+      <p><%= link_to "Szczegółowe informacje na temat sesji egzaminacyjnych", @uke_sessions_url, target: "_blank" %></p> 
     </columns>
   </row>
 

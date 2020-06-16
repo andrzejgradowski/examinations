@@ -2,12 +2,13 @@ class ProposalMailer < ApplicationMailer
   include ProposalsHelper
   default template_path: 'proposal_mailer' # to make sure that your mailer uses the devise views
   default from: Rails.application.secrets.email_provider_username
-  default cc: Rails.application.secrets.email_provider_username
+  default bcc: Rails.application.secrets.email_provider_username
 
   def created(proposal)
     @proposal = proposal
     @proposal_fullname = "#{proposal_rec_info(@proposal)}"
     @proposal_url_uuid = Rails.application.routes.url_helpers.url_for(only_path: false, controller: 'proposals', action: 'show', multi_app_identifier: @proposal.multi_app_identifier, locale: locale)
+    @uke_sessions_url = proposal.category == 'R' ? "http://bip.uke.gov.pl/swiadectwa-operatora-urzadzen-radiowych-tresci/swiadectwa-amatorskie,3.html" : "http://bip.uke.gov.pl/swiadectwa-operatora-urzadzen-radiowych-tresci/swiadectwa-morskie-i-zeglugi-srodladowej,1.html"
 
     attachments.inline['logo_app.jpg'] = File.read("app/assets/images/logo_application.png")
     attachments.inline['logo_uke.jpg'] = File.read("app/assets/images/logo_uke_pl_do_lewej_small.png")
@@ -19,6 +20,7 @@ class ProposalMailer < ApplicationMailer
     @proposal = proposal
     @proposal_fullname = "#{proposal_rec_info(@proposal)}"
     @proposal_url_uuid = Rails.application.routes.url_helpers.url_for(only_path: false, controller: 'proposals', action: 'show', multi_app_identifier: @proposal.multi_app_identifier, locale: locale)
+    @uke_sessions_url = proposal.category == 'R' ? "http://bip.uke.gov.pl/swiadectwa-operatora-urzadzen-radiowych-tresci/swiadectwa-amatorskie,3.html" : "http://bip.uke.gov.pl/swiadectwa-operatora-urzadzen-radiowych-tresci/swiadectwa-morskie-i-zeglugi-srodladowej,1.html"
 
     attachments.inline['logo_app.jpg'] = File.read("app/assets/images/logo_application.png")
     attachments.inline['logo_uke.jpg'] = File.read("app/assets/images/logo_uke_pl_do_lewej_small.png")
@@ -30,6 +32,7 @@ class ProposalMailer < ApplicationMailer
     @proposal = proposal
     @proposal_fullname = "#{proposal_rec_info(@proposal)}"
     @proposal_url_uuid = Rails.application.routes.url_helpers.url_for(only_path: false, controller: 'proposals', action: 'show', multi_app_identifier: @proposal.multi_app_identifier, locale: locale)
+    @uke_sessions_url = proposal.category == 'R' ? "http://bip.uke.gov.pl/swiadectwa-operatora-urzadzen-radiowych-tresci/swiadectwa-amatorskie,3.html" : "http://bip.uke.gov.pl/swiadectwa-operatora-urzadzen-radiowych-tresci/swiadectwa-morskie-i-zeglugi-srodladowej,1.html"
 
     attachments.inline['logo_app.jpg'] = File.read("app/assets/images/logo_application.png")
     attachments.inline['logo_uke.jpg'] = File.read("app/assets/images/logo_uke_pl_do_lewej_small.png")
@@ -41,6 +44,7 @@ class ProposalMailer < ApplicationMailer
     @proposal = proposal
     @proposal_fullname = "#{proposal_rec_info(@proposal)}"
     @proposal_url_uuid = Rails.application.routes.url_helpers.url_for(only_path: false, controller: 'proposals', action: 'show', multi_app_identifier: @proposal.multi_app_identifier, locale: locale)
+    @uke_sessions_url = proposal.category == 'R' ? "http://bip.uke.gov.pl/swiadectwa-operatora-urzadzen-radiowych-tresci/swiadectwa-amatorskie,3.html" : "http://bip.uke.gov.pl/swiadectwa-operatora-urzadzen-radiowych-tresci/swiadectwa-morskie-i-zeglugi-srodladowej,1.html"
 
     attachments.inline['logo_app.jpg'] = File.read("app/assets/images/logo_application.png")
     attachments.inline['logo_uke.jpg'] = File.read("app/assets/images/logo_uke_pl_do_lewej_small.png")
@@ -52,6 +56,7 @@ class ProposalMailer < ApplicationMailer
     @proposal = proposal
     @proposal_fullname = "#{proposal_rec_info(@proposal)}"
     @proposal_url_uuid = Rails.application.routes.url_helpers.url_for(only_path: false, controller: 'proposals', action: 'show', multi_app_identifier: @proposal.multi_app_identifier, locale: locale)
+    @uke_sessions_url = proposal.category == 'R' ? "http://bip.uke.gov.pl/swiadectwa-operatora-urzadzen-radiowych-tresci/swiadectwa-amatorskie,3.html" : "http://bip.uke.gov.pl/swiadectwa-operatora-urzadzen-radiowych-tresci/swiadectwa-morskie-i-zeglugi-srodladowej,1.html"
 
     attachments.inline['logo_app.jpg'] = File.read("app/assets/images/logo_application.png")
     attachments.inline['logo_uke.jpg'] = File.read("app/assets/images/logo_uke_pl_do_lewej_small.png")
@@ -118,6 +123,7 @@ class ProposalMailer < ApplicationMailer
     @proposal = proposal
     @proposal_fullname = "#{proposal_rec_info(@proposal)}"
     @proposal_url_uuid = Rails.application.routes.url_helpers.url_for(only_path: false, controller: 'proposals', action: 'show', multi_app_identifier: @proposal.multi_app_identifier, locale: locale)
+    @uke_sessions_url = proposal.category == 'R' ? "http://bip.uke.gov.pl/swiadectwa-operatora-urzadzen-radiowych-tresci/swiadectwa-amatorskie,3.html" : "http://bip.uke.gov.pl/swiadectwa-operatora-urzadzen-radiowych-tresci/swiadectwa-morskie-i-zeglugi-srodladowej,1.html"
 
     attachments.inline['logo_app.jpg'] = File.read("app/assets/images/logo_application.png")
     attachments.inline['logo_uke.jpg'] = File.read("app/assets/images/logo_uke_pl_do_lewej_small.png")

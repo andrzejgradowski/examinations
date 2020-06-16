@@ -32,6 +32,7 @@
       <li>bezwzględnego stosowania rękawiczek jednorazowych, podczas trwania egzaminu;</li>
       <li>posiadania własnego długopisu.</li>
       <p>...Czekamy na Ciebie w dniu <%= "#{@proposal.exam_date_exam.strftime("%Y-%m-%d")}" %>.</p> 
+      <p><%= link_to "Szczegółowe informacje na temat sesji egzaminacyjnych", @uke_sessions_url, target: "_blank" %></p> 
     </columns>
   </row>
 

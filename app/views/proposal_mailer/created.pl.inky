@@ -25,6 +25,7 @@
       <p>Po jego zweryfikowaniu przyślemy informację, czy zostało ono zaakceptowane, czy też odrzucone.</p> 
       <spacer size="16"></spacer>
       <p>...Sprawdzaj status zgłoszenia i czekaj na wiadomość!</p> 
+      <p><%= link_to "Szczegółowe informacje na temat sesji egzaminacyjnych", @uke_sessions_url, target: "_blank" %></p> 
     </columns>
   </row>
 

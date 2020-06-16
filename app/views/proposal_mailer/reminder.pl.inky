@@ -24,6 +24,7 @@
       <p><%= link_to @proposal_fullname, @proposal_url_uuid, target: "_blank" %> ma status <strong>ZAAKCEPTOWANE</strong>.</p> 
       <spacer size="16"></spacer>
       <p>Przypominamy o egzaminie w dniu <%= "#{@proposal.exam_date_exam.strftime("%Y-%m-%d")}" %>.</p> 
+      <p><%= link_to "Szczegółowe informacje na temat sesji egzaminacyjnych", @uke_sessions_url, target: "_blank" %></p> 
     </columns>
   </row>
 
