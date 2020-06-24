@@ -21,8 +21,7 @@
   <row>
     <columns>
       <p>W programie <strong>UKE Egzaminy</strong></p> 
-      <p><%= link_to @proposal_fullname, @proposal_url_uuid, target: "_blank" %></p> 
-      <p>na sesję egzaminacyjną:</p>
+      <p><%= link_to @proposal_fullname, @proposal_url_uuid, target: "_blank" %> na sesję egzaminacyjną:</p>
       <p><%= "#{@proposal.exam_fullname}" %></p> 
       <p>otrzymało status <strong>ZAAKCEPTOWANE</strong>.</p> 
       <spacer size="16"></spacer>
@@ -34,8 +33,7 @@
       <li>bezwzględnego stosowania rękawiczek jednorazowych, podczas trwania egzaminu;</li>
       <li>posiadania własnego długopisu.</li>
       <p>W przypadku niezastosowania się do powyższych zasad, z uwagi na konieczność zapewnienia bezpieczeństwa wszystkim uczestnikom, przewodniczący sesji ma prawo nie dopuścić osoby do egzaminu.</p> 
-      <p>...Czekamy na Ciebie w sesji egzaminacyjnej:</p> 
-      <p><%= "#{@proposal.exam_fullname}" %></p> 
+      <p>...Czekamy na Ciebie w dniu <%= "#{@proposal.exam_date_exam.strftime("%Y-%m-%d")}" %>.</p> 
       <p><%= link_to "Szczegółowe informacje na temat sesji egzaminacyjnych", @uke_sessions_url, target: "_blank" %></p> 
     </columns>
   </row>

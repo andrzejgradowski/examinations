@@ -21,8 +21,7 @@
   <row>
     <columns>
       <p>W programie <strong>UKE Egzaminy</strong></p> 
-      <p><%= link_to @proposal_fullname, @proposal_url_uuid, target: "_blank" %></p> 
-      <p>na sesję egzaminacyjną:</p>
+      <p><%= link_to @proposal_fullname, @proposal_url_uuid, target: "_blank" %> na sesję egzaminacyjną:</p>
       <p><%= "#{@proposal.exam_fullname}" %></p> 
       <p>ma status <strong>ZAAKCEPTOWANE</strong>.</p> 
       <spacer size="16"></spacer>
