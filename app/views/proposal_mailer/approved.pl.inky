@@ -21,7 +21,10 @@
   <row>
     <columns>
       <p>W programie <strong>UKE Egzaminy</strong></p> 
-      <p><%= link_to @proposal_fullname, @proposal_url_uuid, target: "_blank" %> otrzymało status <strong>ZAAKCEPTOWANE</strong>.</p> 
+      <p><%= link_to @proposal_fullname, @proposal_url_uuid, target: "_blank" %></p> 
+      <p>na sesję egzaminacyjną:</p>
+      <p><%= "#{@proposal.exam_fullname}" %></p> 
+      <p>otrzymało status <strong>ZAAKCEPTOWANE</strong>.</p> 
       <spacer size="16"></spacer>
       <p>Informujemy, że osoby przystępujące do egzaminu są zobowiązane do zachowania zasad oraz środków bezpieczeństwa i ochrony osobistej podczas sesji egzaminacyjnej, w tym:</p>
       <li>zachowania 2 m odległości pomiędzy wszystkimi uczestnikami sesji egzaminacyjnej, podczas oczekiwania na egzamin oraz samego egzaminu;</li>
@@ -31,7 +34,8 @@
       <li>bezwzględnego stosowania rękawiczek jednorazowych, podczas trwania egzaminu;</li>
       <li>posiadania własnego długopisu.</li>
       <p>W przypadku niezastosowania się do powyższych zasad, z uwagi na konieczność zapewnienia bezpieczeństwa wszystkim uczestnikom, przewodniczący sesji ma prawo nie dopuścić osoby do egzaminu.</p> 
-      <p>...Czekamy na Ciebie w dniu <%= "#{@proposal.exam_date_exam.strftime("%Y-%m-%d")}" %>.</p> 
+      <p>...Czekamy na Ciebie w sesji egzaminacyjnej:</p> 
+      <p><%= "#{@proposal.exam_fullname}" %></p> 
       <p><%= link_to "Szczegółowe informacje na temat sesji egzaminacyjnych", @uke_sessions_url, target: "_blank" %></p> 
     </columns>
   </row>
@@ -59,7 +63,7 @@
       <row>
         <columns small="12>
           <h6 class="text-left h6-small"><small></small></h6>
-          <h6 class="text-left h6-small"><small>&copy; 2019 UKE-BI,  Wysłano z programu <%= Rails.application.secrets.domain_name %></small></h6>
+          <h6 class="text-left h6-small"><small>&copy; 2020 UKE-BI,  Wysłano z programu <%= Rails.application.secrets.domain_name %></small></h6>
         </columns>
       </row>
     </columns>

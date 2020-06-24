@@ -50,7 +50,7 @@
       <row>
         <columns small="12>
           <h6 class="text-left h6-small"><small></small></h6>
-          <h6 class="text-left h6-small"><small>&copy; 2019 UKE-BI,  Wysłano z programu <%= Rails.application.secrets.domain_name %></small></h6>
+          <h6 class="text-left h6-small"><small>&copy; 2020 UKE-BI,  Wysłano z programu <%= Rails.application.secrets.domain_name %></small></h6>
         </columns>
       </row>
     </columns>

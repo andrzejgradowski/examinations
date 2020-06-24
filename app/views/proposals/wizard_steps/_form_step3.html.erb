@@ -44,7 +44,22 @@
                                 "data-category": "#{@proposal.category}" %>
             </div>
           </div> <!--/row -->
+        </div>  
 
+        <div class="form-group col-sm-4">
+          <div class="row">
+            <div class="col-sm-12">
+              <blockquote>
+                <p>Lista sesji, które odbędą się nie wcześniej niż za tydzień i dla których dostępne są jeszcze wolne miejsca.</p> 
+                <p>Warunki wyszukiwania oddzielaj spacją.<br>
+                Np. Bydgo 2020-02<br>
+                Np. kujawsko-pom 2020-02</p>
+              </blockquote>
+            </div> <!-- /.col-sm-5 -->
+          </div> <!--/row -->
+        </div>
+
+        <div class="form-group col-sm-12">
           <div class="row">
             <div class="form-group col-sm-12">
               <%= f.label :exam_id, class: "control-label" %>
@@ -58,20 +73,8 @@
                                 "data-category": "#{@proposal.category}" %>
             </div>
           </div> <!--/row -->
-        </div>  
-
-        <div class="form-group col-sm-4">
-          <div class="row">
-            <div class="col-sm-12">
-              <blockquote>
-                <p>Lista sesji zawiera tylko te sesje, które odbędą się nie wcześniej niż za tydzień i dla których dostępne są jeszcze wolne miejsca.</p> 
-                <p>Wyszukuj po nazwie miejscowości, województwa, dacie lub numerze. Warunki można łączyć oddzielając je spacją.</p>
-                <p>Np. Bydgo 2020-02<br>
-                   Np. kujawsko-pom 2020-02</p>
-              </blockquote>
-            </div> <!-- /.col-sm-5 -->
-          </div> <!--/row -->
         </div>
+
       </div> <!--/row -->
 
     </fieldset>

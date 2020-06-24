@@ -21,7 +21,10 @@
   <row>
     <columns>
       <p>W programie <strong>UKE Egzaminy</strong></p> 
-      <p><%= link_to @proposal_fullname, @proposal_url_uuid, target: "_blank" %> zostało <strong>ANULOWANE</strong> i nie będzie dłużej procedowane.</p> 
+      <p><%= link_to @proposal_fullname, @proposal_url_uuid, target: "_blank" %></p> 
+      <p>na sesję egzaminacyjną:</p>
+      <p><%= "#{@proposal.exam_fullname}" %></p>
+      <p>zostało <strong>ANULOWANE</strong> i nie będzie dłużej procedowane.</p> 
       <spacer size="16"></spacer>
     </columns>
   </row>
@@ -49,7 +52,7 @@
       <row>
         <columns small="12>
           <h6 class="text-left h6-small"><small></small></h6>
-          <h6 class="text-left h6-small"><small>&copy; 2019 UKE-BI,  Wysłano z programu <%= Rails.application.secrets.domain_name %></small></h6>
+          <h6 class="text-left h6-small"><small>&copy; 2020 UKE-BI,  Wysłano z programu <%= Rails.application.secrets.domain_name %></small></h6>
         </columns>
       </row>
     </columns>

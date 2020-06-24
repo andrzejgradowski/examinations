@@ -2,7 +2,8 @@ $(document).ready(function() {
 
  function examFormatResult(exam, container, query, escapeMarkup) {
     if (exam.id) {
-      return  markMatch(exam.data_obj.number, query.term) + ', ' + markMatch(exam.data_obj.date_exam, query.term) + ', ' +markMatch(exam.data_obj.place_exam, query.term) +  
+      return  markMatch(exam.data_obj.number, query.term) + ', ' + markMatch(exam.data_obj.date_exam, query.term) + ', ' + 
+              markMatch(exam.data_obj.place_exam, query.term) + ' ' + markMatch(exam.data_obj.info, query.term)  +  
               '<span class="pull-right">&nbsp[' + markMatch(exam.data_obj.province_name, query.term) + ']</span>';
     } else {
       return "";
