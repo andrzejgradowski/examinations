@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_04_150412) do
+ActiveRecord::Schema.define(version: 2020_08_20_122041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,7 +60,6 @@ ActiveRecord::Schema.define(version: 2019_08_04_150412) do
     t.string "phone", limit: 50, default: ""
     t.string "email", limit: 50, default: "", null: false
     t.boolean "lives_in_poland", default: true
-    t.integer "address_id"
     t.string "province_code", limit: 20, default: ""
     t.string "province_name", limit: 50, default: ""
     t.string "district_code", limit: 20, default: ""
@@ -96,6 +95,7 @@ ActiveRecord::Schema.define(version: 2019_08_04_150412) do
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "address_combine_id", limit: 26, default: "", null: false
     t.index ["category"], name: "index_proposals_on_category"
     t.index ["creator_id", "division_id"], name: "index_proposals_on_creator_id_and_division_id"
     t.index ["creator_id"], name: "index_proposals_on_creator_id"

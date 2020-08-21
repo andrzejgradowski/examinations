@@ -83,7 +83,7 @@ class Proposal < ApplicationRecord
   validate :check_birth_date, if: -> { pesel.present? && required_for_step?(:step1) && status != SAVED_IN_NETPAR }
 
   # step2
-  validates :address_id, presence: true, if: -> { lives_in_poland == true && required_for_step?(:step2) && status != SAVED_IN_NETPAR }
+  validates :address_combine_id, presence: true, if: -> { lives_in_poland == true && required_for_step?(:step2) && status != SAVED_IN_NETPAR }
   validates :city_name, presence: true, length: { in: 1..50 }, if: -> { lives_in_poland == false && required_for_step?(:step2) && status != SAVED_IN_NETPAR }
   validates :street_name, length: { maximum: 50 }, if: -> { lives_in_poland == false && required_for_step?(:step2) && status != SAVED_IN_NETPAR }
   validates :c_address_house, presence: true, length: { in: 1..10 }, if: -> { required_for_step?(:step2) && status != SAVED_IN_NETPAR }
@@ -142,17 +142,17 @@ class Proposal < ApplicationRecord
       end
 
     rescue *HTTP_ERRORS => e
-      Rails.logger.error('======= API ERROR "models/proposal/save_rec_and_push - API ERROR" (1) =======')
+      Rails.logger.error('======= API ERROR "models/proposal/save_rec_and_push - API ERROR" (1) ==========')
       Rails.logger.error("#{e}")
       errors.add(:base, "#{e}")
-      Rails.logger.error('=============================================================================')
+      Rails.logger.error('================================================================================')
       raise ActiveRecord::Rollback, "#{e}"
       false
     rescue StandardError => e
-      Rails.logger.error('======= API ERROR "models/proposal/save_rec_and_push - API ERROR" (2) =======')
+      Rails.logger.error('======= API ERROR "models/proposal/save_rec_and_push - API ERROR" (2) ==========')
       Rails.logger.error("#{e}")
       errors.add(:base, "#{e}")
-      Rails.logger.error('=============================================================================')
+      Rails.logger.error('================================================================================')
       raise ActiveRecord::Rollback, "#{e}"
       false
     else
@@ -161,31 +161,31 @@ class Proposal < ApplicationRecord
         save!
         true   # success response
       when Net::HTTPNoContent
-        Rails.logger.error('======= API ERROR "models/proposal/save_rec_and_push - API ERROR" (3) =======')
+        Rails.logger.error('======= API ERROR "models/proposal/save_rec_and_push - API ERROR" (3) ==========')
         Rails.logger.error("code: #{response.code}, message: #{response.message}, body: #{response.body}")
         errors.add(:base, "code: #{response.code}, message: #{response.message}, body: #{response.body}")
-        Rails.logger.error('=============================================================================')
+        Rails.logger.error('================================================================================')
         raise ActiveRecord::Rollback, "#{e}"
         false
       when Net::HTTPClientError, Net::HTTPInternalServerError
-        Rails.logger.error('======= API ERROR "models/proposal/save_rec_and_push - API ERROR" (4) =======')
+        Rails.logger.error('======= API ERROR "models/proposal/save_rec_and_push - API ERROR" (4) ==========')
         Rails.logger.error("code: #{response.code}, message: #{response.message}, body: #{response.body}")
         errors.add(:base, "code: #{response.code}, message: #{response.message}, body: #{response.body}")
-        Rails.logger.error('=============================================================================')
+        Rails.logger.error('================================================================================')
         raise ActiveRecord::Rollback, "#{e}"
         false
       when response.class != 'String'
-        Rails.logger.error('======= API ERROR "models/proposal/save_rec_and_push - API ERROR" (5) =======')
+        Rails.logger.error('======= API ERROR "models/proposal/save_rec_and_push - API ERROR" (5) ==========')
         Rails.logger.error("code: #{response.code}, message: #{response.message}, body: #{response.body}")
         errors.add(:base, "code: #{response.code}, message: #{response.message}, body: #{response.body}")
-        Rails.logger.error('=============================================================================')
+        Rails.logger.error('================================================================================')
         raise ActiveRecord::Rollback, "#{e}"
         false
       else
-        Rails.logger.error('======= API ERROR "models/proposal/save_rec_and_push - API ERROR" (6) =======')
+        Rails.logger.error('======= API ERROR "models/proposal/save_rec_and_push - API ERROR" (6) ==========')
         Rails.logger.error("#{response}")
         errors.add(:base, "#{response}")
-        Rails.logger.error('=============================================================================')
+        Rails.logger.error('================================================================================')
         raise ActiveRecord::Rollback, "#{response}"
         false
       end
@@ -359,8 +359,8 @@ class Proposal < ApplicationRecord
     end
 
     def put_address_values
-      if self.address_id.present?
-        item_obj = PitTerytItem.new(id: self.address_id)
+      if self.address_combine_id.present?
+        item_obj = ApiTerytAddress.new(combine_id: self.address_combine_id)
         if item_obj.request_for_one_row
           item_values = JSON.parse(item_obj.response.body)
 
@@ -372,12 +372,11 @@ class Proposal < ApplicationRecord
           self.commune_name = item_values["communeName"]
           self.city_code = item_values["cityCode"]
           self.city_name = item_values["cityName"]
-          self.city_parent_code = item_values["cityParentCode"] if item_values["cityParentCode"].present?
-          self.city_parent_name = item_values["cityParentName"] if item_values["cityParentName"].present?
+          self.city_parent_code = item_values["parentCityCode"] if item_values["parentCityCode"].present?
+          self.city_parent_name = item_values["parentCityName"] if item_values["parentCityName"].present?
           self.street_code = item_values["streetCode"] if item_values["streetCode"].present?
           self.street_name = item_values["streetName"] if item_values["streetName"].present?
           self.street_attribute = item_values["streetAttribute"] if item_values["streetAttribute"].present?
-          self.teryt_code = item_values["terytId"]
         else
           item_obj.errors.full_messages.each do |msg|
             self.errors.add(:base, msg.force_encoding("UTF-8"))
@@ -387,7 +386,7 @@ class Proposal < ApplicationRecord
     end
 
     def clear_address_values
-      self.address_id = nil
+      self.address_combine_id = nil
       self.province_code = ""
       self.province_name = ""
       self.district_code = ""
@@ -401,7 +400,6 @@ class Proposal < ApplicationRecord
       self.street_code = ""
       #self.street_name = item_values["streetName"] if item_values["streetName"].present?
       self.street_attribute = ""
-      self.teryt_code = ""
     end
 
     def put_exam_fee_values

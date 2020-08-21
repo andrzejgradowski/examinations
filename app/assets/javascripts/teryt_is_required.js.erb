@@ -33,7 +33,7 @@ function terytIsRequired(status_checkbox) {
     document.getElementById("proposal_street_name").value = "";
 
     //enabled
-    document.getElementById("address_id_select").disabled = false;
+    document.getElementById("address_combine_id_select").disabled = false;
 
     //show and hide fields
     displayInPolandFields()
@@ -41,9 +41,8 @@ function terytIsRequired(status_checkbox) {
   } else {
 
     //disabled and clear value
-    document.getElementById("address_id_select").disabled = true;
-    //$("#city_id_select").select2("readonly", true);
-    $("#address_id_select").select2("val", "")
+    document.getElementById("address_combine_id_select").disabled = true;
+    $("#address_combine_id_select").select2("val", "")
 
     //enabled
     document.getElementById("proposal_city_name").disabled = false;

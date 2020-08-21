@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   get '/pit_teryt/items',                                     to: 'pit_teryt#items'
   get '/pit_teryt/items/:id',                                 to: 'pit_teryt#item_show'
 
+  get '/api_teryt/items',                                     to: 'api_teryt#items'
+  get '/api_teryt/items/:id',                                 to: 'api_teryt#item_show'
 
   scope "/:locale", locale: /#{I18n.available_locales.join("|")}/ do
 

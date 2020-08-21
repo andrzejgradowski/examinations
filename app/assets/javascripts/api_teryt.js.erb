@@ -7,13 +7,11 @@ $(document).ready(function() {
         //     return markup.join("");
         // },
 
-  function itemFormatResult(item, container, query, escapeMarkup) {
+  function addressFormatResult(item, container, query, escapeMarkup) {
     if (item.id) {
       var cityName = markMatch(item.data_obj.cityName, query.term);
-      if (item.data_obj.cityName !== item.data_obj.cityParentName) {
-        //nie wyszukuje po cityParentName, wiec nie zaznaczamy
-        //var cityName = cityName + "&nbsp(" + markMatch(item.data_obj.cityParentName, query.term) + ")";
-        var cityName = cityName + "&nbsp(" + item.data_obj.cityParentName + ")";
+      if (item.data_obj.cityName !== item.data_obj.parentCityName) {
+        var cityName = cityName + "&nbsp(" + markMatch(item.data_obj.parentCityName, query.term) + ")";
       };
 
       if (item.data_obj.postCodeNumbers) {
@@ -35,18 +33,18 @@ $(document).ready(function() {
 
       return                  cityName + streetName  +         "<div class='pull-right'>&nbsp" + provinceName + "</div><br>" + 
                               postCode + postNumbers +         "<div class='pull-right'>&nbsp" + districtName + "</div><br>" +
-                  "<small>" + item.data_obj.cityType + "</small><div class='pull-right'>&nbsp" + communeName + "</div>";
+                  "<small>" + item.data_obj.cityTypeName + "</small><div class='pull-right'>&nbsp" + communeName + "</div>";
 
     } else {
       return "";
     }
   };
 
-  function itemFormatSelection(item) {
+  function addressFormatSelection(item) {
     if (item.id) {
       var cityName = item.data_obj.cityName;
-      if (item.data_obj.cityName !== item.data_obj.cityParentName) {
-        var cityName = cityName + " (" + item.data_obj.cityParentName + ")";
+      if (item.data_obj.cityName !== item.data_obj.parentCityName) {
+        var cityName = cityName + " (" + item.data_obj.parentCityName + ")";
       };
 
       if (item.data_obj.postCode) {
@@ -65,17 +63,17 @@ $(document).ready(function() {
               ' [' + item.data_obj.provinceName + 
               ', ' + item.data_obj.districtName + 
               ', ' + item.data_obj.communeName + 
-              '] ' + item.data_obj.cityType;
+              '] ' + item.data_obj.cityTypeName;
     } else {
       return "";
     }
   };
 
-  $('.select2teryt_items').select2({ 
+  $('.select2teryt_address').select2({ 
     minimumInputLength: 5,
     allowClear: false,
     ajax: {
-      url: "/pit_teryt/items.json",
+      url: "/api_teryt/items.json",
       dataType: 'json',
       quietMillis: 250,
       type: 'GET',
@@ -83,15 +81,14 @@ $(document).ready(function() {
         return {
           q: term,
           page_limit: 30,
-          page: page -1
-          //Uwaga! sztuczna mrowka gdyż API PitTeryt zle obsluguje paginacje
+          page: page
         };
       },
       results: function(data, page) {
-        var more = (page * 30) < data.meta.totalCount;
+        var more = (page * 30) < data.total;
         var items = $.map(data.items, function(item, i) {
           //return { data_obj: item, id: item.id, text: item.cityName };
-          return { data_obj: item, id: item.id };
+          return { data_obj: item, id: item.combineId };
         });
         return { results: items, more: more };
       }
@@ -108,15 +105,15 @@ $(document).ready(function() {
     initSelection: function(element, callback) {
       var id=$(element).val();
       if (id!=="") {
-        $.get("/pit_teryt/items/"+id+".json", function(data_from_json) {
+        $.get("/api_teryt/items/"+id+".json", function(data_from_json) {
           if(data_from_json)
             //callback({ data_obj: data_from_json, id: data_from_json.id, text: 'data_from_json.cityName' });
-            callback({ data_obj: data_from_json, id: data_from_json.id });
+            callback({ data_obj: data_from_json, id: data_from_json.combineId });
         });
       }
     },
-    formatResult: itemFormatResult, // omitted for brevity, see the source of this page
-    formatSelection: itemFormatSelection, // omitted for brevity, see the source of this page
+    formatResult: addressFormatResult, // omitted for brevity, see the source of this page
+    formatSelection: addressFormatSelection, // omitted for brevity, see the source of this page
     dropdownCssClass: "bigdrop", // apply css that makes the dropdown taller
     escapeMarkup: function (m) { return m; } // we do not want to escape markup since we are displaying html in results
   })

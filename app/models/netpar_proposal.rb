@@ -67,17 +67,17 @@ class NetparProposal
     return response
 
   rescue *HTTP_ERRORS => e
-    Rails.logger.error('======== API ERROR "models/netpar_proposal/request_create" (1) ==============')
+    Rails.logger.error('======== API ERROR "models/netpar_proposal/request_create" (1) =================')
     Rails.logger.error("#{e}")
     errors.add(:base, "#{e}")
-    Rails.logger.error('=============================================================================')
+    Rails.logger.error('================================================================================')
     #false    # non-success response
     "#{e}"
   rescue StandardError => e
-    Rails.logger.error('======== API ERROR "models/netpar_proposal/request_create" (2) ==============')
+    Rails.logger.error('======== API ERROR "models/netpar_proposal/request_create" (2) =================')
     Rails.logger.error("#{e}")
     errors.add(:base, "#{e}")
-    Rails.logger.error('=============================================================================')
+    Rails.logger.error('================================================================================')
     #false    # non-success response
     "#{e}"
   else
@@ -86,10 +86,10 @@ class NetparProposal
       #true   # success response
       response
     when Net::HTTPClientError, Net::HTTPInternalServerError
-      Rails.logger.error('======== API ERROR "models/netpar_proposal/request_create" (3) ==============')
+      Rails.logger.error('======== API ERROR "models/netpar_proposal/request_create" (3) =================')
       Rails.logger.error("code: #{response.code}, message: #{response.message}, body: #{response.body}")
       errors.add(:base, "code: #{response.code}, message: #{response.message}, body: #{response.body}")
-      Rails.logger.error('=============================================================================')
+      Rails.logger.error('================================================================================')
       #false  # non-success response
       response
     end
@@ -115,17 +115,17 @@ class NetparProposal
     return response
 
   rescue *HTTP_ERRORS => e
-    Rails.logger.error('======== API ERROR "models/netpar_proposal/request_update" (1) ==============')
+    Rails.logger.error('======== API ERROR "models/netpar_proposal/request_update" (1) =================')
     Rails.logger.error("#{e}")
     errors.add(:base, "#{e}")
-    Rails.logger.error('=============================================================================')
+    Rails.logger.error('================================================================================')
     #false    # non-success response
     "#{e}"
   rescue StandardError => e
-    Rails.logger.error('======== API ERROR "models/netpar_proposal/request_update" (2) ==============')
+    Rails.logger.error('======== API ERROR "models/netpar_proposal/request_update" (2) =================')
     Rails.logger.error("#{e}")
     errors.add(:base, "#{e}")
-    Rails.logger.error('=============================================================================')
+    Rails.logger.error('================================================================================')
     #false    # non-success response
     "#{e}"
   else
@@ -134,10 +134,10 @@ class NetparProposal
       #true   # success response
       response
     when Net::HTTPClientError, Net::HTTPInternalServerError
-      Rails.logger.error('======== API ERROR "models/netpar_proposal/request_update" (3) ==============')
+      Rails.logger.error('======== API ERROR "models/netpar_proposal/request_update" (3) =================')
       Rails.logger.error("code: #{response.code}, message: #{response.message}, body: #{response.body}")
       errors.add(:base, "code: #{response.code}, message: #{response.message}, body: #{response.body}")
-      Rails.logger.error('=============================================================================')
+      Rails.logger.error('================================================================================')
       #false  # non-success response
       response
     end
@@ -155,17 +155,17 @@ class NetparProposal
     response = http.request(req)
 
   rescue *HTTP_ERRORS => e
-    Rails.logger.error('======== API ERROR "models/netpar_proposal/request_destroy" (1) ==============')
+    Rails.logger.error('======== API ERROR "models/netpar_proposal/request_destroy" (1) ================')
     Rails.logger.error("#{e}")
     errors.add(:base, "#{e}")
-    Rails.logger.error('=============================================================================')
+    Rails.logger.error('================================================================================')
     #false    # non-success response
     "#{e}"
   rescue StandardError => e
-    Rails.logger.error('======== API ERROR "models/netpar_proposal/request_destroy" (2) ==============')
+    Rails.logger.error('======== API ERROR "models/netpar_proposal/request_destroy" (2) ================')
     Rails.logger.error("#{e}")
     errors.add(:base, "#{e}")
-    Rails.logger.error('=============================================================================')
+    Rails.logger.error('================================================================================')
     #false    # non-success response
     "#{e}"
   else
@@ -174,10 +174,10 @@ class NetparProposal
       #true   # success response
       response
     when Net::HTTPClientError, Net::HTTPInternalServerError
-      Rails.logger.error('======== API ERROR "models/netpar_proposal/request_destroy" (3) ==============')
+      Rails.logger.error('======== API ERROR "models/netpar_proposal/request_destroy" (3) ================')
       Rails.logger.error("code: #{response.code}, message: #{response.message}, body: #{response.body}")
       errors.add(:base, "code: #{response.code}, message: #{response.message}, body: #{response.body}")
-      Rails.logger.error('=============================================================================')
+      Rails.logger.error('================================================================================')
       #false  # non-success response
       response
     end

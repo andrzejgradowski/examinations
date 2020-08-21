@@ -1,7 +1,7 @@
-class PitTerytController < ApplicationController
+class ApiTerytController < ApplicationController
 
   def items
-    items_obj = PitTerytItem.new(q: "#{params[:q]}", page: "#{params[:page]}", page_limit: "#{params[:page_limit]}")
+    items_obj = ApiTerytAddress.new(q: "#{params[:q]}", page: "#{params[:page]}", page_limit: "#{params[:page_limit]}")
     if items_obj.request_for_collection # return true
       render json: JSON.parse(items_obj.response.body), status: items_obj.response.code
     else
@@ -14,7 +14,7 @@ class PitTerytController < ApplicationController
   end
 
   def item_show
-    item_obj = PitTerytItem.new(id: params[:id])
+    item_obj = ApiTerytAddress.new(combine_id: params[:id])
     if item_obj.request_for_one_row
       render json: JSON.parse(item_obj.response.body), status: item_obj.response.code
     else

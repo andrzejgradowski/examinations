@@ -101,7 +101,7 @@ class ProposalsController < ApplicationController
         rec.family_name   = current_user.family_name
         rec.phone         = current_user.phone
         # old data - step2
-        rec.address_id            = @proposal.address_id
+        rec.address_combine_id    = @proposal.address_combine_id
         rec.city_name             = @proposal.city_name
         rec.street_name           = @proposal.street_name
         rec.c_address_house       = @proposal.c_address_house

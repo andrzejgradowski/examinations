@@ -106,7 +106,7 @@ pl:
         family_name: "Nazwisko rodowe"
         phone: 'Telefon'
         lives_in_poland: 'Mieszkam w Polsce'
-        address_id: 'Adres'
+        address_combine_id: 'Adres'
         province_code: 'Województwo (Id)'
         province_name: 'Województwo'
         district_code: 'Powiat (Id)'

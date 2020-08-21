@@ -17,13 +17,13 @@
 
           <div class="row">
             <div class="form-group required col-sm-12 show_if_lives_in_poland">
-              <%= f.label :address_id, class: "control-label" %> 
-              <%= f.hidden_field :address_id, 
-                                class: "form-control input-sm select2teryt_items", 
+              <%= f.label :address_combine_id, class: "control-label" %> 
+              <%= f.hidden_field :address_combine_id, 
+                                class: "form-control input-sm select2teryt_address", 
                                 placeholder: "Wyszukaj adres",
                                 style: "width:100%",
                                 disabled: !@proposal.lives_in_poland,
-                                id: "address_id_select",
+                                id: "address_combine_id_select",
                                 autofocus: false %>
             </div>
           </div> <!--/row -->
