@@ -1,7 +1,7 @@
 class NetparController < ApplicationController
 
 
-  def divisions_select2_index
+  def divisions
     divisions_obj = NetparDivision.new(category: "#{params[:category]}", q: "#{params[:q]}", page: "#{params[:page]}", page_limit: "#{params[:page_limit]}")
     if divisions_obj.request_for_collection # return true
       render json: JSON.parse(divisions_obj.response.body), status: divisions_obj.response.code
@@ -28,7 +28,7 @@ class NetparController < ApplicationController
   end
 
 
-  def exams_select2_index
+  def exams
     exams_obj = NetparExam.new(category: "#{params[:category]}", division_id: "#{params[:division_id]}", q: "#{params[:q]}", page: "#{params[:page]}", page_limit: "#{params[:page_limit]}")
     if exams_obj.request_for_collection # return true
       render json: JSON.parse(exams_obj.response.body), status: exams_obj.response.code

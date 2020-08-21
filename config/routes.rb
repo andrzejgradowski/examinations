@@ -11,16 +11,13 @@ Rails.application.routes.draw do
     saml_sessions: 'users/saml_sessions'
   }
 
-  get '/netpar/exams_select2_index'
+  get '/netpar/exams',     to: 'netpar#exams'
   get '/netpar/exams/:id', to: 'netpar#exam_show'
-  get '/netpar/divisions_select2_index'
+  get '/netpar/divisions',     to: 'netpar#divisions'
   get '/netpar/divisions/:id', to: 'netpar#division_show'
 
-  get '/pit_teryt/items',                                     to: 'pit_teryt#items'
-  get '/pit_teryt/items/:id',                                 to: 'pit_teryt#item_show'
-
-  get '/api_teryt/items',                                     to: 'api_teryt#items'
-  get '/api_teryt/items/:id',                                 to: 'api_teryt#item_show'
+  get '/api_teryt/items',     to: 'api_teryt#items'
+  get '/api_teryt/items/:id', to: 'api_teryt#item_show'
 
   scope "/:locale", locale: /#{I18n.available_locales.join("|")}/ do
 
