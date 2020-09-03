@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_20_122041) do
+ActiveRecord::Schema.define(version: 2020_08_18_110819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,7 +73,6 @@ ActiveRecord::Schema.define(version: 2020_08_20_122041) do
     t.string "street_code", limit: 20, default: ""
     t.string "street_name", limit: 50, default: ""
     t.string "street_attribute", limit: 20, default: ""
-    t.string "teryt_code", limit: 20, default: ""
     t.string "c_address_house", limit: 10, default: ""
     t.string "c_address_number", limit: 10, default: ""
     t.string "c_address_postal_code", limit: 10, default: ""
@@ -95,7 +94,7 @@ ActiveRecord::Schema.define(version: 2020_08_20_122041) do
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "address_combine_id", limit: 26, default: "", null: false
+    t.string "address_combine_id", limit: 26, default: ""
     t.index ["category"], name: "index_proposals_on_category"
     t.index ["creator_id", "division_id"], name: "index_proposals_on_creator_id_and_division_id"
     t.index ["creator_id"], name: "index_proposals_on_creator_id"
