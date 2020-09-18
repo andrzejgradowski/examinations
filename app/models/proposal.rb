@@ -70,7 +70,6 @@ class Proposal < ApplicationRecord
   validates :esod_category, presence: true
 
   # step 1
-  # validates :email, presence: true, format: { with: /@/ }, if: -> { current_step == 'step1' }
   validates :email, presence: true, format: { with: /@/ }, if: -> { required_for_step?(:step1) && status != SAVED_IN_NETPAR }
   validates :name, presence: true, length: { in: 1..160 }, if: -> { required_for_step?(:step1) && status != SAVED_IN_NETPAR }
   validates :given_names, presence: true, length: { in: 1..50 }, if: -> { required_for_step?(:step1) && status != SAVED_IN_NETPAR }
@@ -92,8 +91,8 @@ class Proposal < ApplicationRecord
 
   # step3
   validates :category, presence: true, inclusion: { in: %w(M R) }, if: -> { required_for_step?(:step3) && status != SAVED_IN_NETPAR }
-  validates :division_id, presence: true, if: -> { required_for_step?(:step3) }
-  validates :exam_id, presence: true, if: -> { required_for_step?(:step3) }
+  validates :division_id, presence: true, if: -> { category.present? && required_for_step?(:step3) }
+  validates :exam_id, presence: true, if: -> { division_id.present? && required_for_step?(:step3) }
   validate :unique_division_for_creator, if: -> { division_id.present? && required_for_step?(:step3) && status != SAVED_IN_NETPAR }
   validate :check_min_years_old, if: -> { division_min_years_old.present? && required_for_step?(:step3) && status != SAVED_IN_NETPAR }
 
@@ -117,7 +116,7 @@ class Proposal < ApplicationRecord
   after_initialize :set_initial_status_and_multi_app_identifier
   before_validation :put_address_values, if: -> { lives_in_poland == true && required_for_step?(:step2) && status != SAVED_IN_NETPAR }
   before_validation :clear_address_values, if: -> { lives_in_poland == false && required_for_step?(:step2) && status != SAVED_IN_NETPAR }
-  before_validation :put_exam_fee_values, if: -> { required_for_step?(:step3) && status != SAVED_IN_NETPAR }
+  before_validation :put_exam_fee_values, if: -> { division_id.present? && required_for_step?(:step3) && status != SAVED_IN_NETPAR }
   before_validation :purge_unrequired_files, if: -> { required_for_step?(:step3) && status != SAVED_IN_NETPAR }
   before_validation :update_link_for_attached_files, if: -> { required_for_step?(:step4) && status != SAVED_IN_NETPAR } 
   after_validation :after_validation_saved_in_netpar, if: -> { confirm_that_the_data_is_correct == true && status == REQUIRED_PUSH_TO_NETPAR }
