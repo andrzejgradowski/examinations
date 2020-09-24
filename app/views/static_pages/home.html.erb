@@ -1,9 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
-      <h1 class="center">
-        <span class="index-title"><%= t '.title' %></span>
-      </h1>
+      <h1 class="center index-title"><%= t '.title' %></h1>
     </div> <!--/col-sm-12 -->
   </div> <!--/row -->
 
@@ -25,21 +23,21 @@
         <div class="carousel-inner" role="listbox">
 
           <div class="item active">
-            <%= image_tag("slide_0.jpg") %>
+            <%= image_tag("slide_0.jpg", alt: "slide 0") %>
             <div class="carousel-caption">
               <h3><%= t(".slide_0") %></h3>
             </div>
           </div>
 
           <div class="item">
-            <%= image_tag("slide_1.jpg") %>
+            <%= image_tag("slide_1.jpg", alt: "slide 1") %>
             <div class="carousel-caption">
               <h3><%= t('.slide_1') %></h3>
             </div>
           </div>
 
           <div class="item">
-            <%= image_tag("slide_2.jpg") %>
+            <%= image_tag("slide_2.jpg", alt: "slide 2") %>
             <div class="carousel-caption">
               <h3><%= t('.slide_2') %></h3>
             </div>
