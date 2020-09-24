@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_18_110819) do
+ActiveRecord::Schema.define(version: 2020_09_24_065240) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,7 +134,7 @@ ActiveRecord::Schema.define(version: 2020_08_18_110819) do
     t.string "pesel"
     t.string "passport"
     t.string "phone"
-    t.date "csu_confirmed_at"
+    t.datetime "csu_confirmed_at"
     t.string "csu_confirmed_by"
     t.string "session_index"
     t.integer "sign_in_count", default: 0, null: false
