@@ -2,7 +2,7 @@ class ProposalMailer < ApplicationMailer
   include ProposalsHelper
   default template_path: 'proposal_mailer' # to make sure that your mailer uses the devise views
   default from: Rails.application.secrets.email_provider_username
-  default bcc: Rails.application.secrets.email_provider_username
+  default bcc: Rails.application.secrets.email_bcc_username
 
   def created(proposal)
     @proposal = proposal
