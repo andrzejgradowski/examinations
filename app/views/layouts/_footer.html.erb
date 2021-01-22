@@ -19,6 +19,11 @@
 
     <div class="col-sm-3">
       <h5><%= t('.links') %></h5>
+        <ul><span class="fa fa-info-circle"></span>&nbsp;&nbsp;
+          <%= link_to static_pages_declaration_path do %>
+            <%= t("static_pages.declaration.navbar") %>
+          <% end %>
+        </ul>
         <ul><span class="fa fa-globe"></span>&nbsp;&nbsp;<%= link_to('UKE', 'http://uke.gov.pl', target: "_blank") %></ul>
         <ul><span class="fa fa-globe"></span>&nbsp;&nbsp;<%= link_to('Facebook', 'https://web.facebook.com/UrzadKomunikacjiElektronicznej', target: "_blank") %></ul>
         <ul><span class="fa fa-globe"></span>&nbsp;&nbsp;<%= link_to('Twitter', 'https://twitter.com/uke2uke', target: "_blank") %></ul>

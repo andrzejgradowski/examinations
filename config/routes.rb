@@ -32,6 +32,7 @@ Rails.application.routes.draw do
 
     get 'static_pages/home'
     get 'static_pages/home_alert'
+    get 'static_pages/declaration'
 
     root to: 'static_pages#home'
 	end
