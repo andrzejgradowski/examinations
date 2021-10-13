@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_24_065240) do
+ActiveRecord::Schema.define(version: 2021_10_04_105108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(version: 2020_09_24_065240) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "address_combine_id", limit: 26, default: ""
+    t.boolean "exam_online", default: false, null: false
     t.index ["category"], name: "index_proposals_on_category"
     t.index ["creator_id", "division_id"], name: "index_proposals_on_creator_id_and_division_id"
     t.index ["creator_id"], name: "index_proposals_on_creator_id"

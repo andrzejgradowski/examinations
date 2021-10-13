@@ -2,9 +2,22 @@ $(document).ready(function() {
 
  function examFormatResult(exam, container, query, escapeMarkup) {
     if (exam.id) {
-      return  markMatch(exam.data_obj.number, query.term) + ', ' + markMatch(exam.data_obj.date_exam, query.term) + ', ' + 
-              markMatch(exam.data_obj.place_exam, query.term) + ', ' + markMatch(exam.data_obj.info, query.term)  +  
-              '<span class="pull-right">&nbsp[' + markMatch(exam.data_obj.province_name, query.term) + ']</span>';
+      if (exam.data_obj.online) {
+        var province_or_online = '<span class="pull-right">&nbsp<span class="glyphicon glyphicon-globe"></span></span>' 
+      } else {
+        var province_or_online = '<span class="pull-right">&nbsp[' + markMatch(exam.data_obj.province_name, query.term) + ']</span>'; 
+      };
+
+
+      console.log("province_or_online", province_or_online);
+      console.log("exam.data_obj.online", exam.data_obj.online);
+      if (exam.data_obj.online) {
+        return  markMatch(exam.data_obj.number, query.term) + ', ' + markMatch(exam.data_obj.date_exam, query.term) + ', ' + 
+                markMatch(exam.data_obj.place_exam, query.term) + ', ' + markMatch(exam.data_obj.info, query.term)  + province_or_online;
+      } else {
+        return  markMatch(exam.data_obj.number, query.term) + ', ' + markMatch(exam.data_obj.date_exam, query.term) + ', ' + 
+                markMatch(exam.data_obj.place_exam, query.term) + ', ' + markMatch(exam.data_obj.info, query.term)  + province_or_online;
+      }
     } else {
       return "";
     }
@@ -84,6 +97,7 @@ $(document).ready(function() {
     if (e.val) {
       document.getElementById("proposal_exam_fullname").value = e.choice.data_obj.fullname;
       document.getElementById("proposal_exam_date_exam").value = e.choice.data_obj.date_exam;
+      document.getElementById("proposal_exam_online").value = e.choice.data_obj.online;
     }
   });
 

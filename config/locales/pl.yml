@@ -141,6 +141,7 @@ pl:
         exam_id: 'Sesja egzaminacyjna'
         exam_fullname: 'Sesja egzaminacyjna'
         exam_date_exam: 'Data egzaminu'
+        exam_online: 'Sesja online'
         division_id: 'Rodzaj'
         division_fullname: 'Rodzaj'
         division_min_years_old: 'Minimalny wiek'

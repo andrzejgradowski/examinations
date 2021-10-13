@@ -11,8 +11,8 @@ gem 'pg'
 # Use Puma as the app server
 #gem 'puma', '~> 3.11'
 #gem 'puma', '~> 4.3.5'
-gem 'puma', '~> 5.3.2'
-gem 'nokogiri', '~> 1.11.5'
+gem 'puma', '~> 5.5.1'
+gem 'nokogiri', '~> 1.12.5'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -98,3 +98,4 @@ gem 'image_processing', '~> 1.2'
 gem 'country_select', '~> 4.0'
 gem 'browser'
 gem 'wicked'
+gem "addressable", ">= 2.8.0"

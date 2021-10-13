@@ -99,6 +99,7 @@ en:
         exam_id: 'Exam session'
         exam_fullname: 'Exam session'
         exam_date_exam: 'Exam date'
+        exam_online: 'Online session'
         division_id: 'Category'
         division_fullname: 'Category'
         division_min_years_old: 'Minimum years old'

@@ -45,7 +45,7 @@ class Proposals::WizardStepsController < ApplicationController
                              when "step2"
                                [:status, :lives_in_poland, :address_combine_id, :city_name, :street_name, :c_address_house, :c_address_number, :c_address_postal_code]
                              when "step3"
-                               [:status, :category, :division_id, :exam_id, :division_fullname, :division_short_name, :division_min_years_old, :exam_fullname, :exam_date_exam, :exam_fee_id, :exam_fee_price]
+                               [:status, :category, :division_id, :exam_id, :division_fullname, :division_short_name, :division_min_years_old, :exam_fullname, :exam_date_exam, :exam_online, :exam_fee_id, :exam_fee_price]
                              when "step4"
                                [:status, :bank_pdf, :face_image, :consent_pdf]
                              when "step5"
