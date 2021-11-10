@@ -66,6 +66,15 @@
 
           <% end %>
 
+          <% if policy(@proposal).testportal_self? %> 
+            <%= link_to testportal_proposal_path(multi_app_identifier: @proposal.multi_app_identifier), 
+                  class: "btn btn-primary" do %>
+              <span class="fa fa-graduation-cap"></span>
+              <%= t("helpers.links.take_test") %>
+            <% end %>
+
+          <% end %>
+
 
         </div> <!-- /col-sm-12 -->
 

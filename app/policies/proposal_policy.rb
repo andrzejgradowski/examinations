@@ -22,6 +22,10 @@ class ProposalPolicy < ApplicationPolicy
     (@model.creator_id == @user.id) && (user_activities.include? 'proposal:show_self') 
   end
 
+  def testportal_self?
+    (@model.creator_id == @user.id) && @model.can_take_tests? && (user_activities.include? 'proposal:show_self') 
+  end
+
   def new?
     create?
   end

@@ -31,17 +31,27 @@
 
       <% end %>
 
-          <% if policy(proposal).create_correction_exam_self? %> 
+      <% if policy(proposal).create_correction_exam_self? %> 
 
-            <%= link_to create_correction_exam_proposal_path(multi_app_identifier: proposal.multi_app_identifier),
-                                method: :patch, 
-                                data: { confirm: t('helpers.links.confirm_create_correction_exam') }, 
-                                class: "btn btn-primary" do %>
-              <span class="fa fa-plus"></span>
-              <%= t("helpers.links.create_correction_exam") %>
-            <% end %>
+        <%= link_to create_correction_exam_proposal_path(multi_app_identifier: proposal.multi_app_identifier),
+                            method: :patch, 
+                            data: { confirm: t('helpers.links.confirm_create_correction_exam') }, 
+                            class: "btn btn-primary" do %>
+          <span class="fa fa-plus"></span>
+          <%= t("helpers.links.create_correction_exam") %>
+        <% end %>
 
-          <% end %>
+      <% end %>
+
+      <% if policy(proposal).testportal_self? %> 
+
+        <%= link_to testportal_proposal_path(multi_app_identifier: proposal.multi_app_identifier), 
+              class: "btn btn-primary" do %>
+          <span class="fa fa-graduation-cap"></span>
+          <%= t("helpers.links.take_test") %>
+        <% end %>
+
+      <% end %>
 
     </div> <!-- /col-sm-12 -->
 

@@ -1,0 +1,43 @@
+<!-- 
+{	"id"=>44182, 
+	"examination_id"=>14437, 
+	"subject_id"=>42, 
+	"grade_result"=>"", 
+	"subject_name"=>"", 
+	"testportal_access_code_id"=>"XKsDxX8cVEY7", 
+	"testportal_url"=>"https://do testportalu"}
+ -->            
+
+<div class="row">
+
+<!-- 
+	<div class="col-sm-1">
+	  <%#= link_to(formated_date(proposal.insertion_date), proposal_path(proposal.service_type, proposal)) %>
+	</div>
+ -->	
+
+	<div class="col-sm-1">
+	  <%= grade["examination_id"] %>
+	</div>
+
+	<div class="col-sm-1">
+	  <%= grade["id"] %>
+	</div>
+
+	<div class="col-sm-5">
+	  <%= grade["subject_name"] %>
+	</div>
+
+	<div class="col-sm-1">
+	  <%= grade["grade_result"] %>
+	</div>
+
+	<div class="col-sm-1">
+	  <%= grade["testportal_access_code_id"] %>
+	</div>
+
+	<div class="col-sm-3">
+	  <%= grade["testportal_url"] %>
+	</div>
+
+</div>

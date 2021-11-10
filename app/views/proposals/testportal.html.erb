@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h3 class="center">
+        <span class="fa fa-graduation-cap glyp-index-title" aria-hidden="true"></span>
+        <span class="index-title"><%= t '.title' %></span>
+      </h3>
+    </div> <!--/col-sm-12 -->
+  </div> <!--/row -->
+
+  <br>
+  
+  <div class="row">
+    <div class="col-sm-12">
+
+      <blockquote>
+        <h4>Uwaga!</h4> 
+        <p>Egzamin składa się z testuów obejmujących przedmioty zgodnie z regulaminem.<br> 
+        Aby <strong>cały egzamin</strong> mógł być prawidłowo oceniany musisz przystąpić i ukończyć <strong>wszystkie
+        testy z poniżej listy.</strong>. Na każdy test masz  15 minut. Testy możesz rozwiązywać w dowolnej kolejności. 
+        Na pytania zawarte w poszczególnych testach możesz również odpowiadać w dowolnej kolejności.</p>
+        <p>Do poszczególnych testów możesz przystąpić tylko <strong>jeden raz!</strong></p>        
+      </blockquote>
+
+    </div> <!--/col-sm-12 -->
+  </div> <!--/row -->
+
+
+  <div class="row">
+    <div class="col-sm-12">
+    <fieldset class="my-fieldset">
+        <legend class="my-fieldset colored-title"><%= t( '.title_grades' ) %></legend>
+
+        <%= render partial: "proposals/grade", collection: @proposal.grades %>
+     
+      </fieldset>
+
+    </div> <!--/col-sm-12 -->
+  </div> <!--/row -->
+
+
+  <hr class="hr-without-top-margin">
+
+  <div class="row">
+    <div class="col-sm-12">
+
+      <%= link_to proposals_path, class: "btn btn-default" do %>
+        <span class="fa fa-list"></span>
+        <%= t("helpers.links.index") %>
+      <% end %>
+
+    </div>
+  </div>
+
+</div>

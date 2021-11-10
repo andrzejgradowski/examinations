@@ -94,6 +94,9 @@ pl:
       navbar: 'Zgłoszenie'
     show:
       title: 'Zgłoszenie'
+    testportal:
+      title: 'Przystąp do Egzaminu'
+      title_grades: 'Testy'
   activerecord:
     models:
       user: 'Użytkownik'
@@ -196,6 +199,7 @@ pl:
       index?: ' BRAK UPRAWNIEŃ: Nie możesz wyświetlać listy zgłoszeń!'
       show?: ' BRAK UPRAWNIEŃ: Nie możesz oglądać szczegółów tego zgłoszenia!'
       show_self?: ' BRAK UPRAWNIEŃ: Nie możesz oglądać szczegółów zgłoszenia, którego nie jesteś autorem!'
+      testportal_self?: ' BRAK UPRAWNIEŃ: Nie możesz przystąpić do egzaminu, który jest niedostępny!'
       update?: ' BRAK UPRAWNIEŃ: Nie możesz edytować danych tego zgłoszenia!'
       create?: ' BRAK UPRAWNIEŃ: Nie możesz tworzyć zgłoszenia!'
       destroy?: ' BRAK UPRAWNIEŃ: Nie możesz usuwać tego zgłoszenia!'
@@ -389,6 +393,7 @@ pl:
       confirm_cancel_wizard: 'Na pewno chcesz zrezygnować ?'
       annulled: "Anuluj zgłoszenie"
       create_correction_exam: Utwórz Zgłoszenie na egzamin poprawkowy
+      take_test: "Przystąp do egzaminu"
       send_email: "Wyślij email"
       download: "Pobierz"
       filter: "Filtruj dane"

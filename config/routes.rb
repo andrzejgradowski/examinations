@@ -11,23 +11,15 @@ Rails.application.routes.draw do
     saml_sessions: 'users/saml_sessions'
   }
 
-  get '/netpar/exams',     to: 'netpar#exams'
-  get '/netpar/exams/:id', to: 'netpar#exam_show'
-  get '/netpar/divisions',     to: 'netpar#divisions'
-  get '/netpar/divisions/:id', to: 'netpar#division_show'
+  # get '/netpar/exams',     to: 'netpar#exams'
+  # get '/netpar/exams/:id', to: 'netpar#exam_show'
+  # get '/netpar/divisions',     to: 'netpar#divisions'
+  # get '/netpar/divisions/:id', to: 'netpar#division_show'
 
-  # create controllers/netpar
-  #                          /exams_controller
-  #                          /divisions_controller
-  #                          /proposals_controller
-  #                          /proposals/grades_controller
-  # namespace :netpar do
-  #   resources :exams, defaults: { format: :json }, only: [:index, :show]
-  #   resources :divisions, defaults: { format: :json }, only: [:index, :show]
-  #   resources :proposals, param: :multi_app_identifier, defaults: { format: :json }, only: [] do
-  #     get 'grades', on: :member
-  #   end
-  # end
+  namespace :netpar do
+    resources :exams, defaults: { format: :json }, only: [:index, :show]
+    resources :divisions, defaults: { format: :json }, only: [:index, :show]
+  end
 
   get '/api_teryt/items',     to: 'api_teryt#items'
   get '/api_teryt/items/:id', to: 'api_teryt#item_show'
@@ -39,6 +31,7 @@ Rails.application.routes.draw do
     resources :proposals, param: :multi_app_identifier, only: [:create, :index, :show, :destroy] do
       patch 'update_annulled', on: :member
       patch 'create_correction_exam', on: :member
+      get 'testportal', on: :member
       resources :wizard, only: [:show, :update], controller: 'proposals/wizard_steps'
     end
 

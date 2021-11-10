@@ -2,7 +2,7 @@ class ProposalsController < ApplicationController
   include ProposalsHelper
   
   before_action :authenticate_user!
-  before_action :set_proposal, only: [:show, :update_annulled, :create_correction_exam, :destroy]
+  before_action :set_proposal, only: [:show, :update_annulled, :create_correction_exam, :destroy, :testportal]
 
   after_action :verify_authorized, except: :index
   after_action :verify_policy_scoped, only: :index
@@ -59,6 +59,10 @@ class ProposalsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to proposals_url }
     end
+  end
+
+  def testportal
+    authorize @proposal, :testportal_self?
   end
 
   private

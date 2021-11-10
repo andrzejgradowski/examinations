@@ -270,11 +270,19 @@ class Proposal < ApplicationRecord
   end
   
   def can_annulled?
-    (exam_date_exam - 5.days > Time.zone.today) && [PROPOSAL_STATUS_CREATED, PROPOSAL_STATUS_APPROVED].include?(proposal_status_id) 
+    (exam_date_exam - 5.days > Time.zone.today) && ([PROPOSAL_STATUS_CREATED, PROPOSAL_STATUS_APPROVED].include?(proposal_status_id))
   end
 
   def can_correction_exam?
     [PROPOSAL_STATUS_EXAMINATION_RESULT_N].include?(proposal_status_id)
+  end
+
+  def can_take_tests?
+    unless (exam_online == true) && ([PROPOSAL_STATUS_APPROVED].include?(proposal_status_id))
+      false
+    else
+      true
+    end
   end
 
   def bank_pdf_required?
@@ -334,7 +342,10 @@ class Proposal < ApplicationRecord
     grades_obj = NetparGrade.new(multi_app_identifier: self.multi_app_identifier)
     # grades_obj = NetparGrade.new(multi_app_identifier: params[:multi_app_identifier])
     if grades_obj.request_for_collection # return true
-      JSON.parse(grades_obj.response.body)
+      grades_hash = JSON.parse(grades_obj.response.body) if grades_obj.response.body.present?
+      return grades_hash["grades"]
+    else
+      return []
     end
   end
 
