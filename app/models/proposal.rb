@@ -316,6 +316,28 @@ class Proposal < ApplicationRecord
     end
   end
 
+  # def grades
+  #   grades_obj = NetparGrade.new(multi_app_identifier: "23a9e934-fee3-4ab8-9b8f-e5a557b854b8")
+  #   # grades_obj = NetparGrade.new(multi_app_identifier: params[:multi_app_identifier])
+  #   if grades_obj.request_for_collection # return true
+  #     render json: JSON.parse(grades_obj.response.body), status: grades_obj.response.code
+  #   else
+  #     if grades_obj.response.present?
+  #        render json: { error: grades_obj.response.message }, status: grades_obj.response.code 
+  #     else 
+  #        render json: { error: grades_obj.errors.messages }, status: :unprocessable_entity
+  #     end
+  #   end
+  # end
+
+  def grades
+    grades_obj = NetparGrade.new(multi_app_identifier: self.multi_app_identifier)
+    # grades_obj = NetparGrade.new(multi_app_identifier: params[:multi_app_identifier])
+    if grades_obj.request_for_collection # return true
+      JSON.parse(grades_obj.response.body)
+    end
+  end
+
   def self.send_reminders
     puts '--------------------------------------------------------------------------------'    
     puts 'RUN WHENEVER send_reminders...'

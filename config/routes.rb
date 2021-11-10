@@ -16,6 +16,19 @@ Rails.application.routes.draw do
   get '/netpar/divisions',     to: 'netpar#divisions'
   get '/netpar/divisions/:id', to: 'netpar#division_show'
 
+  # create controllers/netpar
+  #                          /exams_controller
+  #                          /divisions_controller
+  #                          /proposals_controller
+  #                          /proposals/grades_controller
+  # namespace :netpar do
+  #   resources :exams, defaults: { format: :json }, only: [:index, :show]
+  #   resources :divisions, defaults: { format: :json }, only: [:index, :show]
+  #   resources :proposals, param: :multi_app_identifier, defaults: { format: :json }, only: [] do
+  #     get 'grades', on: :member
+  #   end
+  # end
+
   get '/api_teryt/items',     to: 'api_teryt#items'
   get '/api_teryt/items/:id', to: 'api_teryt#item_show'
 
