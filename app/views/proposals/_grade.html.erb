@@ -7,37 +7,69 @@
 	"testportal_access_code_id"=>"XKsDxX8cVEY7", 
 	"testportal_url"=>"https://do testportalu"}
  -->            
+<fieldset class="my-fieldset">
+  <legend class="my-fieldset colored-title"><strong><%= grade["subject_name"] %></strong></legend>
+ 
+	<div class="row">
 
-<div class="row">
+		<p><%= grade["testportal_access_code_id"] %></p>
+		<p><%= grade["testportal_test_info"] %></p>
+
+	</div>
+
+
+
+	<% to_value = '{ "autoSubmit" : false, "startPageReadOnly" : true, "personUID": "1145", "accessCode": "69kFhvYn3zeW", "personalData" : { "firstName" : "Adam", "lastName" : "Nowak" } }' %>
+
+	<div class="row">
+	<form method="post" action="https://www.testportal.pl/exam/start.html">
+	<input name="startTestRequest" type="hidden"
+	value='{ "autoSubmit" : false, "startPageReadOnly" : true, "personUID": "1145", "accessCode": "69kFhvYn3zeW", "personalData" : { "firstName" : "Adam", "lastName" : "Nowak" } }'>
+
+	<input type="submit" class="btn btn-danger" value="Uruchom test">
+	</form>
+	</div>
+
+
+
+
+	<hr class="hr">
+
+
+	<% url = "https://www.testportal.pl/test.html?t=" + grade["testportal_test_info"]["publicId"] %>
+
+	<iframe style="width: 100%; height: 450px; border: none;" src=<%= url %>></iframe> 
+
+
+
+
+
+
+
+	<hr class="hr">
+
+
+	<% url = "https://www.testportal.pl/test.html?startTestRequest=#{to_value}" %>
+
+	<iframe style="width: 100%; height: 450px; border: none;" src=<%= url %>></iframe> 
+
+
+
+</fieldset>
+
+
+
+
+
+
+
+
+
 
 <!-- 
-	<div class="col-sm-1">
-	  <%#= link_to(formated_date(proposal.insertion_date), proposal_path(proposal.service_type, proposal)) %>
-	</div>
- -->	
+<iframe style="width: 100%; height: 450px; border: none;" src="https://www.testportal.pl/test.html?t=xvK6X8S9QZz3"></iframe> 
 
-	<div class="col-sm-1">
-	  <%= grade["examination_id"] %>
-	</div>
+ --><!-- 
+{"idTest"=>"IA3dyVzWya7x8sO0ra--aJgZ7Yv0mVuVI1OoDRd1pV-PZr3Y9pWTzKz9x8skSW-MtA", "name"=>"77/21/A___3. Przepisy i procedury operatorskie", "description"=>"Kategoria A", "creationTime"=>1636536756279, "accessStartTimestamp"=>nil, "accessStart"=>nil, "status"=>"SETUP", "frozen"=>false, "categoryName"=>"R_A_44", "idTestCategory"=>"IGt2Zk5ruhm9AdjUGM7d3t2SsEB_I60h3qhTNyUtvHsbG8X_XwgGyQXaSS6zDiHYLg", "publicId"=>"xvK6X8S9QZz3", "examLocale"=>"pl"}
 
-	<div class="col-sm-1">
-	  <%= grade["id"] %>
-	</div>
-
-	<div class="col-sm-5">
-	  <%= grade["subject_name"] %>
-	</div>
-
-	<div class="col-sm-1">
-	  <%= grade["grade_result"] %>
-	</div>
-
-	<div class="col-sm-1">
-	  <%= grade["testportal_access_code_id"] %>
-	</div>
-
-	<div class="col-sm-3">
-	  <%= grade["testportal_url"] %>
-	</div>
-
-</div>
+ -->
