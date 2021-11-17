@@ -1,0 +1,13 @@
+function testportal_submit_click(testname) {
+
+  console.log('testname: ', testname);
+
+  if (document.getElementById("for_iframe_div").style.display == "none") {
+    // toastr['info']("BYŁO HIDDEN");
+    document.getElementById("for_iframe_div").style.display = '';
+  } else {
+    console.log('for_iframe_div: ', document.getElementById("for_iframe_div"));
+    console.log('test-frame_iframe_id: ', document.getElementById("test-frame_iframe_id"));
+  }  
+
+};

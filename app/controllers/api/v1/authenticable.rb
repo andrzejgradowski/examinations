@@ -6,16 +6,16 @@ module Api
         authenticate_with_http_basic do |username, password|
           system_for_api = ApiKey.find_by(name: username)
           if system_for_api && system_for_api.password == password
-            render json: { token: system_for_api.access_token }, status: 200
+            render json: { token: system_for_api.access_token }, status: :ok #200
           else
-            render json: { error: 'Incorrect credentials' }, status: 401
+            render json: { error: 'Incorrect credentials' }, status: :bad_request #401
           end
         end
       end
 
       def authenticate_system_from_token
         unless authenticate_with_http_token { |token, options| ApiKey.find_by(access_token: token) }
-          render json: { error: 'Bad Token'}, status: 401
+          render json: { error: 'Bad Token'}, status: :bad_request #401
         end
       end
 

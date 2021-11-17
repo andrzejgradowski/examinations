@@ -1,75 +1,32 @@
 <!-- 
-{	"id"=>44182, 
-	"examination_id"=>14437, 
-	"subject_id"=>42, 
-	"grade_result"=>"", 
-	"subject_name"=>"", 
-	"testportal_access_code_id"=>"XKsDxX8cVEY7", 
-	"testportal_url"=>"https://do testportalu"}
- -->            
-<fieldset class="my-fieldset">
-  <legend class="my-fieldset colored-title"><strong><%= grade["subject_name"] %></strong></legend>
- 
-	<div class="row">
+<div class="row">
+	<p><%= grade["testportal_access_code_id"] %></p>
+	<p><%= grade["testportal_test_info"] %></p>
+	<p><%= @current_user.id %></p>
+	<p><%= @current_user.first_name %></p>
+	<p><%= @current_user.last_name %></p>
+	<p><%= @proposal.multi_app_identifier %></p>
+</div>
+-->	
 
-		<p><%= grade["testportal_access_code_id"] %></p>
-		<p><%= grade["testportal_test_info"] %></p>
+<% access_code = '"' + grade["testportal_access_code_id"] + '"' %>
+<% to_value = '{  "autoSubmit": true, 
+									"startPageReadOnly": true, 
+									"personUID": '+"#{@proposal.multi_app_identifier}"+', 
+									"accessCode": ' + "#{access_code}" + ', 
+									"personalData": { 
+										"firstName": '+"#{@current_user.first_name}"+', 
+										"lastName": '+"#{@current_user.last_name}"+'}}' %>
 
+
+
+
+<div class="row">
+	<div class="col-sm-12">
+		<form target="test-frame" method="post" action="https://egzaminyuke.testportal.pl/exam/start.html">
+			<input name="startTestRequest" type="hidden" value="<%= to_value %>">
+			<input type="submit" class="btn btn-danger" value="<%= grade["testportal_test_info"]["name"] %>" onclick="testportal_submit_click(this.value)" >
+		</form>
+		<br>
 	</div>
-
-
-
-	<% to_value = '{ "autoSubmit" : false, "startPageReadOnly" : true, "personUID": "1145", "accessCode": "69kFhvYn3zeW", "personalData" : { "firstName" : "Adam", "lastName" : "Nowak" } }' %>
-
-	<div class="row">
-	<form method="post" action="https://www.testportal.pl/exam/start.html">
-	<input name="startTestRequest" type="hidden"
-	value='{ "autoSubmit" : false, "startPageReadOnly" : true, "personUID": "1145", "accessCode": "69kFhvYn3zeW", "personalData" : { "firstName" : "Adam", "lastName" : "Nowak" } }'>
-
-	<input type="submit" class="btn btn-danger" value="Uruchom test">
-	</form>
-	</div>
-
-
-
-
-	<hr class="hr">
-
-
-	<% url = "https://www.testportal.pl/test.html?t=" + grade["testportal_test_info"]["publicId"] %>
-
-	<iframe style="width: 100%; height: 450px; border: none;" src=<%= url %>></iframe> 
-
-
-
-
-
-
-
-	<hr class="hr">
-
-
-	<% url = "https://www.testportal.pl/test.html?startTestRequest=#{to_value}" %>
-
-	<iframe style="width: 100%; height: 450px; border: none;" src=<%= url %>></iframe> 
-
-
-
-</fieldset>
-
-
-
-
-
-
-
-
-
-
-<!-- 
-<iframe style="width: 100%; height: 450px; border: none;" src="https://www.testportal.pl/test.html?t=xvK6X8S9QZz3"></iframe> 
-
- --><!-- 
-{"idTest"=>"IA3dyVzWya7x8sO0ra--aJgZ7Yv0mVuVI1OoDRd1pV-PZr3Y9pWTzKz9x8skSW-MtA", "name"=>"77/21/A___3. Przepisy i procedury operatorskie", "description"=>"Kategoria A", "creationTime"=>1636536756279, "accessStartTimestamp"=>nil, "accessStart"=>nil, "status"=>"SETUP", "frozen"=>false, "categoryName"=>"R_A_44", "idTestCategory"=>"IGt2Zk5ruhm9AdjUGM7d3t2SsEB_I60h3qhTNyUtvHsbG8X_XwgGyQXaSS6zDiHYLg", "publicId"=>"xvK6X8S9QZz3", "examLocale"=>"pl"}
-
- -->
+</div>

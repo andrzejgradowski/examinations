@@ -65,6 +65,7 @@ module Api
         return allowed
       end
 
-    end
-  end
+    end # /class
+  end # /module
+
 end

@@ -55,7 +55,6 @@ Rails.application.routes.draw do
       get :token, controller: 'base_api'
 
       resources :proposals, param: :multi_app_identifier, except: [:new, :edit, :create, :destroy]
-
     end
 
     namespace :v2 do
