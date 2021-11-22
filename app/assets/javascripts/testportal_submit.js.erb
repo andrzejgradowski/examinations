@@ -1,13 +1,35 @@
-function testportal_submit_click(testname) {
+function testportal_submit_click(thisobj) {
 
-  console.log('testname: ', testname);
+  // if ( document.getElementsByClassName("btn-grader").length > 0 ) { alert('Test end'); }
+  var list = document.getElementsByClassName("btn-grader");
+  for (var i = 0; i < list.length; i++) {
+    // all buttons disabled
+    list[i].disabled = true; 
+    // or:
+    // list[i].classList.add('disabled');
+  };
+
+  // button cliked enabled
+  thisobj.disabled = false;
+  // or
+  // thisobj.classList.remove('disabled');
 
   if (document.getElementById("for_iframe_div").style.display == "none") {
-    // toastr['info']("BYŁO HIDDEN");
+    toastr['info']("iframe show");
     document.getElementById("for_iframe_div").style.display = '';
-  } else {
-    console.log('for_iframe_div: ', document.getElementById("for_iframe_div"));
-    console.log('test-frame_iframe_id: ', document.getElementById("test-frame_iframe_id"));
-  }  
+  }
+
+};
+
+
+function testportal_end_test() {
+
+  var list = document.getElementsByClassName("btn-grader");
+  for (var i = 0; i < list.length; i++) {
+    // all buttons enabled
+    list[i].disabled = false; 
+    // or:
+    // list[i].classList.remove('disabled');
+  };
 
 };

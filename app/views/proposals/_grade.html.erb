@@ -1,11 +1,11 @@
 <!-- 
 <div class="row">
-	<p><%= grade["testportal_access_code_id"] %></p>
-	<p><%= grade["testportal_test_info"] %></p>
-	<p><%= @current_user.id %></p>
-	<p><%= @current_user.first_name %></p>
-	<p><%= @current_user.last_name %></p>
-	<p><%= @proposal.multi_app_identifier %></p>
+	<p><%#= grade["testportal_access_code_id"] %></p>
+	<p><%#= grade["testportal_test_info"] %></p>
+	<p><%#= @current_user.id %></p>
+	<p><%#= @current_user.first_name %></p>
+	<p><%#= @current_user.last_name %></p>
+	<p><%#= @proposal.multi_app_identifier %></p>
 </div>
 -->	
 
@@ -16,16 +16,14 @@
 									"accessCode": ' + "#{access_code}" + ', 
 									"personalData": { 
 										"firstName": '+"#{@current_user.first_name}"+', 
-										"lastName": '+"#{@current_user.last_name}"+'}}' %>
-
-
+										"lastName": '+"#{@current_user.last_name}"+' } }' %>
 
 
 <div class="row">
 	<div class="col-sm-12">
 		<form target="test-frame" method="post" action="https://egzaminyuke.testportal.pl/exam/start.html">
 			<input name="startTestRequest" type="hidden" value="<%= to_value %>">
-			<input type="submit" class="btn btn-danger" value="<%= grade["testportal_test_info"]["name"] %>" onclick="testportal_submit_click(this.value)" >
+			<input type="submit" class="btn btn-danger btn-grader" value="<%= grade["testportal_test_info"]["name"] %>" onclick="testportal_submit_click(this)" >
 		</form>
 		<br>
 	</div>
