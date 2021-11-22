@@ -9,6 +9,12 @@
 										"lastName": '+"#{@current_user.last_name}"+' } }' %>
 
 <div class="row">
+	<p><%= testportal_test_info_name %></p>
+	<p><%= access_code %></p>
+</div>
+
+
+<div class="row">
 	<div class="col-sm-12">
 		<form target="test-frame" method="post" action="https://egzaminyuke.testportal.pl/exam/start.html">
 			<input name="startTestRequest" type="hidden" value="<%= to_value %>">
