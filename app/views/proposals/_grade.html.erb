@@ -1,14 +1,3 @@
-<!-- 
-<div class="row">
-	<p><%#= grade["testportal_access_code_id"] %></p>
-	<p><%#= grade["testportal_test_info"] %></p>
-	<p><%#= @current_user.id %></p>
-	<p><%#= @current_user.first_name %></p>
-	<p><%#= @current_user.last_name %></p>
-	<p><%#= @proposal.multi_app_identifier %></p>
-</div>
--->	
-
 <% testportal_test_info_name = grade["testportal_test_info"]["name"] %>
 <% access_code = '"' + grade["testportal_access_code_id"] + '"' %>
 <% to_value = '{  "autoSubmit": true, 
@@ -18,7 +7,6 @@
 									"personalData": { 
 										"firstName": '+"#{@current_user.first_name}"+', 
 										"lastName": '+"#{@current_user.last_name}"+' } }' %>
-
 
 <div class="row">
 	<div class="col-sm-12">

@@ -27,8 +27,15 @@
   <div class="row">
     <div class="col-sm-12">
 
-      <%= render partial: "proposals/grade", collection: @proposal.grades %>
-     
+<!--
+      <%#= render partial: "proposals/grade", collection: @proposal.grades %>
+-->
+
+      <% @proposal.grades.each do |grade| %>
+        <%= render  partial: "proposals/grade", locals: { grade: grade } %>
+      <% end %>
+
+
     </div> <!--/col-sm-12 -->
   </div> <!--/row -->
 
