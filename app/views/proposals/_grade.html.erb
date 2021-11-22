@@ -9,6 +9,7 @@
 </div>
 -->	
 
+<% testportal_test_info_name = '"' + grade["testportal_test_info"]["name"] + '"' %>
 <% access_code = '"' + grade["testportal_access_code_id"] + '"' %>
 <% to_value = '{  "autoSubmit": true, 
 									"startPageReadOnly": true, 
@@ -23,7 +24,7 @@
 	<div class="col-sm-12">
 		<form target="test-frame" method="post" action="https://egzaminyuke.testportal.pl/exam/start.html">
 			<input name="startTestRequest" type="hidden" value="<%= to_value %>">
-			<input type="submit" class="btn btn-danger btn-grader" value="<%= grade["testportal_test_info"]["name"] %>" onclick="testportal_submit_click(this)" >
+			<input type="submit" class="btn btn-danger btn-grader" value="<%= testportal_test_info_name %>" onclick="testportal_submit_click(this)" >
 		</form>
 		<br>
 	</div>
