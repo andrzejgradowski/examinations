@@ -1,4 +1,4 @@
-<% testportal_test_info_name = grade["testportal_test_info"] %>
+<% testportal_test_info_name = grade["testportal_test_info"]["name"] %>
 <% access_code = '"' + grade["testportal_access_code_id"] + '"' %>
 <% to_value = '{  "autoSubmit": true, 
 									"startPageReadOnly": true, 
@@ -7,12 +7,6 @@
 									"personalData": { 
 										"firstName": '+"#{@current_user.first_name}"+', 
 										"lastName": '+"#{@current_user.last_name}"+' } }' %>
-
-<div class="row">
-	<p><%= testportal_test_info_name %></p>
-	<p><%= access_code %></p>
-</div>
-
 
 <div class="row">
 	<div class="col-sm-12">
