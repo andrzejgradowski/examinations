@@ -55,3 +55,20 @@
   </div>
 
 </div>
+
+<script type="text/javascript">
+  
+  $(document).ready(function() {
+    // Listen to message from child window
+    window.addEventListener('message', function (event) {
+      console.log(event)
+      if(event.data === 'test-end'){
+        // console.log('Ja ba da ba du');
+        // alert('Ja ba da ba du');
+        testportal_end_test();
+        toastr['info']("Jeżeli to nie był ostatni test, to przejdź do następnego");
+      }
+    }, false);
+  });
+
+</script>

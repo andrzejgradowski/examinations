@@ -20,3 +20,13 @@ function testportal_submit_click(thisobj) {
   }
 
 };
+
+function testportal_end_test() {
+  var list = document.getElementsByClassName("btn-grader");
+  for (var i = 0; i < list.length; i++) {
+    // all buttons enabled
+    list[i].disabled = false; 
+    // or:
+    // list[i].classList.remove('disabled');
+  };
+};  
