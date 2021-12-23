@@ -25,7 +25,9 @@ class ProposalMailer < ApplicationMailer
     attachments.inline['logo_app.jpg'] = File.read("app/assets/images/logo_application.png")
     attachments.inline['logo_uke.jpg'] = File.read("app/assets/images/logo_uke_pl_do_lewej_small.png")
 
-    mail(to: @proposal.creator.email, subject: "#{t('title')} - #{@proposal_fullname}" )
+    mail(to: @proposal.creator.email, 
+      subject: "#{t('title')} - #{@proposal_fullname}", 
+      template_name: @proposal.exam_online? ? "approved_online" : "approved" )
   end
 
   def not_approved(proposal)
@@ -79,6 +81,7 @@ class ProposalMailer < ApplicationMailer
     @proposal = proposal
     @proposal_fullname = "#{proposal_rec_info(@proposal)}"
     @proposal_url_uuid = Rails.application.routes.url_helpers.url_for(only_path: false, controller: 'proposals', action: 'show', multi_app_identifier: @proposal.multi_app_identifier, locale: locale)
+    @proposal_need_corrections = @proposal.grades.reject {|row| row["grade_result"] == "P"}.map {|poz| poz["subject_name"]}.join(", ")
 
     attachments.inline['logo_app.jpg'] = File.read("app/assets/images/logo_application.png")
     attachments.inline['logo_uke.jpg'] = File.read("app/assets/images/logo_uke_pl_do_lewej_small.png")

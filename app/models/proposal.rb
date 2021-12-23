@@ -349,6 +349,10 @@ class Proposal < ApplicationRecord
     end
   end
 
+  def grades_where_status_examination_result_n_subjects_name
+    grades_array self.grades
+  end
+
   def self.send_reminders
     puts '--------------------------------------------------------------------------------'    
     puts 'RUN WHENEVER send_reminders...'

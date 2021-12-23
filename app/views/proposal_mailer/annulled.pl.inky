@@ -45,7 +45,6 @@
           <spacer size="8"></spacer>
           <h6 class="text-right h6-small"><%= mail_to "wml@uke.gov.pl" %></h6>
           <h6 class="text-right h6-small"><%= mail_to "ske.gdynia@uke.gov.pl" %></h6>
-          <h6 class="text-right h6-small"><%= mail_to "egzaminy@uke.gov.pl" %></h6>
         </columns>
       </row>
       <row>
