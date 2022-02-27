@@ -23,7 +23,19 @@
       <p>W programie <strong>UKE Egzaminy</strong></p> 
       <p><%= link_to @proposal_fullname, @proposal_url_uuid, target: "_blank" %> na sesję egzaminacyjną:</p>
       <p><%= "#{@proposal.exam_fullname}" %></p> 
-      <p>otrzymało status <strong>ZAAKCEPTOWANE</strong>.</p> 
+      <p>otrzymało status <strong>ZAAKCEPTOWANE</strong>.</p>
+
+
+<p>Cały egzamin składa się z 4 testów (przedmiotów), po 5 pytań z każdego przedmiotu, czyli łącznie z 20 pytań testowych.
+Do każdego pytania wybierz tylko jedną odpowiedź (A lub B lub C).</p>
+<p>Na udzielenie 5 odpowiedzi z każdego przedmiotu masz 5 minut. Nie masz możliwości zatrzymania czasu pomiędzy pytaniami z danego przedmiotu.</p>
+<p>Po zatwierdzeniu odpowiedzi na każde pytanie, nie masz możliwości jej zmiany.</p>
+<p>Możesz robić przerwy pomiędzy przedmiotami, ale cały egzamin musisz odbyć w trakcie czasu przeznaczonego na daną sesję.
+Możesz zdawać przedmioty w dowolnej kolejności.</p>
+<p>Rozwiązuj testy bez niedozwolonych pomocy, bo może to skutkować niezaliczeniem testu ! System posiada zabezpieczenia, uniemożliwiające udzielanie odpowiedzi w sposób niesamodzielny. W czasie udzielania odpowiedzi, nie klikaj poza okno testu.
+O wyniku egzaminu zostaniesz powiadomiony osobnym mailem, po zatwierdzeniu wyników przez Komisję Egzaminacyjną, najczęściej w następnym dniu roboczym.</p>
+<p>Powodzenia na egzaminie!</p>
+
       <spacer size="16"></spacer>
       <p>Informujemy, że osoby przystępujące do egzaminu są zobowiązane do zapewnienia sobie dostępu do sieci internet oraz do sprzętu umożliwiającego przystąpienie do egzaminu online.</p>
       <p>...Zaloguj się do programu Egzaminy w <%= "#{@proposal.exam_date_exam.strftime("%Y-%m-%d")}" %>.</p> 

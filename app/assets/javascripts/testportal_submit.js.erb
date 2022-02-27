@@ -27,4 +27,34 @@ function testportal_end_test() {
     list[i].disabled = false; 
     // list[i].classList.remove('disabled');
   };
+
+  var gradesSize = getCookie('grades_list_size');
+  if (parseInt(gradesSize) > 1 ) {
+    gradesSize = gradesSize-1;
+    setCookie('grades_list_size', JSON.stringify(parseInt(gradesSize)), '1');
+    toastr['info']("Przejdź do następnego testu.");
+  } else {
+    var mess = "Udzieliłeś odpowiedzi na pytania we wszystkich testach."+"\n"+
+               "O wyniku egzaminu zostaniesz poinformowany osobnym mailem, po zatwierdzeniu wyników przez Komisję Egzaminacyjną"+"\n"+
+               "(najczęściej w następnym dniu roboczym)";
+    alert(mess);
+  };
+
 };  
+
+
+function setCookie(key, value, expiry) {
+    var expires = new Date();
+    expires.setTime(expires.getTime() + (expiry * 24 * 60 * 60 * 1000));
+    document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+};
+
+function getCookie(key) {
+    var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+    return keyValue ? keyValue[2] : null;
+};
+
+function eraseCookie(key) {
+    var keyValue = getCookie(key);
+    setCookie(key, keyValue, '-1');
+};

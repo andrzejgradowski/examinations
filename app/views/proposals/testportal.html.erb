@@ -14,10 +14,18 @@
     <div class="col-sm-12">
       <blockquote>
         <h4>Uwaga!</h4> 
-        <p>Egzamin składa się z testów obejmujących przedmioty zgodnie z regulaminem.<br> 
-        Aby <strong>cały egzamin</strong> mógł być prawidłowo oceniany musisz ukończyć <strong>wszystkie
-        testy z poniżej listy.</strong>. Na każdy test masz 5 minut.
-        <p>Do poszczególnych testów możesz przystąpić tylko <strong>jeden raz!</strong></p>        
+
+
+<p>Cały egzamin składa się z 4 testów (przedmiotów), po 5 pytań z każdego przedmiotu, czyli łącznie z 20 pytań testowych.
+Do każdego pytania wybierz tylko jedną odpowiedź (A lub B lub C).</p>
+<p>Na udzielenie 5 odpowiedzi z każdego przedmiotu masz 5 minut. Nie masz możliwości zatrzymania czasu pomiędzy pytaniami z danego przedmiotu.</p>
+<p>Po zatwierdzeniu odpowiedzi na każde pytanie, nie masz możliwości jej zmiany.</p>
+<p>Możesz robić przerwy pomiędzy przedmiotami, ale cały egzamin musisz odbyć w trakcie czasu przeznaczonego na daną sesję.
+Możesz zdawać przedmioty w dowolnej kolejności.</p>
+<p>Rozwiązuj testy bez niedozwolonych pomocy, bo może to skutkować niezaliczeniem testu ! System posiada zabezpieczenia, uniemożliwiające udzielanie odpowiedzi w sposób niesamodzielny. W czasie udzielania odpowiedzi, nie klikaj poza okno testu.
+O wyniku egzaminu zostaniesz powiadomiony osobnym mailem, po zatwierdzeniu wyników przez Komisję Egzaminacyjną, najczęściej w następnym dniu roboczym.</p>
+<p>Powodzenia na egzaminie!</p>
+
       </blockquote>
     </div> <!--/col-sm-12 -->
   </div> <!--/row -->
@@ -56,22 +64,23 @@
 </div>
 
 <script type="text/javascript">
-  
+
   $(document).ready(function() {
     // Listen to message from child window
     window.addEventListener('message', function (event) {
       console.log(event)
       if(event.data === 'test-end'){
-        // console.log('Ja ba da ba du');
-        // alert('Ja ba da ba du');
         testportal_end_test();
-        toastr['info']("Jeżeli to nie był ostatni test, to przejdź do następnego");
       }
     }, false);
   });
 
 
+  window.onload = function () { 
 
+    var gradesSize = <%= @proposal.grades.size %>;
+    setCookie('grades_list_size', JSON.stringify(parseInt(gradesSize)), '1')
 
+  }
 
 </script>
