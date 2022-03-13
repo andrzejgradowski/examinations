@@ -349,8 +349,14 @@ class Proposal < ApplicationRecord
     end
   end
 
-  def grades_where_status_examination_result_n_subjects_name
-    grades_array self.grades
+  def grades_with_result
+    grades_obj = NetparGradeWithResult.new(multi_app_identifier: self.multi_app_identifier)
+    if grades_obj.request_for_collection # return true
+      grades_hash = JSON.parse(grades_obj.response.body) if grades_obj.response.body.present?
+      return grades_hash["grades_with_result"]
+    else
+      return []
+    end
   end
 
   def self.send_reminders

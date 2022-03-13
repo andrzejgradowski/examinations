@@ -81,7 +81,7 @@ class ProposalMailer < ApplicationMailer
     @proposal = proposal
     @proposal_fullname = "#{proposal_rec_info(@proposal)}"
     @proposal_url_uuid = Rails.application.routes.url_helpers.url_for(only_path: false, controller: 'proposals', action: 'show', multi_app_identifier: @proposal.multi_app_identifier, locale: locale)
-    @proposal_need_corrections = @proposal.grades.reject {|row| row["grade_result"] == "P"}.map {|poz| poz["subject_name"]}.join(", ")
+    @proposal_need_corrections = @proposal.grades_with_result.reject {|row| row["grade_result"] == "P"}.map {|poz| poz["subject_name"]}.join(", <br>")
 
     attachments.inline['logo_app.jpg'] = File.read("app/assets/images/logo_application.png")
     attachments.inline['logo_uke.jpg'] = File.read("app/assets/images/logo_uke_pl_do_lewej_small.png")
