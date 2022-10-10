@@ -1,6 +1,7 @@
 class Netpar::DivisionsController < ApplicationController
 
   def index
+    params[:category] = category_params_validate(params[:category])
     divisions_obj = NetparDivision.new(category: "#{params[:category]}", q: "#{params[:q]}", page: "#{params[:page]}", page_limit: "#{params[:page_limit]}")
     if divisions_obj.request_for_collection # return true
       render json: JSON.parse(divisions_obj.response.body), status: divisions_obj.response.code
@@ -26,4 +27,10 @@ class Netpar::DivisionsController < ApplicationController
     end
   end
 
+  private
+    def category_params_validate(category_service)
+      unless ['l', 'm', 'r', 'L', 'M', 'R', '', nil].include?(category_service)
+        raise "Ruby injection"
+      end
+    end
 end
