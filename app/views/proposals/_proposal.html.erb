@@ -43,7 +43,7 @@
 
       <% end %>
 
-      <% if policy(proposal).testportal_self? && proposal.exam_date_exam == Time.zone.today %> 
+      <% if policy(proposal).testportal_self? && (proposal.exam_date_exam == Time.zone.today) %> 
 
         <%= link_to testportal_proposal_path(multi_app_identifier: proposal.multi_app_identifier), 
               class: "btn btn-primary" do %>
