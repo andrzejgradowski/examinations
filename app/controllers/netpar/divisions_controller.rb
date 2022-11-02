@@ -32,5 +32,6 @@ class Netpar::DivisionsController < ApplicationController
       unless ['l', 'm', 'r', 'L', 'M', 'R', '', nil].include?(category_service)
         raise "Ruby injection"
       end
+      return category_service.upcase
     end
 end
