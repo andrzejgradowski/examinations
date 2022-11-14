@@ -1,20 +1,18 @@
 <% testportal_test_info_name = grade["testportal_test_info"]["name"] %>
+<% person_uid = '"' + @proposal.multi_app_identifier + '"' %>
 <% access_code = '"' + grade["testportal_access_code_id"] + '"' %>
-<% to_value = '{  "autoSubmit": true, 
-									"startPageReadOnly": true, 
-									"personUID": '+"#{@proposal.multi_app_identifier}"+', 
-									"accessCode": ' + "#{access_code}" + ', 
-									"personalData": { 
-										"firstName": '+"#{@current_user.first_name}"+', 
-										"lastName": '+"#{@current_user.last_name}"+' } }' %>
+<% first_name = '"' + @current_user.first_name + '"' %>
+<% last_name = '"' + @current_user.last_name + '"' %>
+
+<% to_value = '{"autoSubmit": true,"startPageReadOnly":true,"personUID":'+"#{person_uid}"+',"accessCode":'+"#{access_code}"+',"personalData": {"firstName":'+"#{first_name}"+',"lastName":'+"#{last_name}"+'}}' %>
 
 <div class="row">
-	<div class="col-sm-12">
-		<form target="test-frame" method="post" action="https://egzaminyuke.testportal.pl/exam/start.html">
-			<input name="startTestRequest" type="hidden" value="<%= to_value %>">
-			<input type="submit" class="btn btn-primary btn-grader" value="<%= testportal_test_info_name %>" onclick="testportal_submit_click(this)">
-		</form>
-		<br>
-	</div>
+  <div class="col-sm-12">
+    <form target="test-frame" method="post" action="https://egzaminyuke.testportal.pl/exam/start.html">
+      <input name="startTestRequest" type="hidden" value="<%= to_value %>">
+      <input type="submit" class="btn btn-primary btn-grader" value="<%= testportal_test_info_name %>" onclick="testportal_submit_click(this)">
+    </form>
+    <br>
+  </div>
 </div>
 
