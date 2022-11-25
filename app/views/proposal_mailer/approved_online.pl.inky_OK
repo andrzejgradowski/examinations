@@ -1,0 +1,79 @@
+<spacer size="16"></spacer>
+<container>
+
+  <row class="collapsed">
+    <columns small="2">
+      <spacer size="16"></spacer>
+      <center>
+        <%=link_to( image_tag( attachments['logo_app.jpg'].url, alt: "LOGO" ), root_url(locale), target: "_blank" ) %>
+      </center>
+    </columns>
+    <columns small="10">
+      <spacer size="16"></spacer>
+        <h5 class="h5-small text-right"><%= "#{@proposal.try(:email)}" %></h5>
+        <h5 class="h5-small text-right"><%= "#{@proposal.try(:given_names)} #{@proposal.try(:name)}" %></h5>
+    </columns>
+  </row>
+
+  <spacer size="16"></spacer>
+
+
+  <row>
+    <columns>
+      <p>W programie <strong>UKE Egzaminy</strong></p> 
+      <p><%= link_to @proposal_fullname, @proposal_url_uuid, target: "_blank" %> na sesję egzaminacyjną:</p>
+      <p><%= "#{@proposal.exam_fullname}" %></p> 
+      <p>otrzymało status <strong>ZAAKCEPTOWANE</strong>.</p>
+
+      <p>Informujemy, że egzamin składać się będzie z dwóch części: </p>
+
+      <p>  - pisemnej, w formie testu, który przeprowadzony będzie na komputerach przygotowanych, w tym celu dla Państwa przez Urząd Komunikacji Elektronicznej.</p>
+      <p>  - ustnej z przedmiotu „Przepisy i procedury operatorskie”, który będzie przeprowadzony, w formie rozmowy z egzaminatorem.</p>
+
+      <p> <strong>Przystępując do egzaminu proszę pamiętać swój LOGIN oraz HASŁO do aplikacji egzaminy, przy pomocy, której zapisywaliście się Państwo na egzamin;</strong></p>
+
+      <p>Pierwsza część egzaminu składa się z 4 testów (przedmiotów), po 5 pytań z każdego przedmiotu, czyli łącznie z 20 pytań testowych.
+      Do każdego pytania wybierz tylko jedną odpowiedź (A lub B lub C).</p>
+      <p>Na udzielenie 5 odpowiedzi z każdego przedmiotu masz 5 minut. Nie masz możliwości zatrzymania czasu pomiędzy pytaniami z danego przedmiotu.</p>
+      <p>Po zatwierdzeniu odpowiedzi na każde pytanie, nie masz możliwości jej zmiany.</p>
+      <p>Możesz robić przerwy pomiędzy przedmiotami, ale cały egzamin musisz odbyć w trakcie czasu przeznaczonego na daną sesję.
+      Możesz zdawać przedmioty w dowolnej kolejności.</p>
+      <p>Rozwiązuj testy bez niedozwolonych pomocy, bo może to skutkować niezaliczeniem testu ! System posiada zabezpieczenia, uniemożliwiające udzielanie odpowiedzi w sposób niesamodzielny. W czasie udzielania odpowiedzi, nie klikaj poza okno testu.</p>
+      <p><strong>Powodzenia na egzaminie!</strong></p>
+
+      <spacer size="16"></spacer>
+      <p>...Zaloguj się do programu Egzaminy podczas sesji egzaminacyjnej w siedzibie UKE w dniu <%= "#{@proposal.exam_date_exam.strftime("%Y-%m-%d")}" %>.</p> 
+      <p><%= link_to "Szczegółowe informacje na temat sesji egzaminacyjnych", @uke_sessions_url, target: "_blank" %></p> 
+    </columns>
+  </row>
+
+
+  <spacer size="16"></spacer>
+
+  <row class="collapsed footer">
+    <columns>
+      <hr class="hr-brand">
+      <row>
+        <columns small="4">
+          <spacer size="8"></spacer>
+          <center>
+            <%= image_tag( attachments['logo_uke.jpg'].url, alt: "LOGO UKE" ) %>
+          </center>
+        </columns>
+        <columns small="8">
+          <spacer size="8"></spacer>
+          <h6 class="text-right h6-small"><%= mail_to "wml@uke.gov.pl" %></h6>
+          <h6 class="text-right h6-small"><%= mail_to "ske.gdynia@uke.gov.pl" %></h6>
+        </columns>
+      </row>
+      <row>
+        <columns small="12>
+          <h6 class="text-left h6-small"><small></small></h6>
+          <h6 class="text-left h6-small"><small>&copy; 2020 UKE-BI,  Wysłano z programu <%= Rails.application.secrets.domain_name %></small></h6>
+        </columns>
+      </row>
+    </columns>
+  </row>
+
+</container>
+<spacer size="16"></spacer>
