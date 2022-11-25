@@ -27,10 +27,11 @@
 
       <p>Informujemy, że egzamin składać się będzie z dwóch części: </p>
 
-      <p>  - pisemnej, w formie testu, który przeprowadzony będzie na komputerach przygotowanych, w tym celu dla Państwa przez Urząd Komunikacji Elektronicznej.</p>
+      <p>  - pisemnej, w formie testu, który przeprowadzony będzie na komputerach przygotowanych w tym celu dla Państwa przez Urząd Komunikacji Elektronicznej. Możesz przynieść także swój komputer i zdawać na nim test, jednak UKE nie bierze odpowiedzialności za ewentualnie nieprawidłowości jego pracy.</p>
+
       <p>  - ustnej z przedmiotu „Przepisy i procedury operatorskie”, który będzie przeprowadzony, w formie rozmowy z egzaminatorem.</p>
 
-      <p> <strong>Przystępując do egzaminu proszę pamiętać swój LOGIN oraz HASŁO do aplikacji egzaminy, przy pomocy, której zapisywaliście się Państwo na egzamin;</strong></p>
+      <p> <strong>Przystępując do egzaminu proszę pamiętać swój LOGIN oraz HASŁO do aplikacji Egzaminy, przy pomocy, której zapisywaliście się Państwo na egzamin;</strong></p>
 
       <p>Pierwsza część egzaminu składa się z 4 testów (przedmiotów), po 5 pytań z każdego przedmiotu, czyli łącznie z 20 pytań testowych.
       Do każdego pytania wybierz tylko jedną odpowiedź (A lub B lub C).</p>
@@ -39,10 +40,11 @@
       <p>Możesz robić przerwy pomiędzy przedmiotami, ale cały egzamin musisz odbyć w trakcie czasu przeznaczonego na daną sesję.
       Możesz zdawać przedmioty w dowolnej kolejności.</p>
       <p>Rozwiązuj testy bez niedozwolonych pomocy, bo może to skutkować niezaliczeniem testu ! System posiada zabezpieczenia, uniemożliwiające udzielanie odpowiedzi w sposób niesamodzielny. W czasie udzielania odpowiedzi, nie klikaj poza okno testu.</p>
+
+
       <p><strong>Powodzenia na egzaminie!</strong></p>
 
-      <spacer size="16"></spacer>
-      <p>...Zaloguj się do programu Egzaminy podczas sesji egzaminacyjnej w siedzibie UKE w dniu <%= "#{@proposal.exam_date_exam.strftime("%Y-%m-%d")}" %>.</p> 
+      <spacer size="16"></spacer>    
       <p><%= link_to "Szczegółowe informacje na temat sesji egzaminacyjnych", @uke_sessions_url, target: "_blank" %></p> 
     </columns>
   </row>
